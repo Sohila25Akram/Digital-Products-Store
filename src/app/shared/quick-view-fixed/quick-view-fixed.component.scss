@@ -1,0 +1,22 @@
+#quick-view-window-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999999;
+  .background {
+    position: absolute;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+  }
+  div:last-child {
+    max-width: 900px;
+    // margin: 0 auto;
+  }
+}

@@ -1,0 +1,28 @@
+@if(product){
+
+<figure>
+  <div>
+    <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
+    <div class="icons-container">
+      <a>##</a>
+
+      <a>##</a>
+      <a routerLink="quick-view">##</a>
+      <!-- <article>
+        <app-quick-view-window />
+      </article> -->
+    </div>
+  </div>
+  <figcaption>
+    <a>{{ product.title }}</a>
+    <span class="origin-price">{{ product.originPrice | currency }}</span>
+    @if(product.newPrice){
+    <span class="new-price">{{ product.newPrice | currency }}</span>
+    } @if(product.discount){
+    <span class="discount"
+      >-{{ product.discount / 100 | percent : "1.0-0" }}</span
+    >
+    }
+  </figcaption>
+</figure>
+}

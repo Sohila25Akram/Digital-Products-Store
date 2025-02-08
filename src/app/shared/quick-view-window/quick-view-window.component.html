@@ -1,0 +1,35 @@
+@let discount = true;
+<section id="quick-view-window">
+  <a class="close-btn" routerLink="../">X</a>
+  <div class="img-container">
+    <img src="assets/images/products/pexels-sound-on-3394648.jpg" alt="" />
+    @if(discount){
+    <span>Sale</span>
+    }
+  </div>
+  <div>
+    <form (ngSubmit)="onSubmit()">
+      <a href="" class="brand">Vogal</a>
+      <h2>Mini Drone FlyCam Quadcopter</h2>
+      <span class="new-price">{{ 1000 | currency }}</span>
+      <span class="origin-price">{{ 1500 | currency }}</span>
+      <p>
+        Placerat tempor dolor eu leo ullamcorper et magnis habitant ultrices
+        consectetur arcu nulla mattis fermentum adipiscing a et bibendum sed
+        platea malesuada eget vestibulum.
+      </p>
+      <div class="amount-wishlist-container">
+        <div class="amount">
+          <button>-</button>
+          <input type="text" value="1" name="amount" />
+          <button>+</button>
+        </div>
+        <div class="add-wishlist">
+          <span>##</span><span> Add to Wishlist</span>
+        </div>
+      </div>
+      <button type="submit">add to cart</button>
+      <a href="" class="view">view more details <span>##</span></a>
+    </form>
+  </div>
+</section>

@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  padding: 0;
+  margin: 0;
+}
+.section-title {
+  font-size: 25px;
+  color: #111111;
+  padding: 0 10px 35px;
+  text-align: center;
+  text-transform: capitalize;
+}
+body {
+  font-size: 14px;
+  line-height: 1.6;
+}

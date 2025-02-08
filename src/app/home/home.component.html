@@ -1,0 +1,64 @@
+<section id="best-seller">
+  <!-- <app-best-seller-container imgSrc="pexels-jessbaileydesign-788946.jpg"> -->
+  <!-- <figure>
+    <img src="assets/banner-2/pexels-jessbaileydesign-788946.jpg" alt="" />
+    <figcaption>
+      <h2>Galaxy S22 Ultra</h2>
+      <p>Make nights epic with</p>
+      <a href="">get 10% offer</a>
+    </figcaption>
+  </figure> -->
+  <app-best-seller-card
+    [isBig]="true"
+    imgSrc="pexels-jessbaileydesign-788946.jpg"
+    title="Galaxy S22 Ultra"
+    desc="Make nights epic with"
+  >
+    <a href="" class="offer">get 10% offer</a>
+  </app-best-seller-card>
+
+  <!--  -->
+  <div>
+    <app-best-seller-card
+      imgSrc="pexels-maria-mileta-3563033-15394136.jpg"
+      title="Projectors"
+      desc="4K Ultra HD with 8 million pixels"
+    />
+
+    <app-best-seller-card
+      imgSrc="pexels-martin_poland-1175242-15684881.jpg"
+      title="Soundbars"
+      desc="With Wireless Subwoofer for Extra Deep Bass"
+    />
+    <app-best-seller-card
+      imgSrc="pexels-paulseling-20385203.jpg"
+      title="video game"
+      desc="Flat 25% Off On Children's Day"
+    />
+    <app-best-seller-card
+      imgSrc="pexels-samed-bayrak-2518016-9546248.jpg"
+      title="Bluetooth Speaker"
+      desc="Feather light, ultra-portable grab-and-go design"
+    />
+  </div>
+</section>
+<section id="new-products">
+  <h2 class="section-title">New products</h2>
+  <div>
+    @for(product of products; track product.id){
+    <app-product-card [product]="product" />
+    }
+    <app-product-card />
+    <!-- <app-product-card />
+    <app-product-card />
+    <app-product-card />
+    <app-product-card />
+    <app-product-card />
+    <app-product-card />
+    <app-product-card /> -->
+  </div>
+</section>
+
+<router-outlet />
+
+<!-- <app-quick-view-window /> -->

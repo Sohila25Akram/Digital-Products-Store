@@ -1,0 +1,111 @@
+figure {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  border: 1px solid #eee;
+  transition: all 0.3s ease-out;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 8px;
+  div {
+    // width: 246px;
+    height: 246px;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+  figcaption {
+    padding: 0 10px 10px;
+    a {
+      display: block;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      font-size: 13px;
+      width: fit-content;
+      margin: 7px auto;
+      &:hover,
+      &:active {
+        color: #40b884;
+      }
+    }
+    .origin-price {
+      opacity: 0.6;
+      margin-right: 4px;
+      font-weight: 400;
+      color: #090a0a;
+      font-size: 14px;
+      text-decoration: line-through;
+    }
+    .new-price {
+      margin-left: 4px;
+      color: #e95144;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .discount {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #ff708e;
+      color: #fff;
+      font-size: 12px;
+      padding: 0 10px;
+      letter-spacing: 0;
+      line-height: 22px;
+      border-radius: 15px;
+    }
+  }
+  .icons-container {
+    position: absolute;
+    display: flex;
+    z-index: 444;
+    transition: all 0.3s ease-out;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    bottom: 25px;
+    a {
+      display: block;
+      cursor: pointer;
+      color: #fff;
+      margin: 3px;
+      line-height: 38px;
+      height: 40px;
+      min-width: 40px;
+      background-color: #092143;
+      border-radius: 20px;
+      transition: all 0.3s ease-in-out;
+      visibility: hidden;
+      opacity: 0;
+      text-decoration: none;
+      &:hover,
+      &:active {
+        background-color: #40b884;
+      }
+    }
+  }
+  &:hover {
+    .icons-container {
+      bottom: 10px;
+      a {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// article {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   z-index: 99999;
+//   display: none;
+//   min-height: 100vh;
+// }
