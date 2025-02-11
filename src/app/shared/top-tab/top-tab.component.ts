@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
 })
 export class TopTabComponent implements OnInit {
   @Input() itemRecieved!: string;
-  item: string = this.itemRecieved;
+  item!: string;
 
   ngOnInit(): void {
     this.item = this.itemRecieved;

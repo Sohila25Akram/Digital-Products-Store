@@ -14,10 +14,4 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductCardComponent {
   @Input() product!: Product;
-  // imgSrc = input<string>('pexels-sound-on-3394665.jpg');
-  // title = input<string>('10.2-inch iPad 9th Gen Black');
-  // originPrice = input<number>(900);
-  // newPrice = input<number>(600);
-  // discount = input<number>(33 / 100);
-  // discount?: number = this.product.discount && this.product.discount / 100;
 }

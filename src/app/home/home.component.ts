@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BestSellerCardComponent } from './best-seller-card/best-seller-card.component';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
-import { Product } from '../shared/models/product.model';
-import { DummyProducts } from '../../assets/data/dummy-products';
 import { QuickViewWindowComponent } from '../shared/quick-view-window/quick-view-window.component';
 import { RouterOutlet } from '@angular/router';
+import { ProductsService } from '../shared/services/products.service';
 
 @Component({
   selector: 'app-home',
@@ -19,5 +18,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  products: Product[] = DummyProducts;
+  private productsService = inject(ProductsService);
+
+  products = this.productsService.loadedProducts();
 }

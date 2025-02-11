@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { Product } from '../models/product.model';
+import { DummyProducts } from '../../../assets/data/dummy-products';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
+  products = signal<Product[]>(DummyProducts);
 
-  constructor() { }
+  loadedProducts = this.products.asReadonly();
 }

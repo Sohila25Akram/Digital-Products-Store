@@ -1,19 +1,15 @@
 import { CurrencyPipe } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   inject,
   Input,
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Product } from '../models/product.model';
-import { DummyProducts } from '../../../assets/data/dummy-products';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'app-quick-view-window',
@@ -25,13 +21,15 @@ import { DummyProducts } from '../../../assets/data/dummy-products';
 })
 export class QuickViewWindowComponent implements OnInit {
   @Input() isExpanded?: boolean = false;
-  products: Product[] = DummyProducts;
+  private productsService = inject(ProductsService);
+  products = this.productsService.loadedProducts();
   product!: Product;
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe({
+    const subscription = this.activatedRoute.paramMap.subscribe({
       next: (paramMap) => {
         const productId = paramMap.get('productId');
         if (productId) {
@@ -39,6 +37,7 @@ export class QuickViewWindowComponent implements OnInit {
         }
       },
     });
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
   onSubmit() {
     this.router.navigate(['/cart-menu']);

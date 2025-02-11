@@ -1,10 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { QuickViewWindowComponent } from '../shared/quick-view-window/quick-view-window.component';
-import { Product } from '../shared/models/product.model';
 import { ActivatedRoute } from '@angular/router';
-import { DummyProducts } from '../../assets/data/dummy-products';
 import { ShippingComponent } from '../shared/shipping/shipping.component';
 import { TopTabComponent } from '../shared/top-tab/top-tab.component';
+import { ProductsService } from '../shared/services/products.service';
 
 @Component({
   selector: 'app-product-details',
@@ -14,13 +13,16 @@ import { TopTabComponent } from '../shared/top-tab/top-tab.component';
   styleUrl: './product-details.component.scss',
 })
 export class ProductDetailsComponent implements OnInit {
-  products: Product[] = DummyProducts;
+  private productsService = inject(ProductsService);
+
+  products = this.productsService.loadedProducts();
   productName: string = '';
 
   private activatedRoute = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe({
+    const supscription = this.activatedRoute.paramMap.subscribe({
       next: (paramMap) => {
         const productId = paramMap.get('productId');
         if (productId) {
@@ -30,5 +32,6 @@ export class ProductDetailsComponent implements OnInit {
         }
       },
     });
+    this.destroyRef.onDestroy(() => supscription.unsubscribe());
   }
 }
