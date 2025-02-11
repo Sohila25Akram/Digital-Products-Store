@@ -1,0 +1,76 @@
+.product {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  > div:first-child {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    img {
+      width: 100%;
+    }
+  }
+  > div:last-child {
+    color: #666;
+    flex-grow: 1;
+    a {
+      text-decoration: none;
+      cursor: pointer;
+      display: block;
+      width: fit-content;
+      margin-bottom: 18px;
+      color: #666;
+      h3 {
+        font-size: 13px;
+        font-weight: 400;
+      }
+    }
+    .price {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .amount-delete-container {
+      display: flex;
+      align-items: center;
+      .amount {
+        display: flex;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+        overflow: hidden;
+        height: 38px;
+        margin-bottom: 5px;
+        color: #000;
+        font-size: 14px;
+        button,
+        input {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: transparent;
+          border: 0;
+          outline: none;
+        }
+        button {
+          cursor: pointer;
+          width: 44px;
+        }
+        input {
+          border-left: 1px solid #dddddd;
+          border-right: 1px solid #dddddd;
+          width: 60px;
+          text-align: center;
+          font-weight: bold;
+        }
+      }
+      .delete-icon {
+        margin-left: 15px;
+      }
+    }
+  }
+}

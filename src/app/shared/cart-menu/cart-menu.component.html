@@ -1,0 +1,53 @@
+@let products = 'item';
+<section id="cart-page">
+  <div class="background"></div>
+  <aside>
+    <header [style.justify-content]="products ? 'space-between' : 'flex-end'">
+      @if(products){
+      <h2>Your Cart (<span>5</span>)</h2>
+      }
+
+      <a class="close-btn" routerLink="../">X</a>
+    </header>
+    @if(products){
+    <div class="cart-content">
+      <div class="shipping-container">
+        <app-shipping [addEstimatedDelivery]="false" />
+      </div>
+      <ul>
+        <li>
+          <app-product-snapshot />
+        </li>
+        <li>
+          <app-product-snapshot />
+        </li>
+        <li>
+          <app-product-snapshot />
+        </li>
+      </ul>
+      <div class="drawer-icons-container">
+        <a>##</a>
+        <a>##</a>
+        <a>##</a>
+      </div>
+      <div class="cart-total">
+        <h2>Total</h2>
+        <span>{{ 4000000 | currency }} USD</span>
+      </div>
+      <p>Tax included. <span>Shipping</span> calculated at checkout.</p>
+      <a class="btn-main btn-buy">buy it now</a>
+      <a class="btn-main btn-cart">view in cart</a>
+    </div>
+    }@else{
+    <div class="empty-cart-container">
+      <div>
+        <span class="icon">##</span>
+        <p>No Products in the Cart</p>
+        <a href="" class="continue-shopping">continue shopping</a>
+        <div><b>Have an account?</b></div>
+        <p><a href="">Log in</a> to checkout faster</p>
+      </div>
+    </div>
+    }
+  </aside>
+</section>

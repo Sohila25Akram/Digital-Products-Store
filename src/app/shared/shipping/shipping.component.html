@@ -1,0 +1,20 @@
+<div class="shipping-container">
+  <div
+    class="spent-time"
+    [style.text-align]="!addEstimatedDelivery && 'center'"
+    [style.color]="!addEstimatedDelivery && '#666'"
+  >
+    <span>##</span> <b class="uppercase"> free shipping</b> eligible
+  </div>
+  <div
+    class="shipBar"
+    [style.margin-bottom]="addEstimatedDelivery ? '15px' : '0px'"
+  ></div>
+  <div
+    class="spent-time"
+    [style.display]="addEstimatedDelivery ? 'block' : 'none'"
+  >
+    <span>##</span> Estimated Delivery Between : <b>12 February</b> -
+    <b>18 February</b>.
+  </div>
+</div>

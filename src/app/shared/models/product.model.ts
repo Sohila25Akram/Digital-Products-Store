@@ -5,4 +5,5 @@ export interface Product {
   originPrice: number;
   newPrice?: number;
   discount?: number;
+  brand: string;
 }

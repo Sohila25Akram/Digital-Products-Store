@@ -1,0 +1,14 @@
+div {
+  background-color: #f3f5f6;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 13px;
+  color: #111;
+  padding: 10px 0px;
+  a {
+    text-decoration: none;
+    color: #111;
+    cursor: pointer;
+  }
+}

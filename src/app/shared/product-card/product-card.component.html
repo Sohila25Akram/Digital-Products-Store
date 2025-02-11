@@ -6,8 +6,8 @@
     <div class="icons-container">
       <a>##</a>
 
-      <a>##</a>
-      <a routerLink="quick-view">##</a>
+      <a routerLink="/cart-menu">##</a>
+      <a [routerLink]="['quick-view', product.id]">##</a>
       <!-- <article>
         <app-quick-view-window />
       </article> -->
@@ -15,7 +15,9 @@
   </div>
   <figcaption>
     <a>{{ product.title }}</a>
-    <span class="origin-price">{{ product.originPrice | currency }}</span>
+    <span class="origin-price" [class.old]="product.newPrice">{{
+      product.originPrice | currency
+    }}</span>
     @if(product.newPrice){
     <span class="new-price">{{ product.newPrice | currency }}</span>
     } @if(product.discount){

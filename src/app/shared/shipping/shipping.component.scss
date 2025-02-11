@@ -1,0 +1,14 @@
+.spent-time {
+  color: #333;
+  .uppercase {
+    text-transform: uppercase;
+  }
+}
+.shipBar {
+  height: 7px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  background-color: #eee;
+  margin: 10px 0 15px;
+}

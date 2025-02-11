@@ -8,6 +8,7 @@ export const DummyProducts: Product[] = [
     originPrice: 900,
     newPrice: 600,
     discount: 33,
+    brand: 'Vogal',
   },
   {
     id: 'p2',
@@ -16,13 +17,13 @@ export const DummyProducts: Product[] = [
     originPrice: 1000,
     newPrice: 800,
     discount: 20,
+    brand: 'Sumsung',
   },
   {
     id: 'p3',
     title: 'MSI Modern 15 Laptop',
     imgSrc: 'pexels-sound-on-3394652.jpg',
     originPrice: 1000,
-    newPrice: 800,
-    discount: 20,
+    brand: 'Wavefast',
   },
 ];

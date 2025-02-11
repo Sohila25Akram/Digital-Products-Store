@@ -16,8 +16,6 @@
     height: 30px;
     width: 30px;
     color: #333;
-    // background-color: transparent;
-    // border: 0;
     outline: none;
     text-decoration: none;
     cursor: pointer;
@@ -42,6 +40,7 @@
     }
   }
   form {
+    max-width: 560px;
     .brand {
       display: block;
       margin-bottom: 5px;
@@ -60,20 +59,39 @@
         font-size: 22px;
       }
     }
-    .new-price {
-      margin-right: 10px;
-      color: #e95144;
-      font-size: 18px;
+    .price-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
       font-weight: 500;
-    }
-    .origin-price {
-      font-size: 16px;
-      font-weight: 500;
-      text-decoration: line-through;
-      opacity: 0.6;
+      .new-price {
+        color: #e95144;
+        font-size: 18px;
+      }
+      .origin-price {
+        font-size: 18px;
+        &.old {
+          text-decoration: line-through;
+          opacity: 0.6;
+          font-size: 16px;
+        }
+      }
+      .saleBadge {
+        letter-spacing: normal;
+        background: #da3f3f;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 3px;
+        line-height: normal;
+      }
     }
     p {
       margin: 20px 0 15px;
+    }
+    label {
+      font-weight: 500;
+      margin-bottom: 10px;
+      display: block;
     }
     .amount-wishlist-container {
       @media (min-width: 768px) {
@@ -111,8 +129,13 @@
           text-align: center;
         }
       }
+      .add-wishlist {
+        display: flex;
+        gap: 15px;
+        color: #333;
+      }
     }
-    button[type="submit"] {
+    .btn-main {
       text-transform: uppercase;
       width: 100% !important;
       min-width: 200px !important;
@@ -124,17 +147,29 @@
       line-height: 1;
       border: 0;
       color: #fff;
-      background-color: #092143;
       border-radius: 4px;
-      border: 1px solid #092143;
       display: inline-block;
       transition: all 0.3s ease-in-out;
       cursor: pointer;
+    }
+    .btn-cart {
+      background-color: #092143;
+      border: 1px solid #092143;
       &:hover {
         background-color: transparent;
         color: #092143;
       }
     }
+    .btn-buy {
+      background-color: #40b884;
+      margin-bottom: 30px;
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
     a.view {
       text-decoration: none;
       color: #111;
