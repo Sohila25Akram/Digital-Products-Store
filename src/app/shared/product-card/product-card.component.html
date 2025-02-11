@@ -1,10 +1,15 @@
 @if(product){
 
 <figure>
+  <span
+    class="delete-from-wishlist"
+    [style.display]="inWishlist ? 'block' : 'none'"
+    >##</span
+  >
   <div>
     <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
     <div class="icons-container">
-      <a>##</a>
+      <a [style.display]="inWishlist ? 'none' : 'block'">##</a>
 
       <a routerLink="/cart-menu">##</a>
       <a [routerLink]="['quick-view', product.id]">##</a>

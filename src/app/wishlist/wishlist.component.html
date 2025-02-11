@@ -1,0 +1,9 @@
+<app-top-tab itemRecieved="Wishlist" />
+<section id="wishlist">
+  <h1>Wishlist</h1>
+  <div class="products-in-wishlist">
+    @for(product of products; track product.id){
+    <app-product-card [product]="product" [inWishlist]="true" />
+    }
+  </div>
+</section>

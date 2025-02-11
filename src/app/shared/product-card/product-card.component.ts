@@ -14,4 +14,5 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductCardComponent {
   @Input() product!: Product;
+  @Input() inWishlist: boolean = false;
 }
