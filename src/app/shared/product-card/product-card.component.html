@@ -4,12 +4,18 @@
   <span
     class="delete-from-wishlist"
     [style.display]="inWishlist ? 'block' : 'none'"
+    (click)="deleteFromWishlist()"
     >##</span
   >
   <div>
     <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
     <div class="icons-container">
-      <a [style.display]="inWishlist ? 'none' : 'block'">##</a>
+      <button
+        [style.display]="inWishlist ? 'none' : 'block'"
+        (click)="addToWishlist()"
+      >
+        🤍
+      </button>
 
       <a routerLink="/cart-menu">##</a>
       <a [routerLink]="['quick-view', product.id]">##</a>

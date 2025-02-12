@@ -1,0 +1,130 @@
+.img-container {
+  height: 150px;
+  //   background-image: url("./../../assets/images/pexels-theshantanukr-18236755.jpg");
+  background-image: url("./../../assets/images/pexels-sunil-satapathy-61455468-15487609.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  @media (min-width: 768px) {
+    height: 180px;
+  }
+  @media (min-width: 1024px) {
+    height: 220px;
+  }
+  h1 {
+    text-transform: capitalize;
+    font-size: 25px;
+    color: #fff;
+    @media (min-width: 768px) {
+      font-size: 36px;
+    }
+  }
+}
+#shop {
+  background-color: #f3f5f6;
+  position: relative;
+  padding: 40px 0 30px;
+  @media (min-width: 1024px) {
+    display: flex;
+    gap: 40px;
+  }
+  h2 {
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0 20px;
+    text-transform: capitalize;
+    @media (min-width: 768px) {
+      font-size: 25px;
+      text-align: left;
+    }
+  }
+  .background {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    z-index: 555;
+  }
+  aside {
+    width: 300px;
+    height: 100vh;
+    overflow: auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #eeeeee;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    transform: translate(-100%);
+    @media (min-width: 1024px) {
+      padding: 25px 30px;
+      position: static;
+      transform: translate(0);
+      min-width: 300px;
+      height: fit-content;
+      overflow: visible;
+    }
+  }
+  div {
+    .filteration-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      .filter-btn {
+        text-transform: uppercase;
+        padding: 0;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        background: no-repeat;
+        border: 0;
+        letter-spacing: 1px;
+        font-weight: 500;
+        color: #222;
+        cursor: pointer;
+        @media (min-width: 1024px) {
+          display: none;
+        }
+        span {
+          margin-right: 5px;
+        }
+      }
+      .num-of-items {
+        font-size: 11px;
+        font-style: italic;
+        @media (min-width: 1024px) {
+          font-size: 14px;
+        }
+      }
+      select {
+        background-color: #fff;
+        padding: 5px 10px;
+        width: 130px;
+        border: 1px solid #dddddd;
+        color: #000;
+        border-radius: 4px;
+      }
+    }
+    .products-in-shop {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+        row-gap: 30px;
+      }
+    }
+  }
+}

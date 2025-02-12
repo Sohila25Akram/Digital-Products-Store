@@ -11,4 +11,34 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
+  .no-products {
+    padding: 125px 30px;
+    p {
+      margin-bottom: 25px;
+      text-align: center;
+      color: #333;
+    }
+    .back-to-home {
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 12px 25px;
+      line-height: 1;
+      color: #fff;
+      border-radius: 4px;
+      display: block;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+      text-decoration: none;
+      background-color: #092143;
+      border: 1px solid #092143;
+      margin: 0 auto 10px;
+      width: fit-content;
+      &:hover {
+        background-color: transparent;
+        color: #092143;
+      }
+    }
+  }
 }

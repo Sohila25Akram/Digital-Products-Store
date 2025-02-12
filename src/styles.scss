@@ -14,4 +14,12 @@ body {
   font-size: 14px;
   line-height: 1.6;
   letter-spacing: 0.02em;
+  color: #333;
+}
+input,
+textarea,
+select,
+button {
+  line-height: 20px;
+  outline: 0;
 }

@@ -95,7 +95,8 @@ figure {
     justify-content: center;
     align-items: center;
     bottom: 25px;
-    a {
+    a,
+    button {
       display: block;
       cursor: pointer;
       color: #fff;
@@ -109,6 +110,7 @@ figure {
       visibility: hidden;
       opacity: 0;
       text-decoration: none;
+      border: 0;
       &:hover,
       &:active {
         background-color: #40b884;
@@ -118,7 +120,8 @@ figure {
   &:hover {
     .icons-container {
       bottom: 10px;
-      a {
+      a,
+      button {
         visibility: visible;
         opacity: 1;
       }
