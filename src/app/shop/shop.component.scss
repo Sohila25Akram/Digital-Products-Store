@@ -24,7 +24,6 @@
 }
 #shop {
   background-color: #f3f5f6;
-  position: relative;
   padding: 40px 0 30px;
   @media (min-width: 1024px) {
     display: flex;
@@ -41,7 +40,7 @@
     }
   }
   .background {
-    position: absolute;
+    position: fixed;
     width: 0;
     height: 100%;
     background-color: #000;
@@ -49,6 +48,10 @@
     top: 0;
     left: 0;
     z-index: 555;
+    display: block;
+    @media (min-width: 1024px) {
+      display: none;
+    }
   }
   aside {
     width: 300px;
@@ -57,7 +60,7 @@
     padding: 20px;
     background-color: #fff;
     border: 1px solid #eeeeee;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 9999;
@@ -71,6 +74,9 @@
       min-width: 300px;
       height: fit-content;
       overflow: visible;
+    }
+    &.open {
+      transform: translateX(0);
     }
   }
   div {

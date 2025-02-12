@@ -3,9 +3,9 @@
 </div>
 <app-top-tab itemRecieved="Digital top seller" />
 <section id="shop">
-  <div class="background" [style.width]="isOpen && '100%'"></div>
-  <aside [style.transform]="isOpen && 'translate(0)'">
-    <app-sidebar />
+  <div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
+  <aside [class.open]="isOpen">
+    <app-sidebar (closeEvent)="onToggle()"></app-sidebar>
   </aside>
   <div>
     <h2>digital top seller</h2>

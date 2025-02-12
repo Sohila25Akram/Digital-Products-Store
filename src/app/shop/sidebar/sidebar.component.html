@@ -1,5 +1,5 @@
 <div>
-  <button class="close-btn">X</button>
+  <button class="close-btn" (click)="closeMenu()">X</button>
   <header>
     <h3>price</h3>
   </header>
@@ -40,7 +40,9 @@
       >
     </li>
     <li>
-      <label for="novel2"><input type="checkbox" id="novel2" />Novel</label>
+      <label for="in-stock"
+        ><input type="checkbox" id="in-stock" />in stock</label
+      >
     </li>
   </ul>
   <div class="img-container">
