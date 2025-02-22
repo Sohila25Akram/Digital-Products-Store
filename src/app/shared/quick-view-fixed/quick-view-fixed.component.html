@@ -1,6 +1,12 @@
 <section id="quick-view-window-container">
   <div class="background"></div>
-  <div>
-    <app-quick-view-window />
+  <div [appLoader]="isLoading" [addContainer]="true">
+    <div>
+      <span>
+        <div class="quick-view-container">
+          <app-quick-view-window />
+        </div>
+      </span>
+    </div>
   </div>
 </section>

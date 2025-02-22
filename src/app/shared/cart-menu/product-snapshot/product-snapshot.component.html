@@ -1,21 +1,36 @@
 <div class="product">
   <div class="img-container">
-    <img src="assets/images/products/pexels-sound-on-3394652.jpg" alt="" />
+    <!-- <img src="assets/images/products/pexels-sound-on-3394652.jpg" alt="" /> -->
+    <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
   </div>
   <div>
-    <a href=""><h3>MSI Modern 15 Laptop</h3></a>
-    @if(product.newPrice){
-    <span class="price">{{ product.newPrice | currency }}</span>
-    }@else{
-    <span class="price">{{ product.originPrice | currency }}</span>
-    }
+    <a href=""
+      ><h3>{{ product.title }}</h3></a
+    >
+
+    <div [appLoader]="isLoading">
+      <div class="price-or-loader-container">
+        @if(product.newPrice){
+        <span class="price">{{
+          product.newPrice * productAmount() | currency
+        }}</span>
+        }@else{
+        <span class="price"
+          >{{ product.originPrice * productAmount() | currency }}
+        </span>
+        }
+      </div>
+    </div>
+
     <div class="amount-delete-container">
       <div class="amount">
-        <button>-</button>
-        <input type="text" value="1" name="amount" />
-        <button>+</button>
+        <button><i class="fa-solid fa-minus"></i></button>
+        <input type="text" [value]="productAmount()" name="amount" />
+        <button><i class="fa-solid fa-plus"></i></button>
       </div>
-      <span class="delete-icon">##</span>
+      <span class="delete-icon" (click)="deleteProductFromCart()"
+        ><i class="fa-regular fa-trash-can"></i
+      ></span>
     </div>
   </div>
 </div>

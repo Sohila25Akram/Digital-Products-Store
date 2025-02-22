@@ -6,9 +6,23 @@
 
   <div class="filter-price-container">
     <div class="price-range">
-      <div><input type="text" value="0" /></div>
+      <div>
+        <input
+          type="text"
+          value="0"
+          name="min-price"
+          (change)="onPriceFilter($event)"
+        />
+      </div>
       <span>-</span>
-      <div><input type="text" value="1200" /></div>
+      <div>
+        <input
+          type="text"
+          value="1200"
+          name="max-price"
+          (change)="onPriceFilter($event)"
+        />
+      </div>
     </div>
     <div class="price-range-slide">
       <input type="range" />
@@ -16,19 +30,30 @@
   </div>
   <header>
     <h3>brand</h3>
-    <span>2</span>
+    @if(numOfSelectedBrands > 0){
+    <span>{{ numOfSelectedBrands }}</span>
+    }
   </header>
 
   <ul class="filter-brand-container">
+    @for(brand of brandsList; track brand){
     <li>
-      <label for="novel"> <input type="checkbox" id="novel" />Novel</label>
+      <label for="brand">
+        <input
+          type="checkbox"
+          id="brand"
+          value="{{ brand }}"
+          (change)="onBrandFilter($event, brand)"
+        />{{ brand }}</label
+      >
     </li>
-    <li>
+    }
+    <!-- <li>
       <label for="novel1"><input type="checkbox" id="novel1" />Novel</label>
     </li>
     <li>
       <label for="novel2"><input type="checkbox" id="novel2" />Novel</label>
-    </li>
+    </li> -->
   </ul>
   <header>
     <h3>availability</h3>

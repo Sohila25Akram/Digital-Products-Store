@@ -35,7 +35,7 @@ export const routes: Routes = [
       import('./wishlist/wishlist.component').then((c) => c.WishlistComponent),
   },
   {
-    path: 'shop',
+    path: 'shop/:categoryValue',
     loadComponent: () =>
       import('./shop/shop.component').then((c) => c.ShopComponent),
   },

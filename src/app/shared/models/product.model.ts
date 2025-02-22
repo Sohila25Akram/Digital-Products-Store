@@ -6,4 +6,7 @@ export interface Product {
   newPrice?: number;
   discount?: number;
   brand: string;
+  category: string;
+  customers: number;
+  addedDate: Date;
 }

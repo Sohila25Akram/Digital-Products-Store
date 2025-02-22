@@ -1,0 +1,13 @@
+<div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
+@if(component === 'menu'){
+<div class="close-menu" [class.open]="isOpen" (click)="onClose()">
+  <i class="fa-sharp fa-solid fa-xmark"></i>
+</div>
+}
+<aside
+  [class.open]="isOpen"
+  [class.menu]="component === 'menu'"
+  [class.sidebar]="component === 'sidebar'"
+>
+  <ng-content />
+</aside>

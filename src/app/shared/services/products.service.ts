@@ -12,10 +12,19 @@ export class ProductsService {
 
   wishlistProducts = signal<Product[]>([]);
 
+  filteredProductsByCategory = signal<Product[]>([]);
+
+  productsAddedToCart = signal<
+    { product: Product; amount: number; totalPriceOfAllProduct: number }[]
+  >([]);
+
   constructor() {
     afterNextRender(() => {
       this.wishlistProducts.set(
         JSON.parse(localStorage.getItem('wishlist') || '[]')
+      );
+      this.productsAddedToCart.set(
+        JSON.parse(localStorage.getItem('cartItems') || '[]')
       );
     });
   }
@@ -34,5 +43,110 @@ export class ProductsService {
       wishlist.filter((product) => product.id !== productId)
     );
     localStorage.setItem('wishlist', JSON.stringify(this.wishlistProducts()));
+  }
+
+  addProductToCart(productId: string, amount: number) {
+    const product = this.products().find((p) => p.id === productId);
+
+    if (
+      product &&
+      !this.productsAddedToCart().some((p) => p.product?.id === productId)
+    ) {
+      this.productsAddedToCart.update((cart) => [
+        ...cart,
+        {
+          product: product,
+          amount: amount,
+          totalPriceOfAllProduct:
+            (product.newPrice ?? product.originPrice) * amount,
+        },
+      ]);
+    }
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(this.productsAddedToCart())
+    );
+
+    console.log(`product id: ${productId}, amount: ${amount}`);
+  }
+
+  deleteProductFromCart(productId: string) {
+    this.productsAddedToCart.update((cart) =>
+      cart.filter((item) => item.product?.id !== productId)
+    );
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(this.productsAddedToCart())
+    );
+  }
+
+  getfilteredCurrentProducts(productsToFilter: Product[], filter: string) {
+    let currentProducts = [...productsToFilter];
+    switch (filter) {
+      case 'best-selling':
+        currentProducts = this.getBestSeller(productsToFilter);
+        break;
+      case 'alpha-asc':
+        currentProducts = [...productsToFilter].sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
+        break;
+
+      case 'alpha-desc':
+        currentProducts = [
+          ...productsToFilter.sort((a, b) => b.title.localeCompare(a.title)),
+        ];
+        break;
+
+      case 'price-asc':
+        currentProducts = [
+          ...productsToFilter.sort((a, b) => {
+            const priceA = a.newPrice ?? a.originPrice;
+            const priceB = b.newPrice ?? b.originPrice;
+            return priceA - priceB;
+          }),
+        ];
+        break;
+
+      case 'price-desc':
+        currentProducts = [
+          ...productsToFilter.sort((a, b) => {
+            const priceA = a.newPrice ?? a.originPrice;
+            const priceB = b.newPrice ?? b.originPrice;
+            return priceB - priceA;
+          }),
+        ];
+        break;
+
+      case 'date-asc':
+        currentProducts = [...productsToFilter].sort(
+          (a, b) => a.addedDate.getTime() - b.addedDate.getTime()
+        );
+        break;
+
+      case 'date-desc':
+        currentProducts = [...productsToFilter].sort(
+          (a, b) => b.addedDate.getTime() - a.addedDate.getTime()
+        );
+        break;
+
+      default:
+        break;
+    }
+    return currentProducts;
+  }
+
+  private filterProductsByCategory(category: string) {
+    const data = this.products().filter(
+      (product) => product.category === category
+    );
+
+    this.filteredProductsByCategory.set(data);
+  }
+
+  private getBestSeller(productsToFilter?: Product[]): Product[] {
+    return productsToFilter
+      ? [...productsToFilter.filter((product) => product.customers > 5)]
+      : [];
   }
 }

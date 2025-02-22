@@ -28,21 +28,24 @@
         font-weight: 400;
       }
     }
-    .price {
-      display: block;
+    .price-or-loader-container {
       margin-bottom: 8px;
-      font-size: 14px;
-      font-weight: 600;
+      .price {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+      }
     }
+
     .amount-delete-container {
       display: flex;
       align-items: center;
       .amount {
         display: flex;
-        border: 1px solid #dddddd;
+        border: 1px solid #6666661a;
         border-radius: 4px;
         overflow: hidden;
-        height: 38px;
+        height: 32px;
         margin-bottom: 5px;
         color: #000;
         font-size: 14px;
@@ -58,18 +61,19 @@
         }
         button {
           cursor: pointer;
-          width: 44px;
+          width: 32px;
+          font-size: 13px;
         }
         input {
-          border-left: 1px solid #dddddd;
-          border-right: 1px solid #dddddd;
-          width: 60px;
+          border-left: 1px solid #6666661a;
+          border-right: 1px solid #6666661a;
+          width: 32px;
           text-align: center;
-          font-weight: bold;
         }
       }
       .delete-icon {
         margin-left: 15px;
+        cursor: pointer;
       }
     }
   }

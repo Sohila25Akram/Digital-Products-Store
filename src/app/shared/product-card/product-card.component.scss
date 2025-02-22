@@ -24,6 +24,9 @@ figure {
     visibility: hidden;
     opacity: 0;
     text-decoration: none;
+    i {
+      vertical-align: middle;
+    }
     &:hover,
     &:active {
       background-color: #40b884;
@@ -111,6 +114,9 @@ figure {
       opacity: 0;
       text-decoration: none;
       border: 0;
+      i {
+        vertical-align: middle;
+      }
       &:hover,
       &:active {
         background-color: #40b884;

@@ -1,12 +1,11 @@
-@if(product){
-
+@let amount = 1; @if(product){
 <figure>
   <span
     class="delete-from-wishlist"
     [style.display]="inWishlist ? 'block' : 'none'"
     (click)="deleteFromWishlist()"
-    >##</span
-  >
+    ><i class="fa-solid fa-xmark"></i
+  ></span>
   <div>
     <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
     <div class="icons-container">
@@ -14,11 +13,15 @@
         [style.display]="inWishlist ? 'none' : 'block'"
         (click)="addToWishlist()"
       >
-        🤍
+        <i class="fa-solid fa-heart"></i>
       </button>
 
-      <a routerLink="/cart-menu">##</a>
-      <a [routerLink]="['quick-view', product.id]">##</a>
+      <button routerLink="/cart-menu" (click)="addProductToCart(amount)">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </button>
+      <a [routerLink]="['quick-view', product.id]"
+        ><i class="fa-solid fa-magnifying-glass"></i
+      ></a>
       <!-- <article>
         <app-quick-view-window />
       </article> -->

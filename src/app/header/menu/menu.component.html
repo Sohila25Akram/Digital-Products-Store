@@ -1,0 +1,37 @@
+<div class="menu-container">
+  <div class="menu-options-container">
+    <a (click)="onSelectItem('menu')" [class.active]="selectedItem === 'menu'"
+      >menu</a
+    >
+    <a
+      (click)="onSelectItem('categories')"
+      [class.active]="selectedItem === 'categories'"
+    >
+      categories
+    </a>
+  </div>
+  <nav>
+    <div>
+      @if(selectedItem ==='menu'){
+      <ul class="nav-items">
+        <li>
+          <a routerLink="/">Home</a>
+        </li>
+        <li>
+          <a routerLink="/shop/featured">Shop</a>
+        </li>
+      </ul>
+      }@else{
+      <ul class="category-items">
+        @for(category of allCategories; track category.value){
+        <li>
+          <a [routerLink]="['/shop', category.value]"
+            ><span><i [class]="category.icon"></i></span>{{ category.name }}</a
+          >
+        </li>
+        }
+      </ul>
+      }
+    </div>
+  </nav>
+</div>

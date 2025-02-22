@@ -1,0 +1,193 @@
+.headers-container {
+  position: sticky;
+  top: 0;
+  z-index: 666666666;
+  width: 100%;
+  left: 0;
+  box-shadow: 0 0 25px #0000001a;
+  transition: all 0.3s ease-in-out;
+  animation-name: fadeInDown;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  .top-header {
+    background: #092143;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    color: #fff;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    padding: 10px 0;
+    @media (min-width: 1024px) {
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
+      min-height: 90px;
+      padding: 0;
+    }
+    .availability {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-right: 50px;
+      display: none;
+      @media (min-width: 1024px) {
+        display: flex;
+      }
+      span {
+        font-size: 38px;
+      }
+      div {
+        p:first-child {
+          text-transform: uppercase;
+        }
+      }
+    }
+    form {
+      border-radius: 4px;
+      flex-grow: 1;
+      display: flex;
+      width: 100%;
+      @media (min-width: 1024px) {
+        width: auto;
+        max-width: 930px;
+        margin-right: 50px;
+      }
+      input {
+        color: #444444;
+        background: #f5f5f5;
+        font-size: 14px;
+        border-radius: 4px 0 0 4px;
+        padding: 0 20px;
+        flex-grow: 1;
+        border: 0;
+        height: 42px;
+      }
+      button {
+        color: #ffffff;
+        background: #40b884;
+        padding: 0;
+        width: 45px;
+        border-radius: 0 4px 4px 0;
+        border: 0;
+      }
+    }
+    .reverse {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      @media (min-width: 1024px) {
+        width: fit-content;
+      }
+      .burger-menu {
+        @media (min-width: 1024px) {
+          display: none;
+        }
+        span {
+          padding: 10px;
+          margin-left: -5px;
+          font-size: 18px;
+        }
+      }
+    }
+    .shortcut-icons {
+      display: flex;
+      a {
+        cursor: pointer;
+        position: relative;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          color: #41b885;
+        }
+        &.cart-link {
+          .bubble {
+            position: absolute;
+            min-width: 16px;
+            height: 16px;
+            border-radius: 16px;
+            line-height: 17px;
+            margin: -6px 0 0 -3px;
+            background: #40b884;
+            font-size: 11px;
+            color: #fff;
+          }
+        }
+        span {
+          display: inline-block;
+          width: 18px;
+          height: 18px;
+        }
+        p {
+          font-size: 11px;
+          line-height: 1;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+  .menu-yu {
+    position: relative;
+    width: 300px;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+// .background {
+//   position: fixed;
+//   width: 0;
+//   height: 100%;
+//   background-color: #000;
+//   opacity: 0.4;
+//   top: 0;
+//   left: 0;
+//   z-index: 555;
+//   display: block;
+//   @media (min-width: 1024px) {
+//     display: none;
+//   }
+// }
+// aside {
+//   width: 320px; //diff
+//   max-width: calc(100% - 45px); //new
+//   height: 100vh;
+//   overflow: auto;
+//   //no padding
+//   background-color: #fff;
+//   //no border
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   z-index: 9999;
+//   //no border-radius
+//   transition: all 0.4s ease-in-out; //diff in time
+//   transform: translateX(-115%); //diff
+//   display: block; //new
+//   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); //new
+//   @media (min-width: 1024px) {
+//     display: none; //new
+//     // no padding
+//     // no position
+//     // no transform
+//     // no min-width
+//     // no height
+//     // no overflow
+//   }
+//   &.open {
+//     transform: translateX(0);
+//   }
+// }

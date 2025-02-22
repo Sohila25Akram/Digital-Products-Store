@@ -17,15 +17,14 @@
     opacity: 0.5;
   }
   aside {
+    width: 450px;
+    height: 100%;
+    overflow: auto;
+    padding: 0 30px 20px;
+    background-color: #fff;
     position: absolute;
     top: 0;
     right: 0;
-    width: 450px;
-    height: 100%;
-    background-color: #fff;
-    padding: 0 30px 20px;
-    overflow: auto;
-    // z-index: 999999999999999999;
     header {
       display: flex;
       justify-content: space-between;
@@ -80,6 +79,8 @@
           flex-grow: 1;
           text-align: center;
           margin: 0 15px;
+          font-size: 20px;
+          cursor: pointer;
         }
       }
       .cart-total {

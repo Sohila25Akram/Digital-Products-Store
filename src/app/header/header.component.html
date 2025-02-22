@@ -1,0 +1,53 @@
+<header class="headers-container">
+  <header class="top-header">
+    <div class="availability">
+      <span><i class="fa-regular fa-comment-dots"></i></span>
+      <div>
+        <p><b>expert support</b></p>
+        <p>Available 24/7 via chat</p>
+      </div>
+    </div>
+    <form class="search-input-container">
+      <input type="text" placeholder="Search products" />
+      <button type="submit">
+        <span><i class="fa-solid fa-magnifying-glass"></i></span>
+      </button>
+    </form>
+    <div class="reverse">
+      <div class="burger-menu">
+        <span (click)="onOpenMenu()"><i class="fa-solid fa-bars"></i></span>
+        Vogal
+      </div>
+
+      <div class="shortcut-icons">
+        <a href="">
+          <span><i class="fa-regular fa-user"></i></span>
+          <p>account</p>
+        </a>
+        <a href="">
+          <span><i class="fa-regular fa-heart"></i></span>
+          <p>wishlist</p>
+        </a>
+        <a class="cart-link" routerLink="/cart-menu">
+          <span><i class="fa-solid fa-cart-shopping"></i></span>
+          @if(numOfProducts()>0){
+          <b class="bubble">{{ numOfProducts() }}</b>
+          }
+          <p>cart</p>
+        </a>
+      </div>
+    </div>
+  </header>
+  <app-navigation-bar />
+  <!-- <div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
+  <aside [class.open]="isOpen"> -->
+  <app-wrapper
+    [isOpen]="isOpen"
+    component="menu"
+    (closeEvent)="onCloseMenu($event)"
+  >
+    <app-menu />
+  </app-wrapper>
+
+  <!-- </aside> -->
+</header>

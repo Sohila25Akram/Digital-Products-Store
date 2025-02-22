@@ -6,8 +6,8 @@
     class="close-btn"
     routerLink="../../"
     [style.display]="!isExpanded ? 'block' : 'none'"
-    >X</a
-  >
+    ><i class="fa-solid fa-xmark"></i
+  ></a>
   <div class="img-container">
     <!-- <img src="assets/images/products/pexels-sound-on-3394648.jpg" alt="" /> -->
     <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
@@ -16,7 +16,15 @@
     }
   </div>
   <div>
-    <form (ngSubmit)="onSubmit()">
+    <form
+      (submit)="onSubmit(productIdInput.value, productAmount.value, $event)"
+    >
+      <input
+        type="hidden"
+        name="product-id"
+        [value]="product.id"
+        #productIdInput
+      />
       <a href="" class="brand">{{ product.brand }}</a>
       <h2 [style.font-size]="isExpanded && '30px'">{{ product.title }}</h2>
       <div class="price-container">
@@ -46,26 +54,43 @@
       <ng-content select="label" />
       <div class="amount-wishlist-container">
         <div class="amount">
-          <button>-</button>
-          <input type="text" value="1" name="amount" />
-          <button>+</button>
+          <button type="button">
+            <i class="fa-solid fa-minus" (click)="incrementAmount()"></i>
+          </button>
+          <input
+            type="text"
+            [value]="amountCurrent"
+            name="amount"
+            #productAmount
+          />
+          <button type="button">
+            <i class="fa-solid fa-plus" (click)="decrementAmount()"></i>
+          </button>
         </div>
 
         <div class="add-wishlist">
-          <span><span>##</span> Add to Wishlist</span>
+          <span
+            ><span><i class="fa-regular fa-heart"></i></span> Add to
+            Wishlist</span
+          >
           <span [style.display]="isExpanded ? 'block' : 'none'"
-            ><span>##</span> Ask A Question</span
+            ><span><i class="fa-regular fa-circle-question"></i></span> Ask A
+            Question</span
           >
         </div>
       </div>
-      <button type="submit" class="btn-main btn-cart">add to cart</button>
+      <button type="submit" class="btn-main btn-cart" [appLoader]="isLoading">
+        <div>
+          <span>add to cart</span>
+        </div>
+      </button>
 
       <a
         [routerLink]="['../../products', product.id]"
         [style.display]="!isExpanded ? 'block' : 'none'"
         class="view"
-        >view more details <span>##</span></a
-      >
+        >view more details <span><i class="fa-solid fa-arrow-right"></i></span
+      ></a>
       <ng-content />
     </form>
   </div>
