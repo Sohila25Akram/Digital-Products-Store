@@ -1,6 +1,5 @@
-<section id="cart-page">
-  <div class="background"></div>
-  <aside>
+<app-wrapper component="cart">
+  <section id="cart-page">
     <header
       [style.justify-content]="
         productsInCart().length > 0 ? 'space-between' : 'flex-end'
@@ -59,5 +58,5 @@
       </div>
     </div>
     }
-  </aside>
-</section>
+  </section>
+</app-wrapper>

@@ -5,6 +5,7 @@ import { ProductSnapshotComponent } from './product-snapshot/product-snapshot.co
 import { CurrencyPipe } from '@angular/common';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../models/product.model';
+import { WrapperComponent } from '../wrapper/wrapper.component';
 
 @Component({
   selector: 'app-cart-menu',
@@ -14,6 +15,7 @@ import { Product } from '../models/product.model';
     ShippingComponent,
     ProductSnapshotComponent,
     CurrencyPipe,
+    WrapperComponent,
   ],
   templateUrl: './cart-menu.component.html',
   styleUrl: './cart-menu.component.scss',

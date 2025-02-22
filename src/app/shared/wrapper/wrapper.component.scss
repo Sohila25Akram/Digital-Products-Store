@@ -12,6 +12,13 @@
   @media (min-width: 1024px) {
     display: none;
   }
+  &.background-cart {
+    width: 100%;
+    @media (min-width: 1024px) {
+      display: block;
+      width: 100%;
+    }
+  }
 }
 .close-menu {
   height: 40px;
@@ -29,6 +36,10 @@
   visibility: hidden;
   transition: all 0.4s ease-in-out;
   z-index: 9999999999999;
+  @media (min-width: 1024px) {
+    left: 0 !important;
+    visibility: hidden !important;
+  }
   &.open {
     left: 320px;
     visibility: visible;
@@ -41,7 +52,6 @@ aside {
   background-color: #fff;
   position: fixed;
   top: 0;
-  left: 0;
   z-index: 9999;
   transform: translateX(-115%);
   &.open {
@@ -54,6 +64,7 @@ aside {
     display: block;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     z-index: 9999999999999;
+    left: 0;
     @media (min-width: 1024px) {
       display: none;
     }
@@ -65,6 +76,7 @@ aside {
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
     z-index: 9999999999999;
+    left: 0;
     @media (min-width: 1024px) {
       padding: 25px 30px;
       position: static;
@@ -73,5 +85,12 @@ aside {
       height: fit-content;
       overflow: visible;
     }
+  }
+  &.cart {
+    width: 450px;
+    padding: 0 30px 20px;
+    right: 0;
+    z-index: 9999999999;
+    transform: translateX(0);
   }
 }

@@ -1,4 +1,8 @@
-<div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
+<div
+  class="background"
+  [style.width]="isOpen && '100%'"
+  [class.background-cart]="component === 'cart'"
+></div>
 @if(component === 'menu'){
 <div class="close-menu" [class.open]="isOpen" (click)="onClose()">
   <i class="fa-sharp fa-solid fa-xmark"></i>
@@ -8,6 +12,7 @@
   [class.open]="isOpen"
   [class.menu]="component === 'menu'"
   [class.sidebar]="component === 'sidebar'"
+  [class.cart]="component === 'cart'"
 >
   <ng-content />
 </aside>
