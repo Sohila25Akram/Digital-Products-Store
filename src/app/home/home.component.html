@@ -1,3 +1,47 @@
+<section id="banner">
+  <!-- <div class="overlay"> -->
+  <div class="swipper-container">
+    <span class="swipper-btn prev-btn" (click)="onToggleSlide()"
+      ><i class="fa-solid fa-chevron-left"></i
+    ></span>
+    @if(currentSlide === 1){
+    <div class="slide slide-1">
+      <div class="overlay">
+        <div class="content">
+          <span>starting from $50</span>
+          <h3>headphones</h3>
+          <p>Feel The Bass in Your Bones</p>
+          <a routerLink="/shop/featured">Shop Now</a>
+        </div>
+      </div>
+    </div>
+    }@else{
+    <div class="slide slide-2">
+      <div class="overlay">
+        <div class="content">
+          <h3>ultra smart OLED TVs</h3>
+          <p>with High Resolution Quality and Infinit Detail.</p>
+          <a routerLink="/shop/featured">Shop Now</a>
+        </div>
+      </div>
+    </div>
+    }
+    <span class="swipper-btn next-btn" (click)="onToggleSlide()"
+      ><i class="fa-solid fa-chevron-right"></i
+    ></span>
+    <div class="swipper-bullets">
+      <span
+        (click)="onToggleSlide()"
+        [class.active]="currentSlide === 1"
+      ></span>
+      <span
+        (click)="onToggleSlide()"
+        [class.active]="currentSlide === 2"
+      ></span>
+    </div>
+  </div>
+  <!-- </div> -->
+</section>
 <section id="best-seller">
   <!-- <app-best-seller-container imgSrc="pexels-jessbaileydesign-788946.jpg"> -->
   <!-- <figure>
