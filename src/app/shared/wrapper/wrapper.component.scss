@@ -6,17 +6,14 @@
   opacity: 0.4;
   top: 0;
   left: 0;
-  // z-index: 555;
   z-index: 5555555555;
-  display: block;
-  @media (min-width: 1024px) {
-    display: none;
-  }
   &.background-cart {
     width: 100%;
+  }
+  &.open {
+    width: 100%;
     @media (min-width: 1024px) {
-      display: block;
-      width: 100%;
+      width: 0;
     }
   }
 }

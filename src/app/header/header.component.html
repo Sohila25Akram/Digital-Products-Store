@@ -8,15 +8,69 @@
       </div>
     </div>
     <form class="search-input-container">
-      <input type="text" placeholder="Search products" />
+      <input
+        type="text"
+        placeholder="Search products"
+        name="searchTerm"
+        (focus)="openSearchBox = true"
+        (blur)="openSearchBox = false"
+        [formControl]="searchedTerm"
+      />
       <button type="submit">
         <span><i class="fa-solid fa-magnifying-glass"></i></span>
       </button>
+      <!-- @if(openSearchBox){ -->
+      <div
+        class="res-box"
+        [style.display]="openSearchBox === true ? 'block' : 'none'"
+      >
+        @if(searchedTerm){ }@if(searchedProducts | async; as products){
+        @if(products.length>0 ){
+        <div class="suggestion">
+          <p>Popular searches</p>
+          <a href="">Smart TVs</a><a href="">Headphones</a>
+        </div>
+        <hr />
+        <ul>
+          @for(product of products; track product.id){
+          <li><app-searched-product [product]="product" /></li>
+          }
+          <!-- <li><app-searched-product /></li> -->
+        </ul>
+        <a href="" class="moreItems">
+          See all results for "{{ searchedTerm.value }}"
+          <span><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+        }@else{
+        <p class="no-result">
+          Your search for "{{ searchedTerm.value }}" did not yield any results.
+        </p>
+        } }@else{
+        <div class="suggestion" [style.marginButtom]="true && '25px'">
+          <p>Popular searches</p>
+          <a routerLink="/shop/smart-watches">Smart Watches</a
+          ><a routerLink="/shop/headphones">Headphones</a>
+        </div>
+        }
+
+        <!-- <div class="suggestion">
+          <p>Popular searches</p>
+          <a href="">Smart TVs</a><a href="">Headphones</a>
+        </div>
+        <hr />
+        <p class="no-result">
+          Your search for "mobile" did not yield any results.
+        </p> -->
+
+        <!-- <p class="no-result">
+          Your search for "tvs ipio" did not yield any results.
+        </p> -->
+      </div>
+      <!-- } -->
     </form>
     <div class="reverse">
       <div class="burger-menu">
         <span (click)="onOpenMenu()"><i class="fa-solid fa-bars"></i></span>
-        Vogal
       </div>
 
       <div class="shortcut-icons">

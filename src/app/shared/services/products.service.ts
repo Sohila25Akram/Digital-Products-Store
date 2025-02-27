@@ -1,6 +1,7 @@
 import { afterNextRender, Injectable, signal } from '@angular/core';
 import { Product } from '../models/product.model';
 import { DummyProducts } from '../../../assets/data/dummy-products';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,8 @@ export class ProductsService {
   productsAddedToCart = signal<
     { product: Product; amount: number; totalPriceOfAllProduct: number }[]
   >([]);
+
+  // searchedProducts = signal<Product[]>([]);
 
   constructor() {
     afterNextRender(() => {
@@ -134,6 +137,21 @@ export class ProductsService {
         break;
     }
     return currentProducts;
+  }
+
+  searchProductsByName(searchTerm: string): Observable<Product[]> {
+    // this.searchedProducts.update(() =>
+    //   this.products().filter((product) => product.title === ProductName)
+    // );
+    if (searchTerm) {
+      return of(
+        this.products().filter((p) =>
+          p.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    } else {
+      return of([]);
+    }
   }
 
   private filterProductsByCategory(category: string) {

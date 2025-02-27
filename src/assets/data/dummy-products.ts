@@ -42,18 +42,21 @@ export const deviceCategory = [
     value: 'smart-watches',
     name: 'Smart Watches',
     icon: 'fa-regular fa-clock',
+    imgSrc: 'smart-watches.jpg',
     brands: ['sumsung', 'vogal', 'wavefast'],
   },
   {
     value: 'smart-tvs',
     name: 'Smart TVs',
     icon: 'fa-solid fa-tv',
+    imgSrc: 'smart-tvs.jpg',
     brands: ['oliva', 'toshibar', 'vogal'],
   },
   {
     value: 'laptops-computers',
     name: 'Laptops & Computers',
     icon: 'fa-solid fa-laptop',
+    imgSrc: 'laptops.jpg',
     brands: [
       'alpha',
       'thomas',
@@ -68,6 +71,7 @@ export const deviceCategory = [
     value: 'audios-video',
     name: 'Audios & Video',
     icon: 'fa-solid fa-microphone-lines',
+    imgSrc: 'audios.jpg',
     brands: [
       'alpha',
       'thomas',
@@ -82,18 +86,21 @@ export const deviceCategory = [
     value: 'mobile-tablets',
     name: 'Mobile & Tablets',
     icon: 'fa-solid fa-mobile-screen-button',
+    imgSrc: 'mobiles.jpg',
     brands: ['oliva', 'sumsung', 'vogal'],
   },
   {
     value: 'cameras',
     name: 'Cameras',
     icon: 'fa-solid fa-camera',
+    imgSrc: 'cameras.jpg',
     brands: ['alpha', 'sumsung', 'oliva', 'thomas', 'vogal'],
   },
   {
     value: 'video-games',
     name: 'Video Games',
     icon: 'fa-solid fa-gamepad',
+    imgSrc: 'video-games.jpg',
     brands: [
       'alpha',
       'thomas',
@@ -108,6 +115,7 @@ export const deviceCategory = [
     value: 'printers-ink',
     name: 'Printers & Ink',
     icon: 'fa-solid fa-print',
+    imgSrc: 'printers.jpg',
     brands: [
       'alpha',
       'thomas',
@@ -122,6 +130,7 @@ export const deviceCategory = [
     value: 'headphones',
     name: 'Headphones',
     icon: 'fa-solid fa-headset',
+    imgSrc: 'headphones.jpg',
     brands: [
       'alpha',
       'thomas',

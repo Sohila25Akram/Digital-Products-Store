@@ -1,6 +1,6 @@
 <div
   class="background"
-  [style.width]="isOpen && '100%'"
+  [class.open]="isOpen"
   [class.background-cart]="component === 'cart'"
 ></div>
 @if(component === 'menu'){
