@@ -85,22 +85,18 @@ export class ShopComponent implements OnInit {
     );
   }
 
-  // handlePriceFilter(priceRange: { minPrice: number; maxPrice: number }) {
-  //   console.log('Min Price:', priceRange.minPrice);
-  //   console.log('Max Price:', priceRange.maxPrice);
-  //   this.products = this.productsByCategory.filter((product) => {
-  //     const currentPrice = product.newPrice
-  //       ? product.newPrice
-  //       : product.originPrice;
+  handlePriceFilter(priceRange: { minPrice: number; maxPrice: number }) {
+    console.log('Min Price:', priceRange.minPrice);
+    console.log('Max Price:', priceRange.maxPrice);
+    this.products = this.productsByCategory.filter((product) => {
+      const currentPrice = product.newPrice
+        ? product.newPrice
+        : product.originPrice;
 
-  //     return (
-  //       currentPrice >= priceRange.minPrice &&
-  //       currentPrice <= priceRange.maxPrice
-  //     );
-  //   });
-  // }
-  handlePriceFilter(event: { minPrice: number; maxPrice: number }) {
-    console.log('Min Price:', event.minPrice, 'Max Price:', event.maxPrice);
-    // Handle price filtering logic here
+      return (
+        currentPrice >= priceRange.minPrice &&
+        currentPrice <= priceRange.maxPrice
+      );
+    });
   }
 }

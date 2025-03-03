@@ -11,11 +11,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Product } from '../models/product.model';
 import { ProductsService } from '../services/products.service';
 import { LoaderDirective } from '../loader.directive';
+import { ProductAmountComponent } from '../product-amount/product-amount.component';
 
 @Component({
   selector: 'app-quick-view-window',
   standalone: true,
-  imports: [CurrencyPipe, RouterLink, LoaderDirective],
+  imports: [CurrencyPipe, RouterLink, LoaderDirective, ProductAmountComponent],
   templateUrl: './quick-view-window.component.html',
   styleUrl: './quick-view-window.component.scss',
   encapsulation: ViewEncapsulation.ShadowDom,
@@ -30,6 +31,12 @@ export class QuickViewWindowComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   // productId!: string;
   isLoading: boolean = false;
+  productAmount: number = 1;
+
+  handleProductAmountChange(amount: number) {
+    this.productAmount = amount; // Store the new amount
+    console.log('Updated product amount:', this.productAmount);
+  }
 
   ngOnInit(): void {
     const subscription = this.activatedRoute.paramMap.subscribe({
@@ -44,7 +51,7 @@ export class QuickViewWindowComponent implements OnInit {
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
-  onSubmit(productId: string, amount: string, event: Event) {
+  onSubmit(productId: string, amount: number, event: Event) {
     event.preventDefault();
     event.stopPropagation();
     if (!productId) {
@@ -54,8 +61,8 @@ export class QuickViewWindowComponent implements OnInit {
     this.isLoading = true;
     setTimeout(() => {
       this.router.navigate(['/cart-menu']);
-      const numericAmount = Number(amount);
-      this.addToCart(productId, numericAmount);
+
+      this.addToCart(productId, amount);
       this.isLoading = false;
     }, 3000);
   }
@@ -69,22 +76,22 @@ export class QuickViewWindowComponent implements OnInit {
       .productsAddedToCart()
       .map((item) => item.amount);
   }
-  incrementAmount() {
-    this.productsService.productsAddedToCart.update((cart) =>
-      cart.map((item) =>
-        item.product?.id === this.product.id
-          ? { ...item, amount: item.amount + 1 }
-          : item
-      )
-    );
-  }
-  decrementAmount() {
-    this.productsService.productsAddedToCart.update((cart) =>
-      cart.map((item) =>
-        item.product?.id === this.product.id && item.amount > 1
-          ? { ...item, amount: item.amount + 1 }
-          : item
-      )
-    );
-  }
+  // incrementAmount() {
+  //   this.productsService.productsAddedToCart.update((cart) =>
+  //     cart.map((item) =>
+  //       item.product?.id === this.product.id
+  //         ? { ...item, amount: item.amount + 1 }
+  //         : item
+  //     )
+  //   );
+  // }
+  // decrementAmount() {
+  //   this.productsService.productsAddedToCart.update((cart) =>
+  //     cart.map((item) =>
+  //       item.product?.id === this.product.id && item.amount > 1
+  //         ? { ...item, amount: item.amount + 1 }
+  //         : item
+  //     )
+  //   );
+  // }
 }

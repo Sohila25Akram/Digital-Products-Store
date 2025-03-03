@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
@@ -14,7 +15,7 @@ export class SidebarComponent {
   selectedBrands: string[] = [];
   numOfSelectedBrands: number = 0;
   minPrice: number = 0;
-  maxPrice: number = 0;
+  maxPrice: number = 1200;
   @Output() filterByPrice = new EventEmitter<{
     minPrice: number;
     maxPrice: number;
@@ -33,7 +34,6 @@ export class SidebarComponent {
       this.selectedBrands = this.selectedBrands.filter((b) => b !== brand);
       this.numOfSelectedBrands--;
     }
-
     this.filterByBrand.emit(this.selectedBrands);
   }
 
@@ -48,6 +48,24 @@ export class SidebarComponent {
       this.maxPrice = Number(value);
     }
 
+    this.filterByPrice.emit({
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice,
+    });
+  }
+
+  rangeValueStart: number = 0;
+  rangeValueEnd: number = 1200;
+
+  onRangeChange(event: Event, isStart: boolean) {
+    const value = (event.target as HTMLInputElement).valueAsNumber;
+    if (isStart) {
+      this.rangeValueStart = value;
+      this.minPrice = value;
+    } else {
+      this.rangeValueEnd = value;
+      this.maxPrice = value;
+    }
     this.filterByPrice.emit({
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,

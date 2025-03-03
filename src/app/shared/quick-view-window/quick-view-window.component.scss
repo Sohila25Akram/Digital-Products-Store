@@ -100,36 +100,36 @@
         justify-content: space-between;
         align-items: center;
       }
-      .amount {
-        display: flex;
-        border: 1px solid #dddddd;
-        border-radius: 4px;
-        overflow: hidden;
-        height: 38px;
-        margin-bottom: 15px;
-        color: #000;
-        font-size: 14px;
-        button,
-        input {
-          width: 44px;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: transparent;
-          border: 0;
-          outline: none;
-        }
-        button {
-          cursor: pointer;
-        }
-        input {
-          border-left: 1px solid #dddddd;
-          border-right: 1px solid #dddddd;
-          width: 60px;
-          text-align: center;
-        }
-      }
+      // .amount {
+      //   display: flex;
+      //   border: 1px solid #dddddd;
+      //   border-radius: 4px;
+      //   overflow: hidden;
+      //   height: 38px;
+      //   margin-bottom: 15px;
+      //   color: #000;
+      //   font-size: 14px;
+      //   button,
+      //   input {
+      //     width: 44px;
+      //     height: 100%;
+      //     display: flex;
+      //     align-items: center;
+      //     justify-content: center;
+      //     background-color: transparent;
+      //     border: 0;
+      //     outline: none;
+      //   }
+      //   button {
+      //     cursor: pointer;
+      //   }
+      //   input {
+      //     border-left: 1px solid #dddddd;
+      //     border-right: 1px solid #dddddd;
+      //     width: 60px;
+      //     text-align: center;
+      //   }
+      // }
       .add-wishlist {
         display: flex;
         gap: 15px;

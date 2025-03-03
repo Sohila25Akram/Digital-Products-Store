@@ -12,8 +12,9 @@
         <input
           type="text"
           value="0"
-          name="min-price"
-          (change)="onPriceFilter($event)"
+          name="minPrice"
+          [(ngModel)]="minPrice"
+          (input)="onPriceFilter($event)"
         />
       </div>
       <span>-</span>
@@ -21,13 +22,39 @@
         <input
           type="text"
           value="1200"
-          name="max-price"
-          (change)="onPriceFilter($event)"
+          name="maxPrice"
+          [(ngModel)]="maxPrice"
+          (input)="onPriceFilter($event)"
         />
       </div>
     </div>
     <div class="price-range-slide">
-      <input type="range" />
+      <span
+        class="range-value min-value"
+        [style.width.px]="(rangeValueStart / 600) * 150"
+      ></span>
+      <input
+        type="range"
+        class="input-one"
+        min="0"
+        max="600"
+        [(ngModel)]="rangeValueStart"
+        step="50"
+        (input)="onRangeChange($event, true)"
+      />
+      <span
+        class="range-value max-value"
+        [style.width.px]="((1200 - rangeValueEnd) / 600) * 150"
+      ></span>
+      <input
+        type="range"
+        class="input-two"
+        min="600"
+        max="1200"
+        [(ngModel)]="rangeValueEnd"
+        step="50"
+        (input)="onRangeChange($event, false)"
+      />
     </div>
   </div>
   <header>

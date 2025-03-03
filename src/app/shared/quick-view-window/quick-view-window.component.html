@@ -16,9 +16,7 @@
     }
   </div>
   <div>
-    <form
-      (submit)="onSubmit(productIdInput.value, productAmount.value, $event)"
-    >
+    <form (submit)="onSubmit(productIdInput.value, productAmount, $event)">
       <input
         type="hidden"
         name="product-id"
@@ -53,7 +51,7 @@
       </p>
       <ng-content select="label" />
       <div class="amount-wishlist-container">
-        <div class="amount">
+        <!-- <div class="amount">
           <button type="button">
             <i class="fa-solid fa-minus" (click)="incrementAmount()"></i>
           </button>
@@ -66,8 +64,11 @@
           <button type="button">
             <i class="fa-solid fa-plus" (click)="decrementAmount()"></i>
           </button>
-        </div>
-
+        </div> -->
+        <app-product-amount
+          [product]="product"
+          (productAmountChange)="handleProductAmountChange($event)"
+        />
         <div class="add-wishlist">
           <span
             ><span><i class="fa-regular fa-heart"></i></span> Add to

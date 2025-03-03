@@ -1,0 +1,15 @@
+<div class="amount" [class.small]="isSmall">
+  <button type="button" (click)="decrementAmount()">
+    <i class="fa-solid fa-minus"></i>
+  </button>
+  <input
+    type="text"
+    min="1"
+    name="amount"
+    [(ngModel)]="manualAmount"
+    (input)="onManualInput($event)"
+  />
+  <button type="button" (click)="incrementAmount()">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+</div>

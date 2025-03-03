@@ -40,37 +40,6 @@
     .amount-delete-container {
       display: flex;
       align-items: center;
-      .amount {
-        display: flex;
-        border: 1px solid #6666661a;
-        border-radius: 4px;
-        overflow: hidden;
-        height: 32px;
-        margin-bottom: 5px;
-        color: #000;
-        font-size: 14px;
-        button,
-        input {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: transparent;
-          border: 0;
-          outline: none;
-        }
-        button {
-          cursor: pointer;
-          width: 32px;
-          font-size: 13px;
-        }
-        input {
-          border-left: 1px solid #6666661a;
-          border-right: 1px solid #6666661a;
-          width: 32px;
-          text-align: center;
-        }
-      }
       .delete-icon {
         margin-left: 15px;
         cursor: pointer;
