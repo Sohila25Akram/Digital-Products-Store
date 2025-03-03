@@ -1,3 +1,4 @@
+@import "../../app/styles/variables";
 #banner {
   width: 100%;
   .overlay {
@@ -30,14 +31,14 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center 24%;
-      color: #fff;
+      color: $white;
       .content {
         max-width: 500px;
         text-align: center;
         span {
-          color: #f9a81a;
+          color: $orange;
           text-transform: uppercase;
-          font-size: 14px;
+          font-size: $font-sm;
           font-weight: 400;
           line-height: 1.2;
           margin-bottom: 5px;
@@ -56,31 +57,31 @@
           // }
         }
         p {
-          font-size: 18px;
+          font-size: $font-lg;
           @media (min-width: 768px) {
-            font-size: 24px;
+            font-size: $font-xl;
           }
         }
         a {
           text-decoration: none;
           display: inline-block;
           padding: 12px 25px;
-          font-size: 13px;
+          font-size: $font-xs;
           font-weight: 400;
           line-height: 1;
           border-radius: 4px;
           text-transform: uppercase;
-          background-color: #40b884;
-          color: #fff;
-          transition: all 0.3s ease-in-out;
+          background-color: $green;
+          color: $white;
+          transition: $transition3s;
           @media (min-width: 768px) {
             padding: 16px 40px;
             font-size: 15px;
           }
           &:hover {
-            color: #40b884;
-            background-color: #fff;
-            border-color: #fff;
+            color: $green;
+            background-color: $white;
+            border-color: $white;
           }
         }
       }
@@ -98,9 +99,9 @@
         .content {
           margin-right: 20%;
           h3 {
-            font-size: 40px;
+            font-size: $font-xxxl;
             @media (min-width: 768px) {
-              font-size: 80px;
+              font-size: $font-xxxxl;
             }
           }
           p {
@@ -125,10 +126,10 @@
         .content {
           h3 {
             margin-bottom: 5;
-            font-size: 30px;
+            font-size: $font-xxl;
             @media (min-width: 768px) {
               margin-bottom: 20px;
-              font-size: 80px;
+              font-size: $font-xxxxl;
             }
           }
           p {
@@ -145,8 +146,8 @@
       width: 60px;
       height: 60px;
       opacity: 0;
-      color: #092143;
-      background-color: #fff;
+      color: $primaryColor;
+      background-color: $white;
       position: absolute;
       top: 50%;
       margin-top: -17px;
@@ -156,7 +157,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      transition: all 0.3s ease-in-out;
+      transition: $transition3s;
       @media (min-width: 768px) {
         display: flex;
       }
@@ -196,7 +197,7 @@
         &::before {
           height: 5px;
           // opacity: 0.5;
-          background-color: #fff;
+          background-color: $white;
           content: "";
           display: inline-block;
           width: 15px;
@@ -222,9 +223,9 @@
     padding: 60px;
   }
   a.offer {
-    border: 1px solid #000;
-    color: #000;
-    font-size: 13px;
+    border: $borderBlack;
+    color: $black;
+    font-size: $font-xs;
     line-height: 1;
     border-radius: 4px;
     text-decoration: none;
@@ -232,10 +233,10 @@
     text-transform: uppercase;
     width: fit-content;
     display: inline-block;
-    transition: all 0.3s ease-in-out;
+    transition: $transition3s;
     &:hover {
-      background-color: #000;
-      color: #fff;
+      background-color: $black;
+      color: $white;
     }
   }
   div {
@@ -247,7 +248,7 @@
 }
 
 #new-products {
-  background-color: #f2f5fa;
+  background-color: $darkerWhiteThree;
   padding: 60px 15px;
   @media (min-width: 1400px) {
     padding: 60px;
@@ -265,24 +266,24 @@
   }
   .view-all-btn {
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: $font-xs;
     font-weight: 400;
     padding: 14px 30px;
     line-height: 1;
-    color: #fff;
+    color: $white;
     border-radius: 4px;
     display: block;
     text-align: center;
-    transition: all 0.3s ease-in-out;
+    transition: $transition3s;
     cursor: pointer;
     text-decoration: none;
-    background-color: #092143;
-    border: 1px solid #092143;
+    background-color: $primaryColor;
+    border: $borderBlue;
     margin: 50px auto 0;
     width: fit-content;
     &:hover {
       background-color: transparent;
-      color: #092143;
+      color: $primaryColor;
     }
   }
 }
@@ -326,7 +327,7 @@
           border-radius: 50%;
           overflow: hidden;
           margin-bottom: 20px;
-          background-color: #f4f4f4;
+          background-color: $darkerWhiteTwo;
           cursor: pointer;
           // background-image: url("/assets/images/pexels-pavel-danilyuk-8001236.jpg");
           // background-position: center;
@@ -335,11 +336,11 @@
         }
         img {
           width: 100%;
-          transition: all 0.3s ease-in-out;
+          transition: $transition3s;
         }
         h3 {
           text-align: center;
-          font-size: 16px;
+          font-size: $font-md;
           text-transform: capitalize;
         }
         &:hover {
@@ -353,8 +354,8 @@
       }
     }
     .btn {
-      color: #000;
-      background-color: #fff;
+      color: $black;
+      background-color: $white;
       position: absolute;
       top: 50%;
       width: 36px;
@@ -366,7 +367,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      transition: all 0.3s ease-in-out;
+      transition: $transition3s;
       @media (min-width: 1024px) {
         opacity: 0;
       }

@@ -1,12 +1,13 @@
+@import "../../styles/variables";
 .amount {
   display: flex;
-  border: 1px solid #dddddd;
+  border: $border;
   border-radius: 4px;
   overflow: hidden;
   height: 38px;
   margin-bottom: 15px;
-  color: #000;
-  font-size: 14px;
+  color: $black;
+  font-size: $font-sm;
   button,
   input {
     width: 44px;
@@ -23,23 +24,23 @@
     cursor: pointer;
   }
   input {
-    border-left: 1px solid #dddddd;
-    border-right: 1px solid #dddddd;
+    border-left: $border;
+    border-right: $border;
     width: 60px;
     text-align: center;
   }
   &.small {
-    border: 1px solid #6666661a;
+    border: $borderTwo;
     height: 32px;
     margin-bottom: 5px;
     input {
-      border-left: 1px solid #6666661a;
-      border-right: 1px solid #6666661a;
+      border-left: $borderTwo;
+      border-right: $borderTwo;
       width: 32px;
     }
     button {
       width: 32px;
-      font-size: 13px;
+      font-size: $font-xs;
     }
   }
 }

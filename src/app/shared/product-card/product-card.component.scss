@@ -1,11 +1,12 @@
+@import "../../styles/variables";
 figure {
   width: 100%;
   height: 100%;
   text-align: center;
   position: relative;
-  border: 1px solid #eee;
-  transition: all 0.3s ease-out;
-  background-color: #fff;
+  border: 1px solid $darkWhite;
+  transition: $transition3s;
+  background-color: $white;
   padding: 5px;
   border-radius: 8px;
   .delete-from-wishlist {
@@ -14,13 +15,13 @@ figure {
     right: 15px;
     display: block;
     cursor: pointer;
-    color: #fff;
+    color: $white;
     line-height: 36px;
     height: 40px;
     min-width: 40px;
-    background-color: #092143;
+    background-color: $primaryColor;
     border-radius: 20px;
-    transition: all 0.3s ease-in-out;
+    transition: $transition3s;
     visibility: hidden;
     opacity: 0;
     text-decoration: none;
@@ -29,7 +30,7 @@ figure {
     }
     &:hover,
     &:active {
-      background-color: #40b884;
+      background-color: $green;
     }
   }
   div {
@@ -49,19 +50,19 @@ figure {
     a {
       display: block;
       cursor: pointer;
-      transition: all 0.3s ease-in-out;
-      font-size: 13px;
+      transition: $transition3s;
+      font-size: $font-xs;
       width: fit-content;
       margin: 7px auto;
       &:hover,
       &:active {
-        color: #40b884;
+        color: $green;
       }
     }
     .origin-price {
       font-weight: 400;
-      color: #090a0a;
-      font-size: 14px;
+      color: $blackLighter;
+      font-size: $font-sm;
       font-weight: 600;
       &.old {
         text-decoration: line-through;
@@ -71,8 +72,8 @@ figure {
     }
     .new-price {
       margin-left: 4px;
-      color: #e95144;
-      font-size: 14px;
+      color: $redColor;
+      font-size: $font-sm;
       font-weight: 600;
       display: inline-block;
     }
@@ -80,9 +81,9 @@ figure {
       position: absolute;
       top: 10px;
       left: 10px;
-      background-color: #ff708e;
-      color: #fff;
-      font-size: 12px;
+      background-color: $redLightColor;
+      color: $white;
+      font-size: $font-xxs;
       padding: 0 10px;
       letter-spacing: 0;
       line-height: 22px;
@@ -93,7 +94,7 @@ figure {
     position: absolute;
     display: flex;
     z-index: 444;
-    transition: all 0.3s ease-out;
+    transition: $transition3s;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -102,14 +103,14 @@ figure {
     button {
       display: block;
       cursor: pointer;
-      color: #fff;
+      color: $white;
       margin: 3px;
       line-height: 38px;
       height: 40px;
       min-width: 40px;
-      background-color: #092143;
+      background-color: $primaryColor;
       border-radius: 20px;
-      transition: all 0.3s ease-in-out;
+      transition: $transition3s;
       visibility: hidden;
       opacity: 0;
       text-decoration: none;
@@ -119,7 +120,7 @@ figure {
       }
       &:hover,
       &:active {
-        background-color: #40b884;
+        background-color: $green;
       }
     }
   }

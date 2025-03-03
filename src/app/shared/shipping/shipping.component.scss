@@ -1,5 +1,6 @@
+@import "../../styles/variables";
 .spent-time {
-  color: #333;
+  color: $baseColor;
   .uppercase {
     text-transform: uppercase;
   }
@@ -9,6 +10,6 @@
   border-radius: 10px;
   position: relative;
   overflow: hidden;
-  background-color: #eee;
+  background-color: $darkWhite;
   margin: 10px 0 15px;
 }

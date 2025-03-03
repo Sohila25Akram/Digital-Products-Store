@@ -1,3 +1,4 @@
+@import "../../styles/variables";
 #quick-view-window-container {
   position: fixed;
   top: 0;
@@ -11,7 +12,7 @@
   z-index: 99999999;
   .background {
     position: absolute;
-    background-color: #000;
+    background-color: $black;
     width: 100%;
     height: 100%;
     opacity: 0.5;

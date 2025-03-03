@@ -1,3 +1,4 @@
+@import "../../styles/variables";
 #cart-page {
   header {
     display: flex;
@@ -7,18 +8,18 @@
     z-index: 999999999;
     width: 450px !important;
     padding: 20px 0;
-    background-color: #fff;
+    background-color: $white;
     width: 100%;
     h2 {
       line-height: 1;
-      color: #666;
-      font-size: 15px;
+      color: $grayLightTwo;
+      font-size: $font-ssm;
     }
     .close-btn {
       display: block;
       height: 16px;
       width: 16px;
-      color: #666;
+      color: $grayLightTwo;
       text-decoration: none;
       cursor: pointer;
     }
@@ -27,7 +28,7 @@
   .cart-content {
     padding-top: 60px;
     .shipping-container {
-      font-size: 11px !important;
+      font-size: $font-bubble !important;
       text-transform: uppercase;
       text-align: center;
       padding: 15px 20px;
@@ -38,7 +39,7 @@
       list-style: none;
       li {
         &:not(:first-child) {
-          border-top: 1px solid #f5f5f5;
+          border-top: $borderDarkerWhite;
         }
       }
     }
@@ -47,8 +48,8 @@
       justify-content: space-between;
       a {
         display: block;
-        background-color: #f5f5f5;
-        color: #111;
+        background-color: $darkerWhite;
+        color: $textColor;
         padding: 15px;
         flex-grow: 1;
         text-align: center;
@@ -59,25 +60,25 @@
     }
     .cart-total {
       padding: 15px 0;
-      border-top: 1px solid #f5f5f5;
+      border-top: $borderDarkerWhite;
       margin-top: 10px;
       font-weight: 600;
       display: flex;
       justify-content: space-between;
       align-items: center;
       line-height: 1;
-      color: #666;
+      color: $grayLightTwo;
 
       h2 {
-        font-size: 15px;
+        font-size: $font-ssm;
         line-height: 1;
       }
     }
     p {
-      font-size: 11px;
+      font-size: $font-bubble;
       margin-bottom: 15px;
       span {
-        color: #333;
+        color: $baseColor;
       }
     }
     .btn-main {
@@ -86,33 +87,33 @@
       // min-width: 200px !important;
       // margin-bottom: 10px;
       // height: 50px !important;
-      font-size: 13px;
+      font-size: $font-xs;
       font-weight: 400;
       padding: 14px 30px;
       line-height: 1;
       border: 0;
-      color: #fff;
+      color: $white;
       border-radius: 4px;
       display: block;
       text-align: center;
-      transition: all 0.3s ease-in-out;
+      transition: $transition3s;
       cursor: pointer;
     }
     .btn-buy {
-      background-color: #40b884;
+      background-color: $green;
       margin-bottom: 10px;
       &:hover {
         background-color: transparent;
-        color: #40b884;
+        color: $green;
       }
     }
     .btn-cart {
-      background-color: #092143;
-      border: 1px solid #092143;
+      background-color: $primaryColor;
+      border: 1px solid $primaryColor;
       margin-bottom: 30px;
       &:hover {
         background-color: transparent;
-        color: #092143;
+        color: $primaryColor;
       }
     }
   }
@@ -121,7 +122,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: #666;
+    color: $grayLightTwo;
     height: 100%;
     //   margin-top: -60px;
     .icon {
@@ -136,32 +137,32 @@
     }
     .continue-shopping {
       text-transform: uppercase;
-      font-size: 13px;
+      font-size: $font-xs;
       font-weight: 400;
       padding: 12px 25px;
       line-height: 1;
       border: 0;
-      color: #fff;
+      color: $white;
       border-radius: 4px;
       display: block;
       text-align: center;
-      transition: all 0.3s ease-in-out;
+      transition: $transition3s;
       cursor: pointer;
       text-decoration: none;
-      background-color: #092143;
-      border: 1px solid #092143;
+      background-color: $primaryColor;
+      border: $borderBlue;
       margin-bottom: 50px;
       &:hover {
         background-color: transparent;
-        color: #092143;
+        color: $primaryColor;
       }
       div {
         font-weight: 500;
-        font-size: 15px;
+        font-size: $font-ssm;
       }
       p:last-child {
         a {
-          color: #333;
+          color: $baseColor;
         }
       }
     }
