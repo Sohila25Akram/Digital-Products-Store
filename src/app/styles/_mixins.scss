@@ -1,0 +1,22 @@
+@mixin page-x {
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin padding-y($padding1, $padding2: $padding1) {
+  padding-top: $padding1;
+
+  @if $padding1 == $padding2 {
+    padding-bottom: $padding1;
+  } @else {
+    padding-bottom: $padding2;
+  }
+}
+
+@mixin remove-margin-x($margin) {
+  margin-left: -$margin;
+  margin-right: -$margin;
+}

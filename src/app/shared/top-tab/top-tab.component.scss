@@ -1,15 +1,21 @@
 @import "../../styles/variables";
-div {
+@import "../../styles/mixins";
+
+.tab-container {
   background-color: $darkerWhiteFour;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  font-size: $font-xs;
   color: $textColor;
-  padding: 10px 0px;
-  a {
-    text-decoration: none;
-    color: $textColor;
-    cursor: pointer;
+  div {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: $font-xs;
+
+    @include page-x;
+    @include padding-y(10px);
+    a {
+      text-decoration: none;
+      color: $textColor;
+      cursor: pointer;
+    }
   }
 }

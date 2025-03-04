@@ -1,6 +1,9 @@
-@import "../../app/styles/variables";
+@import "../styles/variables";
+@import "../styles/mixins";
+
 #wishlist {
-  padding: 30px 0;
+  @include page-x;
+  @include padding-y(30px);
   h1 {
     font-size: $font-xl-plus;
     color: $linkColor;

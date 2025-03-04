@@ -1,24 +1,26 @@
 <nav>
   <div>
-    <span><i class="fa-solid fa-bars"></i></span>
-    BROWSE CATEGORIES
-    <span class="down-arrow"><i class="fa-solid fa-angle-down"></i></span>
-    <ul class="category-items">
-      @for(category of allCategories; track category.value){
+    <div class="browse-categories">
+      <span><i class="fa-solid fa-bars"></i></span>
+      BROWSE CATEGORIES
+      <span class="down-arrow"><i class="fa-solid fa-angle-down"></i></span>
+      <ul class="category-items">
+        @for(category of allCategories; track category.value){
+        <li>
+          <a [routerLink]="['/shop', category.value]"
+            ><span><i [class]="category.icon"></i></span>{{ category.name }}</a
+          >
+        </li>
+        }
+      </ul>
+    </div>
+    <ul class="nav-items">
       <li>
-        <a [routerLink]="['/shop', category.value]"
-          ><span><i [class]="category.icon"></i></span>{{ category.name }}</a
-        >
+        <a routerLink="/">Home</a>
       </li>
-      }
+      <li>
+        <a routerLink="/shop/featured">Shop</a>
+      </li>
     </ul>
   </div>
-  <ul class="nav-items">
-    <li>
-      <a routerLink="/">Home</a>
-    </li>
-    <li>
-      <a routerLink="/shop/featured">Shop</a>
-    </li>
-  </ul>
 </nav>

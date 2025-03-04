@@ -87,47 +87,51 @@
   </div>
 </section>
 <section id="new-products">
-  <h2 class="section-title">New products</h2>
   <div>
-    @for(product of products; track product.id){
-    <app-product-card [product]="product" />
-    }
-    <!-- <app-product-card /> -->
-    <!-- <app-product-card />
+    <h2 class="section-title">New products</h2>
+    <div class="products">
+      @for(product of products; track product.id){
+      <app-product-card [product]="product" />
+      }
+      <!-- <app-product-card /> -->
+      <!-- <app-product-card />
     <app-product-card />
     <app-product-card />
     <app-product-card />
     <app-product-card />
     <app-product-card />
     <app-product-card /> -->
+    </div>
+    <a href="" class="view-all-btn">view all</a>
   </div>
-  <a href="" class="view-all-btn">view all</a>
 </section>
 <section id="shop-by-categories">
-  <h2 class="section-title">shop by categories</h2>
-  <div class="swiper-container">
-    <div class="swiper">
-      @for(category of allCategories; track category.value){
-      <div href="" class="category-card">
-        <a
-          [routerLink]="['/shop', category.value]"
-          class="category-img-container"
-        >
-          <img
-            src="assets/images/categories/{{ category.imgSrc }}"
-            alt="{{ category.name }}"
-          />
-        </a>
-        <h3>{{ category.name }}</h3>
+  <div>
+    <h2 class="section-title">shop by categories</h2>
+    <div class="swiper-container">
+      <div class="swiper">
+        @for(category of allCategories; track category.value){
+        <div href="" class="category-card">
+          <a
+            [routerLink]="['/shop', category.value]"
+            class="category-img-container"
+          >
+            <img
+              src="assets/images/categories/{{ category.imgSrc }}"
+              alt="{{ category.name }}"
+            />
+          </a>
+          <h3>{{ category.name }}</h3>
+        </div>
+        }
       </div>
-      }
+      <span class="btn prev-btn" id="prev">
+        <i class="fa-solid fa-chevron-left"></i>
+      </span>
+      <span class="btn next-btn" id="next">
+        <i class="fa-solid fa-chevron-right"></i>
+      </span>
     </div>
-    <span class="btn prev-btn" id="prev">
-      <i class="fa-solid fa-chevron-left"></i>
-    </span>
-    <span class="btn next-btn" id="next">
-      <i class="fa-solid fa-chevron-right"></i>
-    </span>
   </div>
 </section>
 <router-outlet />

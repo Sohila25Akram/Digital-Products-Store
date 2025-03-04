@@ -3,51 +3,53 @@
 </div>
 <app-top-tab itemRecieved="Digital top seller" />
 <section id="shop">
-  <!-- <div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
+  <div>
+    <!-- <div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
   <aside [class.open]="isOpen"> -->
-  <app-wrapper [isOpen]="isOpen" component="sidebar">
-    <app-sidebar
-      (closeEvent)="onToggle()"
-      [brandsList]="selectedCategoryBrands"
-      (filterByBrand)="filterProductsByBrand($event)"
-      (filterByPrice)="handlePriceFilter($event)"
-    ></app-sidebar>
-  </app-wrapper>
-  <!-- </aside> -->
-  <div class="right-side-container">
-    <h2>digital top seller</h2>
-    <div class="filteration-container">
-      <button class="filter-btn" (click)="onToggle()">
-        <span><i class="fa-solid fa-filter"></i></span> filter
-      </button>
-      <span class="num-of-items"><span>11</span> items</span>
-      <select (change)="onFilter($event)">
-        <option value="featured">Featured</option>
-        <option value="best-selling">Best selling</option>
-        <option value="alpha-asc">Alphabetically, A-Z</option>
-        <option value="alpha-desc">Alphabetically, Z-A</option>
-        <option value="price-asc">Price, low to high</option>
-        <option value="price-desc">Price, high to low</option>
-        <option value="date-asc">Date, old to new</option>
-        <option value="date-desc">Date, new to old</option>
-      </select>
-    </div>
-    <div class="chosen-filters-container">
-      @for(brand of checkedBrands; track brand){
-      <div class="chosen-filter">{{ brand }}</div>
+    <app-wrapper [isOpen]="isOpen" component="sidebar">
+      <app-sidebar
+        (closeEvent)="onToggle()"
+        [brandsList]="selectedCategoryBrands"
+        (filterByBrand)="filterProductsByBrand($event)"
+        (filterByPrice)="handlePriceFilter($event)"
+      ></app-sidebar>
+    </app-wrapper>
+    <!-- </aside> -->
+    <div class="right-side-container">
+      <h2>digital top seller</h2>
+      <div class="filteration-container">
+        <button class="filter-btn" (click)="onToggle()">
+          <span><i class="fa-solid fa-filter"></i></span> filter
+        </button>
+        <span class="num-of-items"><span>11</span> items</span>
+        <select (change)="onFilter($event)">
+          <option value="featured">Featured</option>
+          <option value="best-selling">Best selling</option>
+          <option value="alpha-asc">Alphabetically, A-Z</option>
+          <option value="alpha-desc">Alphabetically, Z-A</option>
+          <option value="price-asc">Price, low to high</option>
+          <option value="price-desc">Price, high to low</option>
+          <option value="date-asc">Date, old to new</option>
+          <option value="date-desc">Date, new to old</option>
+        </select>
+      </div>
+      <div class="chosen-filters-container">
+        @for(brand of checkedBrands; track brand){
+        <div class="chosen-filter">{{ brand }}</div>
+        }
+      </div>
+      @if(products.length > 0){
+      <div class="products-in-shop">
+        @for(product of products; track product.id){
+        <app-product-card [product]="product" />
+        }
+      </div>
+      }@else{
+      <div class="empty-products">
+        <h3>no products found</h3>
+        <p>use fewer filter or clear all</p>
+      </div>
       }
     </div>
-    @if(products.length > 0){
-    <div class="products-in-shop">
-      @for(product of products; track product.id){
-      <app-product-card [product]="product" />
-      }
-    </div>
-    }@else{
-    <div class="empty-products">
-      <h3>no products found</h3>
-      <p>use fewer filter or clear all</p>
-    </div>
-    }
   </div>
 </section>

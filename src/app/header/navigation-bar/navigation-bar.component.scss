@@ -1,95 +1,99 @@
-@import "../../../app/styles/variables";
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 nav {
   background-color: $white;
-  border-top: $borderWhite;
-  border-bottom: $borderWhite;
-  display: none;
-  @media (min-width: 1024px) {
-    display: flex;
-  }
   > div {
-    position: relative;
-    min-width: 220px;
-    padding-right: 15px;
-    font-weight: 500;
-    color: $linkColor;
-    border-right: $border;
-    margin-right: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    height: auto;
-    > span:first-child {
-      margin-right: 15px;
+    @include page-x;
+    display: none;
+    @media (min-width: 1024px) {
+      display: flex;
+      border-top: $borderWhite;
+      border-bottom: $borderWhite;
     }
-    .down-arrow {
-      flex-grow: 1;
-      i {
-        margin: 0 10px 0 16px;
-        font-size: 12px;
+    .browse-categories {
+      position: relative;
+      min-width: 220px;
+      padding-right: 15px;
+      font-weight: 500;
+      color: $linkColor;
+      border-right: $border;
+      margin-right: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      height: auto;
+      > span:first-child {
+        margin-right: 15px;
       }
-    }
-    .category-items {
-      list-style: none;
-      padding: 13px 0;
-      margin-top: 1px;
-      opacity: 0;
-      visibility: hidden;
-      position: absolute;
-      left: 0;
-      top: 100%;
-      width: 250px;
-      // pointer-events: none;
-      background-color: $white;
-      border-radius: 0 0 6px 6px;
-      transform: translateY(20px);
-      transition: $transition3s;
-      z-index: 3;
-      li {
-        a {
-          text-decoration: none;
-          color: $gray;
-          font-size: $font-sm;
-          font-weight: 500;
-          padding: 8px 20px 8px 25px;
-          display: flex;
-          align-items: center;
-          span {
-            font-size: $font-lg-big;
-            margin-right: 15px;
-            width: 30px;
-          }
-          &:hover {
-            color: $green;
+      .down-arrow {
+        flex-grow: 1;
+        i {
+          margin: 0 10px 0 16px;
+          font-size: 12px;
+        }
+      }
+      .category-items {
+        list-style: none;
+        padding: 13px 0;
+        margin-top: 1px;
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 250px;
+        // pointer-events: none;
+        background-color: $white;
+        border-radius: 0 0 6px 6px;
+        transform: translateY(20px);
+        transition: $transition3s;
+        z-index: 3;
+        li {
+          a {
+            text-decoration: none;
+            color: $gray;
+            font-size: $font-sm;
+            font-weight: 500;
+            padding: 8px 20px 8px 25px;
+            display: flex;
+            align-items: center;
+            span {
+              font-size: $font-lg-big;
+              margin-right: 15px;
+              width: 30px;
+            }
+            &:hover {
+              color: $green;
+            }
           }
         }
       }
-    }
-    &:hover {
-      color: $green;
-      .category-items {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-      }
-    }
-  }
-  .nav-items {
-    list-style: none;
-    display: flex;
-    a {
-      text-decoration: none;
-      color: $linkColor;
-      font-size: $font-xs;
-      font-weight: 500;
-      text-transform: uppercase;
-      padding: 15px 15px;
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
       &:hover {
         color: $green;
+        .category-items {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+      }
+    }
+    .nav-items {
+      list-style: none;
+      display: flex;
+      a {
+        text-decoration: none;
+        color: $linkColor;
+        font-size: $font-xs;
+        font-weight: 500;
+        text-transform: uppercase;
+        padding: 15px 15px;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        &:hover {
+          color: $green;
+        }
       }
     }
   }

@@ -1,0 +1,10 @@
+@import "../styles/variables";
+@import "../styles/mixins";
+
+#product-details {
+  @include page-x;
+  @include padding-y(30px);
+  > div {
+    @include remove-margin-x(30px);
+  }
+}

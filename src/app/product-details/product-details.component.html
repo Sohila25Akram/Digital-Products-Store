@@ -1,6 +1,10 @@
 <app-top-tab [itemRecieved]="productName" />
-<app-quick-view-window [isExpanded]="true">
-  <label for="quantity">Quantity</label>
-  <button class="btn-main btn-buy">buy it now</button>
-  <app-shipping />
-</app-quick-view-window>
+<section id="product-details">
+  <div>
+    <app-quick-view-window [isExpanded]="true">
+      <label for="quantity">Quantity</label>
+      <button class="btn-main btn-buy">buy it now</button>
+      <app-shipping />
+    </app-quick-view-window>
+  </div>
+</section>
