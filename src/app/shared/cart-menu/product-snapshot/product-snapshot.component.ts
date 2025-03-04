@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, computed, inject, Input } from '@angular/core';
+import { Component, computed, inject, Input, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { LoaderDirective } from '../../loader.directive';
@@ -14,14 +14,23 @@ import { ProductAmountComponent } from '../../product-amount/product-amount.comp
 })
 export class ProductSnapshotComponent {
   @Input() product!: Product;
+  private productsService = inject(ProductsService);
+
+  isLoading: boolean = false;
+
   productAmount: number = 1; // Default value
 
   onProductAmountChange(amount: number) {
     this.productAmount = amount;
   }
 
-  private productsService = inject(ProductsService);
-  isLoading: boolean = false;
+  // ngOnInit(): void {
+  //   const cartProduct = this.productsService
+  //     .productsAddedToCart()
+  //     .find((p) => p.product?.id === this.product.id);
+
+  //   this.productAmount = cartProduct ? cartProduct.amount : 1;
+  // }
 
   // productAmount = computed(
   //   () =>

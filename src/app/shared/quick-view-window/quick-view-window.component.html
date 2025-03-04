@@ -16,12 +16,12 @@
     }
   </div>
   <div>
-    <form (submit)="onSubmit(productIdInput.value, productAmount, $event)">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <input
         type="hidden"
         name="product-id"
         [value]="product.id"
-        #productIdInput
+        formControlName="productId"
       />
       <a href="" class="brand">{{ product.brand }}</a>
       <h2 [style.font-size]="isExpanded && '30px'">{{ product.title }}</h2>

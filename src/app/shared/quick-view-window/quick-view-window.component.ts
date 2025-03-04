@@ -12,11 +12,18 @@ import { Product } from '../models/product.model';
 import { ProductsService } from '../services/products.service';
 import { LoaderDirective } from '../loader.directive';
 import { ProductAmountComponent } from '../product-amount/product-amount.component';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-quick-view-window',
   standalone: true,
-  imports: [CurrencyPipe, RouterLink, LoaderDirective, ProductAmountComponent],
+  imports: [
+    CurrencyPipe,
+    RouterLink,
+    LoaderDirective,
+    ProductAmountComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './quick-view-window.component.html',
   styleUrl: './quick-view-window.component.scss',
   encapsulation: ViewEncapsulation.ShadowDom,
@@ -31,11 +38,16 @@ export class QuickViewWindowComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   // productId!: string;
   isLoading: boolean = false;
-  productAmount: number = 1;
+  // productAmount: number = 1;
+
+  form = new FormGroup({
+    productId: new FormControl(),
+    productAmount: new FormControl(),
+  });
 
   handleProductAmountChange(amount: number) {
-    this.productAmount = amount; // Store the new amount
-    console.log('Updated product amount:', this.productAmount);
+    this.form.patchValue({ productAmount: amount }); // Store the new amount
+    // console.log('Updated product amount:', this.productAmount);
   }
 
   ngOnInit(): void {
@@ -45,15 +57,17 @@ export class QuickViewWindowComponent implements OnInit {
         if (productId) {
           this.product = this.products.find((p) => p.id === productId)!;
           // this.productId = productId;
+          this.form.patchValue({ productId });
         }
       },
     });
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
   }
 
-  onSubmit(productId: string, amount: number, event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
+  onSubmit() {
+    const productId = this.form.value.productId;
+    const amount = this.form.value.productAmount;
+
     if (!productId) {
       console.error('Product ID is missing!');
       return;

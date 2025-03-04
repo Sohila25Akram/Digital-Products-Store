@@ -6,8 +6,8 @@
     type="text"
     min="1"
     name="amount"
-    [(ngModel)]="manualAmount"
-    (input)="onManualInput($event)"
+    [formControl]="manualAmount"
+    [value]="manualAmount.value"
   />
   <button type="button" (click)="incrementAmount()">
     <i class="fa-solid fa-plus"></i>
