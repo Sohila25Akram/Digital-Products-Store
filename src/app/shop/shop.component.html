@@ -1,7 +1,7 @@
 <div class="img-container">
-  <h1>digital top seler</h1>
+  <h1>{{ currentCategoryName }}</h1>
 </div>
-<app-top-tab itemRecieved="Digital top seller" />
+<app-top-tab [itemRecieved]="currentCategoryName" />
 <section id="shop">
   <div>
     <!-- <div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
@@ -16,12 +16,14 @@
     </app-wrapper>
     <!-- </aside> -->
     <div class="right-side-container">
-      <h2>digital top seller</h2>
+      <h2>{{ currentCategoryName }}</h2>
       <div class="filteration-container">
         <button class="filter-btn" (click)="onToggle()">
           <span><i class="fa-solid fa-filter"></i></span> filter
         </button>
-        <span class="num-of-items"><span>11</span> items</span>
+        <span class="num-of-items"
+          ><span>{{ products.length }}</span> items</span
+        >
         <select (change)="onFilter($event)">
           <option value="featured">Featured</option>
           <option value="best-selling">Best selling</option>

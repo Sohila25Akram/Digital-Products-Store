@@ -15,17 +15,26 @@
       @if(selectedItem ==='menu'){
       <ul class="nav-items">
         <li>
-          <a routerLink="/">Home</a>
+          <a
+            routerLink="/"
+            routerLinkActive="active-page-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
         </li>
         <li>
-          <a routerLink="/shop/featured">Shop</a>
+          <a routerLink="/shop/featured" routerLinkActive="active-page-link"
+            >Shop</a
+          >
         </li>
       </ul>
       }@else{
       <ul class="category-items">
         @for(category of allCategories; track category.value){
         <li>
-          <a [routerLink]="['/shop', category.value]"
+          <a
+            [routerLink]="['/shop', category.value]"
+            routerLinkActive="active-category"
             ><span><i [class]="category.icon"></i></span>{{ category.name }}</a
           >
         </li>

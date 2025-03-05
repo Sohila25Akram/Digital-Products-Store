@@ -29,6 +29,7 @@ export class ShopComponent implements OnInit {
   selectedCategoryBrands!: string[];
   checkedBrands: string[] = [];
   deviceCategory = deviceCategory;
+  currentCategoryName: string = 'digital top seler';
   private activatedRoute = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
 
@@ -51,6 +52,10 @@ export class ShopComponent implements OnInit {
           this.selectedCategoryBrands =
             this.deviceCategory.find((cat) => cat.value === categoryVal)
               ?.brands || [];
+
+          this.currentCategoryName =
+            this.deviceCategory.find((d) => d.value === categoryVal)?.name ||
+            'digital top seler';
         }
       },
     });

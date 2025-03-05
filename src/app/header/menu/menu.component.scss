@@ -71,6 +71,9 @@
         &:hover {
           color: $green;
         }
+        &.active-category {
+          color: $green;
+        }
       }
     }
   }
@@ -91,6 +94,9 @@
       //   align-items: center;
       white-space: nowrap;
       &:hover {
+        color: $green;
+      }
+      &.active-page-link {
         color: $green;
       }
     }
