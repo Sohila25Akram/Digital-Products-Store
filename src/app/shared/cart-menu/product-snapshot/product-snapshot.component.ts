@@ -1,5 +1,12 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, computed, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { LoaderDirective } from '../../loader.directive';
@@ -18,10 +25,10 @@ export class ProductSnapshotComponent {
 
   isLoading: boolean = false;
 
-  productAmount: number = 1; // Default value
+  productAmount = signal<number>(1); // Default value
 
   onProductAmountChange(amount: number) {
-    this.productAmount = amount;
+    this.productAmount.set(amount);
   }
 
   // ngOnInit(): void {

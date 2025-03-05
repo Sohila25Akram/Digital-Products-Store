@@ -12,11 +12,11 @@
       <div class="price-or-loader-container">
         @if(product.newPrice){
         <span class="price">
-          {{ product.newPrice * productAmount | currency }}
+          {{ product.newPrice * productAmount() | currency }}
         </span>
         }@else{
         <span class="price">
-          {{ product.originPrice * productAmount | currency }}
+          {{ product.originPrice * productAmount() | currency }}
         </span>
         }
       </div>
@@ -26,6 +26,7 @@
         [product]="product"
         [isSmall]="true"
         (productAmountChange)="onProductAmountChange($event)"
+        [numQuantity]="productAmount()"
       />
       <span class="delete-icon" (click)="deleteProductFromCart()"
         ><i class="fa-regular fa-trash-can"></i

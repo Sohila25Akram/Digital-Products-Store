@@ -28,6 +28,8 @@ export class ProductAmountComponent implements OnInit {
 
   productAmount = signal(1);
 
+  @Input() numQuantity: number = 1;
+
   // constructor() {
   //   effect(() => {
   //     this.productAmountChange.emit(this.productAmount());
