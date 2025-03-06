@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Product } from '../models/product.model';
 import { DummyProducts } from '../../../assets/data/dummy-products';
 import { RouterLink } from '@angular/router';
@@ -10,11 +10,11 @@ import { RouterLink } from '@angular/router';
   templateUrl: './top-tab.component.html',
   styleUrl: './top-tab.component.scss',
 })
-export class TopTabComponent implements OnInit {
+export class TopTabComponent {
   @Input() itemRecieved!: string;
   item!: string;
 
-  ngOnInit(): void {
-    this.item = this.itemRecieved;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['itemRecieved']) this.item = this.itemRecieved;
   }
 }
