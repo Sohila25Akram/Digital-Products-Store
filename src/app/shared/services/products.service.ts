@@ -1,17 +1,24 @@
 import { afterNextRender, Injectable, signal } from '@angular/core';
 import { Product } from '../models/product.model';
-import { DummyProducts } from '../../../assets/data/dummy-products';
+import {
+  deviceCategory,
+  DummyProducts,
+} from '../../../assets/data/dummy-products';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  products = signal<Product[]>(DummyProducts);
+  private products = signal<Product[]>(DummyProducts);
 
   loadedProducts = this.products.asReadonly();
 
   wishlistProducts = signal<Product[]>([]);
+
+  deviceCategory = deviceCategory;
+  selectedCategoryBrands = signal<string[]>([]);
+  currentCategoryName = signal<string>('Digital Top Seller');
 
   filteredProductsByCategory = signal<Product[]>([]);
 
@@ -83,27 +90,51 @@ export class ProductsService {
     );
   }
 
-  getfilteredCurrentProducts(productsToFilter: Product[], filter: string) {
-    let currentProducts = [...productsToFilter];
+  // filter -begin with what the current category
+  filterByCategory(categoryVal: string) {
+    const category = this.deviceCategory.find((p) => p.value === categoryVal);
+
+    if (category) {
+      this.filteredProductsByCategory.set(
+        this.products().filter((p) => p.category === categoryVal)
+      );
+
+      this.selectedCategoryBrands.set(category?.brands);
+      this.currentCategoryName.set(category?.name);
+    } else {
+      this.filteredProductsByCategory.set(this.loadedProducts());
+      const allBrands = [
+        ...new Set(this.deviceCategory.flatMap((cat) => cat.brands || [])),
+      ];
+
+      this.selectedCategoryBrands.set(allBrands);
+      this.currentCategoryName.set('Digital Top Seller');
+    }
+  }
+
+  getfilteredCurrentProducts(filter: string) {
+    let currentProducts = [...this.filteredProductsByCategory()];
     switch (filter) {
       case 'best-selling':
-        currentProducts = this.getBestSeller(productsToFilter);
+        currentProducts = this.getBestSeller(this.filteredProductsByCategory());
         break;
       case 'alpha-asc':
-        currentProducts = [...productsToFilter].sort((a, b) =>
+        currentProducts = [...this.filteredProductsByCategory()].sort((a, b) =>
           a.title.localeCompare(b.title)
         );
         break;
 
       case 'alpha-desc':
         currentProducts = [
-          ...productsToFilter.sort((a, b) => b.title.localeCompare(a.title)),
+          ...this.filteredProductsByCategory().sort((a, b) =>
+            b.title.localeCompare(a.title)
+          ),
         ];
         break;
 
       case 'price-asc':
         currentProducts = [
-          ...productsToFilter.sort((a, b) => {
+          ...this.filteredProductsByCategory().sort((a, b) => {
             const priceA = a.newPrice ?? a.originPrice;
             const priceB = b.newPrice ?? b.originPrice;
             return priceA - priceB;
@@ -113,7 +144,7 @@ export class ProductsService {
 
       case 'price-desc':
         currentProducts = [
-          ...productsToFilter.sort((a, b) => {
+          ...this.filteredProductsByCategory().sort((a, b) => {
             const priceA = a.newPrice ?? a.originPrice;
             const priceB = b.newPrice ?? b.originPrice;
             return priceB - priceA;
@@ -122,21 +153,49 @@ export class ProductsService {
         break;
 
       case 'date-asc':
-        currentProducts = [...productsToFilter].sort(
+        currentProducts = [...this.filteredProductsByCategory()].sort(
           (a, b) => a.addedDate.getTime() - b.addedDate.getTime()
         );
         break;
 
       case 'date-desc':
-        currentProducts = [...productsToFilter].sort(
+        currentProducts = [...this.filteredProductsByCategory()].sort(
           (a, b) => b.addedDate.getTime() - a.addedDate.getTime()
         );
         break;
 
       default:
+        currentProducts = this.filteredProductsByCategory();
         break;
     }
     return currentProducts;
+  }
+
+  filterProductsByBrand(selectedBrands: string[]): Product[] {
+    const currentProducts = this.filteredProductsByCategory().filter(
+      (products) =>
+        selectedBrands.length === 0 ||
+        selectedBrands.some(
+          (brand) => brand.toLowerCase() === products.brand?.toLowerCase()
+        )
+    );
+
+    return currentProducts;
+  }
+
+  filterProductsByPrice(priceRange: { minPrice: number; maxPrice: number }) {
+    console.log('Min Price:', priceRange.minPrice);
+    console.log('Max Price:', priceRange.maxPrice);
+    return this.filteredProductsByCategory().filter((product) => {
+      const currentPrice = product.newPrice
+        ? product.newPrice
+        : product.originPrice;
+
+      return (
+        currentPrice >= priceRange.minPrice &&
+        currentPrice <= priceRange.maxPrice
+      );
+    });
   }
 
   searchProductsByName(searchTerm: string): Observable<Product[]> {
@@ -154,13 +213,13 @@ export class ProductsService {
     }
   }
 
-  private filterProductsByCategory(category: string) {
-    const data = this.products().filter(
-      (product) => product.category === category
-    );
+  // private filterProductsByCategory(category: string) {
+  //   const data = this.products().filter(
+  //     (product) => product.category === category
+  //   );
 
-    this.filteredProductsByCategory.set(data);
-  }
+  //   this.filteredProductsByCategory.set(data);
+  // }
 
   private getBestSeller(productsToFilter?: Product[]): Product[] {
     return productsToFilter

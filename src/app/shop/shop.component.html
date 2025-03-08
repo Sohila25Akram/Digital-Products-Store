@@ -1,7 +1,7 @@
 <div class="img-container">
-  <h1>{{ currentCategoryName }}</h1>
+  <h1>{{ currentCategoryName() }}</h1>
 </div>
-<app-top-tab [itemRecieved]="currentCategoryName" />
+<app-top-tab [itemRecieved]="currentCategoryName()" />
 <section id="shop">
   <div>
     <!-- <div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
@@ -9,14 +9,14 @@
     <app-wrapper [isOpen]="isOpen" component="sidebar">
       <app-sidebar
         (closeEvent)="onToggle()"
-        [brandsList]="selectedCategoryBrands"
+        [brandsList]="selectedCategoryBrands()"
         (filterByBrand)="filterProductsByBrand($event)"
         (filterByPrice)="handlePriceFilter($event)"
       ></app-sidebar>
     </app-wrapper>
     <!-- </aside> -->
     <div class="right-side-container">
-      <h2>{{ currentCategoryName }}</h2>
+      <h2>{{ currentCategoryName() }}</h2>
       <div class="filteration-container">
         <button class="filter-btn" (click)="onToggle()">
           <span><i class="fa-solid fa-filter"></i></span> filter

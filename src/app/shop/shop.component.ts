@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { TopTabComponent } from '../shared/top-tab/top-tab.component';
 import { ProductsService } from '../shared/services/products.service';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
@@ -23,15 +23,20 @@ import { WrapperComponent } from '../shared/wrapper/wrapper.component';
 export class ShopComponent implements OnInit {
   private productsService = inject(ProductsService);
 
-  allProducts = this.productsService.loadedProducts();
+  // allProducts = this.productsService.loadedProducts();
+  // productsByCategory = this.productsService.filteredProductsByCategory();
   productsByCategory!: Product[];
-  products!: Product[];
-  selectedCategoryBrands!: string[];
+  products: Product[] = [];
+  // selectedCategoryBrands!: string[];
   checkedBrands: string[] = [];
+
   deviceCategory = deviceCategory;
-  currentCategoryName: string = 'digital top seler';
+  // currentCategoryName: string = 'digital top seler';
   private activatedRoute = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
+
+  selectedCategoryBrands = signal<string[]>([]);
+  currentCategoryName = signal<string>('Digital Top Seller');
 
   isOpen: boolean = false;
 
@@ -44,40 +49,33 @@ export class ShopComponent implements OnInit {
       next: (paramMap) => {
         const categoryVal = paramMap.get('categoryValue');
         if (categoryVal) {
-          this.productsByCategory = this.allProducts.filter(
-            (p) => p.category === categoryVal
-          )!;
-          this.products = [...this.productsByCategory];
+          this.productsService.filterByCategory(categoryVal);
 
-          this.selectedCategoryBrands =
-            this.deviceCategory.find((cat) => cat.value === categoryVal)
-              ?.brands || [];
-
-          this.currentCategoryName =
-            this.deviceCategory.find((d) => d.value === categoryVal)?.name ||
-            'digital top seler';
+          this.productsByCategory =
+            this.productsService.filteredProductsByCategory();
+          this.products = this.productsByCategory;
         }
       },
     });
+
+    this.currentCategoryName = this.productsService.currentCategoryName;
+    this.selectedCategoryBrands = this.productsService.selectedCategoryBrands;
+
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
+
+    // this.productsByCategory = this.productsService.filteredProductsByCategory();
+    // this.products = this.productsByCategory;
   }
 
   onFilter(event: Event) {
     const targetVal = event.target as HTMLSelectElement;
     this.products = this.productsService.getfilteredCurrentProducts(
-      this.productsByCategory,
       targetVal.value
     );
   }
 
   filterProductsByBrand(selectedBrands: string[]) {
-    this.products = this.productsByCategory.filter(
-      (products) =>
-        selectedBrands.length === 0 ||
-        selectedBrands.some(
-          (brand) => brand.toLowerCase() === products.brand?.toLowerCase()
-        )
-    );
+    this.products = this.productsService.filterProductsByBrand(selectedBrands);
 
     selectedBrands.forEach((brand) => {
       if (!this.checkedBrands.includes(brand)) {
@@ -85,23 +83,13 @@ export class ShopComponent implements OnInit {
       }
     });
 
-    this.checkedBrands = this.checkedBrands.filter((brandA) =>
-      selectedBrands.includes(brandA)
-    );
+    this.checkedBrands = selectedBrands;
+    // this.checkedBrands = this.checkedBrands.filter((brandA) =>
+    //   selectedBrands.includes(brandA)
+    // );
   }
 
   handlePriceFilter(priceRange: { minPrice: number; maxPrice: number }) {
-    console.log('Min Price:', priceRange.minPrice);
-    console.log('Max Price:', priceRange.maxPrice);
-    this.products = this.productsByCategory.filter((product) => {
-      const currentPrice = product.newPrice
-        ? product.newPrice
-        : product.originPrice;
-
-      return (
-        currentPrice >= priceRange.minPrice &&
-        currentPrice <= priceRange.maxPrice
-      );
-    });
+    this.products = this.productsService.filterProductsByPrice(priceRange);
   }
 }

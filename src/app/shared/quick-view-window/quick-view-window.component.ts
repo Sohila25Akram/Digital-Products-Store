@@ -75,21 +75,12 @@ export class QuickViewWindowComponent implements OnInit {
     this.isLoading = true;
     setTimeout(() => {
       this.router.navigate(['/cart-menu']);
+      this.productsService.addProductToCart(productId, amount);
 
-      this.addToCart(productId, amount);
       this.isLoading = false;
     }, 3000);
   }
 
-  addToCart(productId: string, amount: number) {
-    this.productsService.addProductToCart(productId, amount);
-  }
-
-  get amountCurrent() {
-    return this.productsService
-      .productsAddedToCart()
-      .map((item) => item.amount);
-  }
   // incrementAmount() {
   //   this.productsService.productsAddedToCart.update((cart) =>
   //     cart.map((item) =>
