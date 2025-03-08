@@ -14,7 +14,6 @@
   animation-fill-mode: both;
   background: $primaryColor;
   .top-header {
-    // background: $primaryColor;
     @include page-x;
     @include padding-y(10px);
     display: flex;
@@ -23,13 +22,11 @@
     color: $white;
     flex-wrap: wrap;
     flex-direction: column-reverse;
-    // padding: 10px 0;
     @media (min-width: 1024px) {
       flex-wrap: nowrap;
       flex-direction: row;
       align-items: center;
       min-height: 90px;
-      // padding: 0;
     }
     .availability {
       display: flex;
@@ -81,7 +78,6 @@
       .res-box {
         width: calc(100% - 60px);
         max-height: calc(100vh - 100px);
-        // overflow: auto;
         position: absolute;
         top: 100%;
         left: 0;
@@ -91,9 +87,7 @@
         border-radius: 6px;
         padding: 30px;
         box-shadow: 0 0 3px rgba(102, 102, 102, 0.1);
-        // display: none;
         .suggestion {
-          // margin-bottom: 25px;
           p {
             color: $black;
             font-size: $font-md;

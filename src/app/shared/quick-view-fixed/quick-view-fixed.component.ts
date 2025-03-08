@@ -15,7 +15,6 @@ export class QuickViewFixedComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     setTimeout(() => {
-      console.log('loading...');
       this.isLoading = false;
     }, 3000);
   }

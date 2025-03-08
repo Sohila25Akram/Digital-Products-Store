@@ -4,8 +4,6 @@
 <app-top-tab [itemRecieved]="currentCategoryName()" />
 <section id="shop">
   <div>
-    <!-- <div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
-  <aside [class.open]="isOpen"> -->
     <app-wrapper [isOpen]="isOpen" component="sidebar">
       <app-sidebar
         (closeEvent)="onToggle()"
@@ -14,7 +12,7 @@
         (filterByPrice)="handlePriceFilter($event)"
       ></app-sidebar>
     </app-wrapper>
-    <!-- </aside> -->
+
     <div class="right-side-container">
       <h2>{{ currentCategoryName() }}</h2>
       <div class="filteration-container">

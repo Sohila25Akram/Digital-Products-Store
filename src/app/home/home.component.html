@@ -1,5 +1,4 @@
 <section id="banner">
-  <!-- <div class="overlay"> -->
   <div class="swipper-container">
     <span class="swipper-btn prev-btn" (click)="onToggleSlide()"
       ><i class="fa-solid fa-chevron-left"></i
@@ -40,18 +39,9 @@
       ></span>
     </div>
   </div>
-  <!-- </div> -->
 </section>
+
 <section id="best-seller">
-  <!-- <app-best-seller-container imgSrc="pexels-jessbaileydesign-788946.jpg"> -->
-  <!-- <figure>
-    <img src="assets/banner-2/pexels-jessbaileydesign-788946.jpg" alt="" />
-    <figcaption>
-      <h2>Galaxy S22 Ultra</h2>
-      <p>Make nights epic with</p>
-      <a href="">get 10% offer</a>
-    </figcaption>
-  </figure> -->
   <app-best-seller-card
     [isBig]="true"
     imgSrc="pexels-jessbaileydesign-788946.jpg"
@@ -60,8 +50,6 @@
   >
     <a href="" class="offer">get 10% offer</a>
   </app-best-seller-card>
-
-  <!--  -->
   <div>
     <app-best-seller-card
       imgSrc="pexels-maria-mileta-3563033-15394136.jpg"
@@ -86,6 +74,7 @@
     />
   </div>
 </section>
+
 <section id="new-products">
   <div>
     <h2 class="section-title">New products</h2>
@@ -93,14 +82,6 @@
       @for(product of products; track product.id){
       <app-product-card [product]="product" />
       }
-      <!-- <app-product-card /> -->
-      <!-- <app-product-card />
-    <app-product-card />
-    <app-product-card />
-    <app-product-card />
-    <app-product-card />
-    <app-product-card />
-    <app-product-card /> -->
     </div>
     <a href="" class="view-all-btn">view all</a>
   </div>
@@ -135,5 +116,3 @@
   </div>
 </section>
 <router-outlet />
-
-<!-- <app-quick-view-window /> -->

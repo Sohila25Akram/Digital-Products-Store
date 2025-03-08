@@ -9,7 +9,6 @@
     ><i class="fa-solid fa-xmark"></i
   ></a>
   <div class="img-container">
-    <!-- <img src="assets/images/products/pexels-sound-on-3394648.jpg" alt="" /> -->
     <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
     @if(product.discount){
     <span>Sale</span>
@@ -51,20 +50,6 @@
       </p>
       <ng-content select="label" />
       <div class="amount-wishlist-container">
-        <!-- <div class="amount">
-          <button type="button">
-            <i class="fa-solid fa-minus" (click)="incrementAmount()"></i>
-          </button>
-          <input
-            type="text"
-            [value]="amountCurrent"
-            name="amount"
-            #productAmount
-          />
-          <button type="button">
-            <i class="fa-solid fa-plus" (click)="decrementAmount()"></i>
-          </button>
-        </div> -->
         <app-product-amount
           [product]="product"
           (productAmountChange)="handleProductAmountChange($event)"

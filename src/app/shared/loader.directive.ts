@@ -23,21 +23,11 @@ export class LoaderDirective implements OnChanges {
   private ourSpan: HTMLElement;
   constructor() {
     this.ourSpan = this.renderer.createElement('span');
-    // const loadingTxt = this.renderer.createText('Loading...');
-    const spinner = this.renderer.createElement('i'); // Create an <i> element
-    this.renderer.addClass(spinner, 'fa-solid'); // Add FontAwesome classes
+
+    const spinner = this.renderer.createElement('i');
+    this.renderer.addClass(spinner, 'fa-solid');
     this.renderer.addClass(spinner, 'fa-spinner');
     this.ourSpan.appendChild(spinner);
-    // if (this.addContainer) {
-    // this.renderer.addClass(this.ourSpan, 'add-container');
-    // this.renderer.setStyle(this.ourSpan, 'width', '100px');
-    // this.renderer.setStyle(this.ourSpan, 'height', '100px');
-    // this.renderer.setStyle(this.ourSpan, 'border-radius', '4px');
-    // this.renderer.setStyle(this.ourSpan, 'font-size', '38px');
-    // this.renderer.setStyle(this.ourSpan, 'background-color', '#fff');
-    // }
-
-    // this.renderer.setStyle(this.ourSpan, 'color', 'red');
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isLoading']) {

@@ -22,7 +22,7 @@ export class SidebarComponent {
   }>();
 
   closeMenu() {
-    this.closeEvent.emit(); // Notify parent to close the sidebar
+    this.closeEvent.emit();
   }
 
   onBrandFilter(event: Event, brand: string) {

@@ -30,12 +30,6 @@ export class ProductAmountComponent implements OnInit {
 
   @Input() numQuantity: number = 1;
 
-  // constructor() {
-  //   effect(() => {
-  //     this.productAmountChange.emit(this.productAmount());
-  //   });
-  // }
-
   ngOnInit(): void {
     const amount =
       this.productsService
@@ -54,28 +48,6 @@ export class ProductAmountComponent implements OnInit {
     });
   }
 
-  // constructor() {
-  //   effect(() => {
-  //     const amount =
-  //       this.productsService
-  //         .productsAddedToCart()
-  //         .find((p) => p.product?.id === this.product.id)?.amount || 1;
-
-  //     this.productAmount.set(amount);
-  //     this.productAmountChange.emit(amount);
-  //   });
-  // }
-
-  // productAmount = computed(() => {
-  //   const amount =
-  //     this.productsService
-  //       .productsAddedToCart()
-  //       .find((p) => p.product?.id === this.product.id)?.amount || 1;
-
-  //   this.manualAmount = amount;
-  //   return amount;
-  // });
-
   incrementAmount() {
     console.log('Before:', this.productAmount());
     this.updateCartAmount(Number(this.productAmount()) + 1);
@@ -86,17 +58,6 @@ export class ProductAmountComponent implements OnInit {
       this.updateCartAmount(Number(this.productAmount()) - 1);
     }
   }
-
-  // onManualInput(event: Event) {
-  //   const inputVal = (event.target as HTMLInputElement).value;
-  //   let newAmount = parseInt(inputVal, 10);
-
-  //   if (!isNaN(newAmount) && newAmount > 0) {
-  //     this.updateCartAmount(newAmount);
-  //   } else {
-  //     this.manualAmount.setValue(this.productAmount()); // Reset invalid input
-  //   }
-  // }
 
   private updateCartAmount(newAmount: number) {
     this.productsService.productsAddedToCart.update((cart) =>
@@ -113,11 +74,11 @@ export class ProductAmountComponent implements OnInit {
       )
     );
 
-    this.productAmount.set(newAmount); // Ensure signal updates immediately
+    this.productAmount.set(newAmount);
     if (this.manualAmount.value !== newAmount) {
       this.manualAmount.setValue(newAmount, { emitEvent: false });
     }
-    // this.manualAmount.setValue(newAmount, { emitEvent: false });
-    this.productAmountChange.emit(newAmount); // Emit updated amount to parent
+
+    this.productAmountChange.emit(newAmount);
   }
 }

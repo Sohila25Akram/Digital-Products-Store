@@ -46,7 +46,6 @@ export class HomeComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Ensure swiper-container exists
     const swiperContainer = this.el.nativeElement.querySelector(
       '.swiper'
     ) as HTMLElement;
@@ -55,7 +54,6 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
 
-    // Get the first category card width
     const firstCard = this.el.nativeElement.querySelector(
       '.category-card'
     ) as HTMLElement;
@@ -65,7 +63,6 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
 
-    // Get all buttons
     const scrollBtns = Array.from(
       this.el.nativeElement.querySelectorAll('.btn')
     ) as HTMLElement[];
@@ -74,7 +71,6 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
 
-    // Attach event listeners to buttons
     scrollBtns.forEach((btn) => {
       this.renderer.listen(btn, 'click', () => {
         if (!btn.id) {
@@ -86,17 +82,8 @@ export class HomeComponent implements AfterViewInit {
           btn.id === 'prev' ? -firstCardWidth : firstCardWidth;
         const newScrollLeft = swiperContainer.scrollLeft + scrollAmount;
 
-        // Set scrollLeft using Renderer2
         this.renderer.setProperty(swiperContainer, 'scrollLeft', newScrollLeft);
       });
     });
   }
-
-  // swipperContainer = document.getElementsByClassName('swiper-container');
-
-  // scrollBtns = document.querySelectorAll('.btn');
-
-  // scrollBtns.foreach(btn => {
-  //   btn.addEventListenner('click', () => console.log(`current btn: ${btn}`))
-  // })
 }

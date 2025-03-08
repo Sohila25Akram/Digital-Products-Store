@@ -19,7 +19,6 @@
       <button type="button">
         <span><i class="fa-solid fa-magnifying-glass"></i></span>
       </button>
-      <!-- @if(openSearchBox){ -->
       <div
         class="res-box"
         [style.display]="openSearchBox === true ? 'block' : 'none'"
@@ -35,7 +34,6 @@
           @for(product of products; track product.id){
           <li><app-searched-product [product]="product" /></li>
           }
-          <!-- <li><app-searched-product /></li> -->
         </ul>
         <a href="" class="moreItems">
           See all results for "{{ searchedTerm.value }}"
@@ -52,21 +50,7 @@
           ><a routerLink="/shop/headphones">Headphones</a>
         </div>
         }
-
-        <!-- <div class="suggestion">
-          <p>Popular searches</p>
-          <a href="">Smart TVs</a><a href="">Headphones</a>
-        </div>
-        <hr />
-        <p class="no-result">
-          Your search for "mobile" did not yield any results.
-        </p> -->
-
-        <!-- <p class="no-result">
-          Your search for "tvs ipio" did not yield any results.
-        </p> -->
       </div>
-      <!-- } -->
     </form>
     <div class="reverse">
       <div class="burger-menu">
@@ -93,8 +77,6 @@
     </div>
   </header>
   <app-navigation-bar />
-  <!-- <div class="background" [style.width]="isOpen ? '100%' : '0'"></div>
-  <aside [class.open]="isOpen"> -->
   <app-wrapper
     [isOpen]="isOpen"
     component="menu"
@@ -102,6 +84,4 @@
   >
     <app-menu />
   </app-wrapper>
-
-  <!-- </aside> -->
 </header>

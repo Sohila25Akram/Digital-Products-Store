@@ -26,8 +26,6 @@ export class ProductsService {
     { product: Product; amount: number; totalPriceOfAllProduct: number }[]
   >([]);
 
-  // searchedProducts = signal<Product[]>([]);
-
   constructor() {
     afterNextRender(() => {
       this.wishlistProducts.set(
@@ -90,7 +88,6 @@ export class ProductsService {
     );
   }
 
-  // filter -begin with what the current category
   filterByCategory(categoryVal: string) {
     const category = this.deviceCategory.find((p) => p.value === categoryVal);
 
@@ -199,9 +196,6 @@ export class ProductsService {
   }
 
   searchProductsByName(searchTerm: string): Observable<Product[]> {
-    // this.searchedProducts.update(() =>
-    //   this.products().filter((product) => product.title === ProductName)
-    // );
     if (searchTerm) {
       return of(
         this.products().filter((p) =>
@@ -212,14 +206,6 @@ export class ProductsService {
       return of([]);
     }
   }
-
-  // private filterProductsByCategory(category: string) {
-  //   const data = this.products().filter(
-  //     (product) => product.category === category
-  //   );
-
-  //   this.filteredProductsByCategory.set(data);
-  // }
 
   private getBestSeller(productsToFilter?: Product[]): Product[] {
     return productsToFilter

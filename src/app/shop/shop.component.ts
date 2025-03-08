@@ -23,15 +23,13 @@ import { WrapperComponent } from '../shared/wrapper/wrapper.component';
 export class ShopComponent implements OnInit {
   private productsService = inject(ProductsService);
 
-  // allProducts = this.productsService.loadedProducts();
-  // productsByCategory = this.productsService.filteredProductsByCategory();
   productsByCategory!: Product[];
   products: Product[] = [];
-  // selectedCategoryBrands!: string[];
+
   checkedBrands: string[] = [];
 
   deviceCategory = deviceCategory;
-  // currentCategoryName: string = 'digital top seler';
+
   private activatedRoute = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
 
@@ -62,9 +60,6 @@ export class ShopComponent implements OnInit {
     this.selectedCategoryBrands = this.productsService.selectedCategoryBrands;
 
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
-
-    // this.productsByCategory = this.productsService.filteredProductsByCategory();
-    // this.products = this.productsByCategory;
   }
 
   onFilter(event: Event) {
@@ -84,9 +79,6 @@ export class ShopComponent implements OnInit {
     });
 
     this.checkedBrands = selectedBrands;
-    // this.checkedBrands = this.checkedBrands.filter((brandA) =>
-    //   selectedBrands.includes(brandA)
-    // );
   }
 
   handlePriceFilter(priceRange: { minPrice: number; maxPrice: number }) {

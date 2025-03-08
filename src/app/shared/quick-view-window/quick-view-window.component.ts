@@ -36,9 +36,8 @@ export class QuickViewWindowComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
-  // productId!: string;
+
   isLoading: boolean = false;
-  // productAmount: number = 1;
 
   form = new FormGroup({
     productId: new FormControl(),
@@ -46,8 +45,7 @@ export class QuickViewWindowComponent implements OnInit {
   });
 
   handleProductAmountChange(amount: number) {
-    this.form.patchValue({ productAmount: amount }); // Store the new amount
-    // console.log('Updated product amount:', this.productAmount);
+    this.form.patchValue({ productAmount: amount });
   }
 
   ngOnInit(): void {
@@ -56,7 +54,6 @@ export class QuickViewWindowComponent implements OnInit {
         const productId = paramMap.get('productId');
         if (productId) {
           this.product = this.products.find((p) => p.id === productId)!;
-          // this.productId = productId;
           this.form.patchValue({ productId });
         }
       },
@@ -80,23 +77,4 @@ export class QuickViewWindowComponent implements OnInit {
       this.isLoading = false;
     }, 3000);
   }
-
-  // incrementAmount() {
-  //   this.productsService.productsAddedToCart.update((cart) =>
-  //     cart.map((item) =>
-  //       item.product?.id === this.product.id
-  //         ? { ...item, amount: item.amount + 1 }
-  //         : item
-  //     )
-  //   );
-  // }
-  // decrementAmount() {
-  //   this.productsService.productsAddedToCart.update((cart) =>
-  //     cart.map((item) =>
-  //       item.product?.id === this.product.id && item.amount > 1
-  //         ? { ...item, amount: item.amount + 1 }
-  //         : item
-  //     )
-  //   );
-  // }
 }

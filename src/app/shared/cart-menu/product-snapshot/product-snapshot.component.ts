@@ -25,26 +25,11 @@ export class ProductSnapshotComponent {
 
   isLoading: boolean = false;
 
-  productAmount = signal<number>(1); // Default value
+  productAmount = signal<number>(1);
 
   onProductAmountChange(amount: number) {
     this.productAmount.set(amount);
   }
-
-  // ngOnInit(): void {
-  //   const cartProduct = this.productsService
-  //     .productsAddedToCart()
-  //     .find((p) => p.product?.id === this.product.id);
-
-  //   this.productAmount = cartProduct ? cartProduct.amount : 1;
-  // }
-
-  // productAmount = computed(
-  //   () =>
-  //     this.productsService
-  //       .productsAddedToCart()
-  //       .find((p) => p.product?.id === this.product.id)?.amount || 1
-  // );
 
   deleteProductFromCart() {
     this.isLoading = true;
