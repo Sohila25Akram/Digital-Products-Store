@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./app/styles/variables";
 @import "./app/styles/mixins";
+@import "./app/styles/global";
 
 * {
   padding: 0;
@@ -11,6 +12,15 @@ body {
   line-height: 1.6;
   letter-spacing: 0.02em;
   color: $baseColor;
+}
+a {
+  text-decoration: none;
+  display: block;
+}
+button {
+  border: 0;
+  cursor: pointer;
+  display: block;
 }
 .section-title {
   font-size: $font-xl-plus;

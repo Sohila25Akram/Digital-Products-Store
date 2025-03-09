@@ -1,0 +1,16 @@
+@import "./variables";
+
+.discount {
+  position: absolute;
+  background-color: $redLightColor;
+  color: $white;
+  font-size: $font-xxs;
+  padding: 0 10px;
+  letter-spacing: 0;
+  line-height: 22px;
+  border-radius: 15px;
+}
+
+img {
+  width: 100%;
+}

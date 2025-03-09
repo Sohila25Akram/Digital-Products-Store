@@ -1,11 +1,21 @@
 @import "../../styles/variables";
+
+.card-btn {
+  color: $white;
+  height: 40px;
+  min-width: 40px;
+  background-color: $primaryColor;
+  border-radius: 20px;
+  transition: $transition3s;
+  visibility: hidden;
+  opacity: 0;
+}
 figure {
   width: 100%;
   height: 100%;
   text-align: center;
   position: relative;
   border: 1px solid $darkWhite;
-  transition: $transition3s;
   background-color: $white;
   padding: 5px;
   border-radius: 8px;
@@ -13,18 +23,8 @@ figure {
     position: absolute;
     top: 10px;
     right: 15px;
-    display: block;
     cursor: pointer;
-    color: $white;
     line-height: 36px;
-    height: 40px;
-    min-width: 40px;
-    background-color: $primaryColor;
-    border-radius: 20px;
-    transition: $transition3s;
-    visibility: hidden;
-    opacity: 0;
-    text-decoration: none;
     i {
       vertical-align: middle;
     }
@@ -34,16 +34,12 @@ figure {
     }
   }
   div {
-    // width: 246px;
     height: 246px;
     margin: 0 auto 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    img {
-      width: 100%;
-    }
   }
   figcaption {
     padding: 0 10px 10px;
@@ -78,16 +74,8 @@ figure {
       display: inline-block;
     }
     .discount {
-      position: absolute;
       top: 10px;
       left: 10px;
-      background-color: $redLightColor;
-      color: $white;
-      font-size: $font-xxs;
-      padding: 0 10px;
-      letter-spacing: 0;
-      line-height: 22px;
-      border-radius: 15px;
     }
   }
   .icons-container {
@@ -101,20 +89,8 @@ figure {
     bottom: 25px;
     a,
     button {
-      display: block;
-      cursor: pointer;
-      color: $white;
       margin: 3px;
       line-height: 38px;
-      height: 40px;
-      min-width: 40px;
-      background-color: $primaryColor;
-      border-radius: 20px;
-      transition: $transition3s;
-      visibility: hidden;
-      opacity: 0;
-      text-decoration: none;
-      border: 0;
       i {
         vertical-align: middle;
       }
@@ -127,24 +103,12 @@ figure {
   &:hover {
     .icons-container {
       bottom: 10px;
-      a,
-      button {
-        visibility: visible;
-        opacity: 1;
-      }
     }
+    .icons-container a,
+    .icons-container button,
     .delete-from-wishlist {
       visibility: visible;
       opacity: 1;
     }
   }
 }
-
-// article {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   z-index: 99999;
-//   display: none;
-//   min-height: 100vh;
-// }
