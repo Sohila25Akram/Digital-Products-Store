@@ -13,15 +13,6 @@ body {
   letter-spacing: 0.02em;
   color: $baseColor;
 }
-a {
-  text-decoration: none;
-  display: block;
-}
-button {
-  border: 0;
-  cursor: pointer;
-  display: block;
-}
 .section-title {
   font-size: $font-xl-plus;
   color: $textColor;
