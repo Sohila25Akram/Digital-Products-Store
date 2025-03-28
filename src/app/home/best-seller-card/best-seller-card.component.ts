@@ -1,4 +1,10 @@
-import { Component, Input, input, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  input,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
   selector: 'app-best-seller-card',
@@ -6,6 +12,7 @@ import { Component, Input, input, ViewEncapsulation } from '@angular/core';
   imports: [],
   templateUrl: './best-seller-card.component.html',
   styleUrl: './best-seller-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BestSellerCardComponent {
   imgSrc = input.required();

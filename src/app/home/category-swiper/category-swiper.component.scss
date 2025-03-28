@@ -1,0 +1,97 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+#shop-by-categories {
+  > div {
+    @include page-x;
+    @include padding-y(60px);
+
+    .swiper-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      .swiper {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: calc((100% / 2));
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: 0;
+        @media (min-width: 768px) {
+          grid-auto-columns: calc((100% / 4));
+        }
+        @media (min-width: 1024px) {
+          grid-auto-columns: calc((100% / 6));
+        }
+        .category-card {
+          padding: 0 0 30px;
+          // width: fit-content;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: calc(100% - 15px);
+          .category-img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: $darkerWhiteTwo;
+            cursor: pointer;
+          }
+          img {
+            width: 100%;
+            transition: $transition3s;
+          }
+          h3 {
+            text-align: center;
+            font-size: $font-md;
+            text-transform: capitalize;
+          }
+          &:hover {
+            img {
+              transform: scale(1.1, 1.1);
+            }
+          }
+        }
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      .btn {
+        color: $black;
+        background-color: $white;
+        position: absolute;
+        top: 50%;
+        width: 36px;
+        height: 36px;
+        margin-top: -17px;
+        z-index: 10;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: $transition3s;
+        @media (min-width: 1024px) {
+          opacity: 0;
+        }
+        &.prev-btn {
+          left: -12px;
+        }
+        &.next-btn {
+          right: -12px;
+        }
+      }
+      &:hover {
+        .btn {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

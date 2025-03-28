@@ -3,7 +3,7 @@
     <span class="swipper-btn prev-btn" (click)="onToggleSlide()"
       ><i class="fa-solid fa-chevron-left"></i
     ></span>
-    @if(currentSlide === 1){
+    @if(currentSlide() === 1){
     <div class="slide slide-1">
       <div class="overlay">
         <div class="content">
@@ -31,16 +31,17 @@
     <div class="swipper-bullets">
       <span
         (click)="onToggleSlide()"
-        [class.active]="currentSlide === 1"
+        [class.active]="currentSlide() === 1"
       ></span>
       <span
         (click)="onToggleSlide()"
-        [class.active]="currentSlide === 2"
+        [class.active]="currentSlide() === 2"
       ></span>
     </div>
   </div>
 </section>
 
+@defer (on viewport){
 <section id="best-seller">
   <app-best-seller-card
     [isBig]="true"
@@ -74,45 +75,26 @@
     />
   </div>
 </section>
-
+}@placeholder{
+<p>best seller</p>
+} @defer (on viewport){
 <section id="new-products">
   <div>
     <h2 class="section-title">New products</h2>
     <div class="products">
-      @for(product of products; track product.id){
+      @for(product of products(); track product.id){
       <app-product-card [product]="product" />
       }
     </div>
     <a href="" class="view-all-btn">view all</a>
   </div>
 </section>
-<section id="shop-by-categories">
-  <div>
-    <h2 class="section-title">shop by categories</h2>
-    <div class="swiper-container">
-      <div class="swiper">
-        @for(category of allCategories; track category.value){
-        <div href="" class="category-card">
-          <a
-            [routerLink]="['/shop', category.value]"
-            class="category-img-container"
-          >
-            <img
-              src="assets/images/categories/{{ category.imgSrc }}"
-              alt="{{ category.name }}"
-            />
-          </a>
-          <h3>{{ category.name }}</h3>
-        </div>
-        }
-      </div>
-      <span class="btn prev-btn" id="prev">
-        <i class="fa-solid fa-chevron-left"></i>
-      </span>
-      <span class="btn next-btn" id="next">
-        <i class="fa-solid fa-chevron-right"></i>
-      </span>
-    </div>
-  </div>
-</section>
+} @placeholder{
+<p>new products</p>
+} @defer (on viewport){
+<app-category-swiper />
+}@placeholder{
+<p>category swiper</p>
+}
+
 <router-outlet />

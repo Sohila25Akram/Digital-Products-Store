@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, NgZone, OnInit, signal } from '@angular/core';
 import { QuickViewWindowComponent } from '../quick-view-window/quick-view-window.component';
 import { LoaderDirective } from '../loader.directive';
 
@@ -10,12 +10,16 @@ import { LoaderDirective } from '../loader.directive';
   styleUrl: './quick-view-fixed.component.scss',
 })
 export class QuickViewFixedComponent implements OnInit {
-  isLoading: boolean = false;
+  private ngZone = inject(NgZone);
+  isLoading = signal(false);
 
   ngOnInit(): void {
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
+    this.isLoading.set(true);
+
+    this.ngZone.runOutsideAngular(() =>
+      setTimeout(() => {
+        this.ngZone.run(() => this.isLoading.set(false));
+      }, 3000)
+    );
   }
 }
