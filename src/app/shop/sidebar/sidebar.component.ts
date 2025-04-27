@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  EventEmitter,
+  Input,
+  Output,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -7,6 +15,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
   @Output() closeEvent = new EventEmitter();
@@ -54,16 +63,21 @@ export class SidebarComponent {
     });
   }
 
-  rangeValueStart: number = 0;
-  rangeValueEnd: number = 1200;
+  rangeValueStart = signal<number>(0);
+  rangeValueEnd = signal<number>(1200);
+
+  rangeValueStartWidth = computed(() => (this.rangeValueStart() / 600) * 150);
+  rangeValueEndWidth = computed(
+    () => ((1200 - this.rangeValueEnd()) / 600) * 150
+  );
 
   onRangeChange(event: Event, isStart: boolean) {
     const value = (event.target as HTMLInputElement).valueAsNumber;
     if (isStart) {
-      this.rangeValueStart = value;
+      this.rangeValueStart.set(value);
       this.minPrice = value;
     } else {
-      this.rangeValueEnd = value;
+      this.rangeValueEnd.set(value);
       this.maxPrice = value;
     }
     this.filterByPrice.emit({

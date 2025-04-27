@@ -1,4 +1,12 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { TopTabComponent } from '../shared/top-tab/top-tab.component';
 import { ProductsService } from '../shared/services/products.service';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
@@ -19,14 +27,16 @@ import { WrapperComponent } from '../shared/wrapper/wrapper.component';
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopComponent implements OnInit {
   private productsService = inject(ProductsService);
 
-  productsByCategory!: Product[];
-  products: Product[] = [];
+  productsByCategory = signal<Product[]>([]);
+  products = signal<Product[]>([]);
+  productsLength = computed(() => this.products().length);
 
-  checkedBrands: string[] = [];
+  checkedBrands = signal<string | string[]>([]);
 
   deviceCategory = deviceCategory;
 
@@ -49,9 +59,10 @@ export class ShopComponent implements OnInit {
         if (categoryVal) {
           this.productsService.filterByCategory(categoryVal);
 
-          this.productsByCategory =
-            this.productsService.filteredProductsByCategory();
-          this.products = this.productsByCategory;
+          this.productsByCategory.set(
+            this.productsService.filteredProductsByCategory()
+          );
+          this.products.set(this.productsByCategory());
         }
       },
     });
@@ -64,24 +75,26 @@ export class ShopComponent implements OnInit {
 
   onFilter(event: Event) {
     const targetVal = event.target as HTMLSelectElement;
-    this.products = this.productsService.getfilteredCurrentProducts(
-      targetVal.value
+    this.products.set(
+      this.productsService.getfilteredCurrentProducts(targetVal.value)
     );
   }
 
   filterProductsByBrand(selectedBrands: string[]) {
-    this.products = this.productsService.filterProductsByBrand(selectedBrands);
+    this.products.set(
+      this.productsService.filterProductsByBrand(selectedBrands)
+    );
 
     selectedBrands.forEach((brand) => {
-      if (!this.checkedBrands.includes(brand)) {
-        this.checkedBrands.push(brand);
+      if (!this.checkedBrands().includes(brand)) {
+        this.checkedBrands.set(brand);
       }
     });
 
-    this.checkedBrands = selectedBrands;
+    this.checkedBrands.set(selectedBrands);
   }
 
   handlePriceFilter(priceRange: { minPrice: number; maxPrice: number }) {
-    this.products = this.productsService.filterProductsByPrice(priceRange);
+    this.products.set(this.productsService.filterProductsByPrice(priceRange));
   }
 }

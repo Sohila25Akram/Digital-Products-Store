@@ -10,15 +10,9 @@
 
     <div [appLoader]="isLoading">
       <div class="price-or-loader-container">
-        @if(product.newPrice){
         <span class="price">
-          {{ product.newPrice * productAmount() | currency }}
+          {{ computedPrice | currency }}
         </span>
-        }@else{
-        <span class="price">
-          {{ product.originPrice * productAmount() | currency }}
-        </span>
-        }
       </div>
     </div>
     <div class="amount-delete-container">
