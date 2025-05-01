@@ -53,7 +53,7 @@ export class QuickViewWindowComponent implements OnInit {
       next: (paramMap) => {
         const productId = paramMap.get('productId');
         if (productId) {
-          this.product = this.products.find((p) => p.id === productId)!;
+          this.product = this.products.find((p: { id: string; }) => p.id === productId)!;
           this.form.patchValue({ productId });
         }
       },

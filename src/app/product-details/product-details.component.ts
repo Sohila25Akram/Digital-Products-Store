@@ -27,7 +27,7 @@ export class ProductDetailsComponent implements OnInit {
         const productId = paramMap.get('productId');
         if (productId) {
           this.productName = this.products.find(
-            (p) => p.id === productId
+            (p: { id: string; }) => p.id === productId
           )!.title;
         }
       },

@@ -23,16 +23,14 @@ import { WrapperComponent } from '../wrapper/wrapper.component';
 export class CartMenuComponent {
   private productsService = inject(ProductsService);
 
-  totalPriceOfAllProducts(): number {
-    return (
-      this.productsService
-        .productsAddedToCart()
-        ?.reduce(
-          (total, item) => total + (item.totalPriceOfAllProduct ?? 0),
-          0
-        ) ?? 0
-    );
-  }
+  totalPriceOfAllProducts = computed(() => {
+    return this.productsService.productsAddedToCart().reduce((total, item) => {
+      const product = item.product;
+      const price = product.newPrice ?? product.originPrice;
+      return total + price * item.amount;
+    }, 0);
+  });
+  
 
   productsInCart = computed(() =>
     this.productsService.productsAddedToCart().map((item) => item.product)

@@ -66,9 +66,9 @@ export class ProductAmountComponent implements OnInit {
           ? {
               ...item,
               amount: newAmount,
-              totalPriceOfAllProduct:
-                newAmount *
-                (item.product?.newPrice ?? item.product?.originPrice ?? 0),
+              // totalPriceOfAllProduct:
+              //   newAmount *
+              //   (item.product?.newPrice ?? item.product?.originPrice ?? 0),
             }
           : item
       )

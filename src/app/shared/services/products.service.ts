@@ -1,91 +1,139 @@
-import { afterNextRender, Injectable, signal } from '@angular/core';
-import { Product } from '../models/product.model';
-import {
-  deviceCategory,
-  DummyProducts,
-} from '../../../assets/data/dummy-products';
+import { afterNextRender, inject, Injectable, signal } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { deviceCategory } from '../../../assets/data/dummy-products';
+import { Product } from '../models/product.model';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  private products = signal<Product[]>(DummyProducts);
+  private apiService = inject(ApiService);
+  api = 'http://localhost:5000';
 
-  loadedProducts = this.products.asReadonly();
-
-  wishlistProducts = signal<Product[]>([]);
-
+  loadedProducts = signal<Product[]>([]);
+  wishlistProducts = signal<any>([]);
+  productsAddedToCart = signal<{ product: any; amount: number }[]>([]);
   deviceCategory = deviceCategory;
+  filteredProductsByCategory = signal<any>([]);
   selectedCategoryBrands = signal<string[]>([]);
   currentCategoryName = signal<string>('Digital Top Seller');
 
-  filteredProductsByCategory = signal<Product[]>([]);
-
-  productsAddedToCart = signal<
-    { product: Product; amount: number; totalPriceOfAllProduct: number }[]
-  >([]);
+  getProducts() {
+    this.apiService
+      .request<Product[]>('GET', `${this.api}/products`)
+      .subscribe((products) => this.loadedProducts.set(products));
+  }
 
   constructor() {
     afterNextRender(() => {
       this.wishlistProducts.set(
         JSON.parse(localStorage.getItem('wishlist') || '[]')
       );
-      this.productsAddedToCart.set(
-        JSON.parse(localStorage.getItem('cartItems') || '[]')
-      );
+
+      this.getWishlistItems();
+      this.getItemsInCart();
     });
+
+    this.getProducts();
   }
 
   addProductToWishlist(productId: string) {
-    const product = this.products().find((p) => p.id === productId);
+    const headers = { 'Content-Type': 'application/json' };
 
-    if (product && !this.wishlistProducts().some((p) => p.id === productId)) {
-      this.wishlistProducts.update((wishlist) => [...wishlist, product]);
-      localStorage.setItem('wishlist', JSON.stringify(this.wishlistProducts()));
-    }
+    this.apiService
+      .request<Product>('POST', `${this.api}/wishlist`, {
+        body: { productId },
+        headers: { headers },
+      })
+      .subscribe(
+        (responseProduct) => {
+          console.log(
+            responseProduct,
+            ' product added to wishlist successfully'
+          );
+        },
+        (error) => {
+          console.error('Failed to add product to wishlist:', error);
+        }
+      );
+  }
+
+  getWishlistItems() {
+    this.apiService
+      .request<Product>('GET', `${this.api}/wishlist`)
+      .subscribe((products) => {
+        this.wishlistProducts.set(products);
+      });
   }
 
   deleteProductFromWishlist(productId: string) {
-    this.wishlistProducts.update((wishlist) =>
-      wishlist.filter((product) => product.id !== productId)
-    );
-    localStorage.setItem('wishlist', JSON.stringify(this.wishlistProducts()));
+    this.apiService
+      .request<Product>('DELETE', `${this.api}/wishlist/${productId}`)
+      .subscribe(
+        (product) => {
+          const updatedWishlist = this.wishlistProducts().filter(
+            (p: { id: string }) => p.id !== productId
+          );
+          this.wishlistProducts.set(updatedWishlist);
+          console.log(product, ' deleted form wishlist Successfully');
+        },
+        (error) => {
+          console.error('Failed to delete product form wishlist:', error);
+        }
+      );
+  }
+
+  saveInCart(items: {product: Product, amount: number}[]){
+    localStorage.setItem('cartItems', JSON.stringify(items));
   }
 
   addProductToCart(productId: string, amount: number) {
-    const product = this.products().find((p) => p.id === productId);
-
-    if (
-      product &&
-      !this.productsAddedToCart().some((p) => p.product?.id === productId)
-    ) {
-      this.productsAddedToCart.update((cart) => [
-        ...cart,
-        {
-          product: product,
+    this.apiService
+      .request<{ product: any; amount: number }[]>('POST', `${this.api}/cart`, {
+        body: {
+          productId: productId,
           amount: amount,
-          totalPriceOfAllProduct:
-            (product.newPrice ?? product.originPrice) * amount,
         },
-      ]);
-    }
-    localStorage.setItem(
-      'cartItems',
-      JSON.stringify(this.productsAddedToCart())
-    );
+      })
+      .subscribe((response) => {
+        const currentCartItems = JSON.parse(
+          localStorage.getItem('cartItems') || '[]'
+        );
+        currentCartItems.push(response);
+        this.saveInCart(currentCartItems)
 
-    console.log(`product id: ${productId}, amount: ${amount}`);
+        this.productsAddedToCart.set(currentCartItems);
+
+        console.log(`product: ${response}, amount: ${amount}`);
+      });
+  }
+
+  getItemsInCart() {
+    this.apiService
+      .request<{ product: any; amount: number }[]>('GET', `${this.api}/cart`)
+      .subscribe((response) => {
+        this.saveInCart(response);
+        this.productsAddedToCart.set(response);
+      });
   }
 
   deleteProductFromCart(productId: string) {
-    this.productsAddedToCart.update((cart) =>
-      cart.filter((item) => item.product?.id !== productId)
-    );
-    localStorage.setItem(
-      'cartItems',
-      JSON.stringify(this.productsAddedToCart())
-    );
+    this.apiService
+      .request<Product>('DELETE', `${this.api}/cart/${productId}`)
+      .subscribe(
+        (response) => {
+          const updatedCart = this.productsAddedToCart().filter(
+            (p) => p.product.id !== productId
+          );
+          this.productsAddedToCart.set(updatedCart);
+          this.saveInCart(updatedCart);
+          console.log(response, ' deleted form cart Successfully');
+        },
+        (error) => {
+          console.error('Failed to delete product form cart:', error);
+        }
+      );
   }
 
   filterByCategory(categoryVal: string) {
@@ -93,7 +141,9 @@ export class ProductsService {
 
     if (category) {
       this.filteredProductsByCategory.set(
-        this.products().filter((p) => p.category === categoryVal)
+        this.loadedProducts().filter(
+          (p: { category: string }) => p.category === categoryVal
+        )
       );
 
       this.selectedCategoryBrands.set(category?.brands);
@@ -123,29 +173,40 @@ export class ProductsService {
 
       case 'alpha-desc':
         currentProducts = [
-          ...this.filteredProductsByCategory().sort((a, b) =>
-            b.title.localeCompare(a.title)
+          ...this.filteredProductsByCategory().sort(
+            (a: { title: any }, b: { title: string }) =>
+              b.title.localeCompare(a.title)
           ),
         ];
         break;
 
       case 'price-asc':
         currentProducts = [
-          ...this.filteredProductsByCategory().sort((a, b) => {
-            const priceA = a.newPrice ?? a.originPrice;
-            const priceB = b.newPrice ?? b.originPrice;
-            return priceA - priceB;
-          }),
+          ...this.filteredProductsByCategory().sort(
+            (
+              a: { newPrice: any; originPrice: any },
+              b: { newPrice: any; originPrice: any }
+            ) => {
+              const priceA = a.newPrice ?? a.originPrice;
+              const priceB = b.newPrice ?? b.originPrice;
+              return priceA - priceB;
+            }
+          ),
         ];
         break;
 
       case 'price-desc':
         currentProducts = [
-          ...this.filteredProductsByCategory().sort((a, b) => {
-            const priceA = a.newPrice ?? a.originPrice;
-            const priceB = b.newPrice ?? b.originPrice;
-            return priceB - priceA;
-          }),
+          ...this.filteredProductsByCategory().sort(
+            (
+              a: { newPrice: any; originPrice: any },
+              b: { newPrice: any; originPrice: any }
+            ) => {
+              const priceA = a.newPrice ?? a.originPrice;
+              const priceB = b.newPrice ?? b.originPrice;
+              return priceB - priceA;
+            }
+          ),
         ];
         break;
 
@@ -168,9 +229,9 @@ export class ProductsService {
     return currentProducts;
   }
 
-  filterProductsByBrand(selectedBrands: string[]): Product[] {
+  filterProductsByBrand(selectedBrands: string[]): any {
     const currentProducts = this.filteredProductsByCategory().filter(
-      (products) =>
+      (products: { brand: string }) =>
         selectedBrands.length === 0 ||
         selectedBrands.some(
           (brand) => brand.toLowerCase() === products.brand?.toLowerCase()
@@ -183,22 +244,24 @@ export class ProductsService {
   filterProductsByPrice(priceRange: { minPrice: number; maxPrice: number }) {
     console.log('Min Price:', priceRange.minPrice);
     console.log('Max Price:', priceRange.maxPrice);
-    return this.filteredProductsByCategory().filter((product) => {
-      const currentPrice = product.newPrice
-        ? product.newPrice
-        : product.originPrice;
+    return this.filteredProductsByCategory().filter(
+      (product: { newPrice: any; originPrice: any }) => {
+        const currentPrice = product.newPrice
+          ? product.newPrice
+          : product.originPrice;
 
-      return (
-        currentPrice >= priceRange.minPrice &&
-        currentPrice <= priceRange.maxPrice
-      );
-    });
+        return (
+          currentPrice >= priceRange.minPrice &&
+          currentPrice <= priceRange.maxPrice
+        );
+      }
+    );
   }
 
-  searchProductsByName(searchTerm: string): Observable<Product[]> {
+  searchProductsByName(searchTerm: string): Observable<any> {
     if (searchTerm) {
       return of(
-        this.products().filter((p) =>
+        this.loadedProducts().filter((p: { title: string }) =>
           p.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
@@ -207,9 +270,13 @@ export class ProductsService {
     }
   }
 
-  private getBestSeller(productsToFilter?: Product[]): Product[] {
+  private getBestSeller(productsToFilter?: any): any {
     return productsToFilter
-      ? [...productsToFilter.filter((product) => product.customers > 5)]
+      ? [
+          ...productsToFilter.filter(
+            (product: { customers: number }) => product.customers > 5
+          ),
+        ]
       : [];
   }
 }
