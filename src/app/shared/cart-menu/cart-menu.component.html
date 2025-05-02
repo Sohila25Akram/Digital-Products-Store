@@ -7,7 +7,7 @@
     >
       @if(productsInCart().length>0){
       <h2>
-        Your Cart (<span>{{ productsInCartLength$ | async }}</span
+        Your Cart (<span>{{ productsInCart().length }}</span
         >)
       </h2>
       }
