@@ -31,7 +31,7 @@
     <div class="price-range-slide">
       <span
         class="range-value min-value"
-        [style.width.px]="(rangeValueStart / 600) * 150"
+        [style.width.px]="rangeValueStartWidth()"
       ></span>
       <input
         type="range"
@@ -44,7 +44,7 @@
       />
       <span
         class="range-value max-value"
-        [style.width.px]="((1200 - rangeValueEnd) / 600) * 150"
+        [style.width.px]="rangeValueEndWidth()"
       ></span>
       <input
         type="range"

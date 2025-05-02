@@ -1,16 +1,15 @@
 import {
-  AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
-  ElementRef,
   inject,
-  Renderer2,
+  signal,
 } from '@angular/core';
 import { BestSellerCardComponent } from './best-seller-card/best-seller-card.component';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
 import { QuickViewWindowComponent } from '../shared/quick-view-window/quick-view-window.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ProductsService } from '../shared/services/products.service';
-import { deviceCategory } from '../../assets/data/dummy-products';
+import { CategorySwiperComponent } from './category-swiper/category-swiper.component';
 
 @Component({
   selector: 'app-home',
@@ -21,69 +20,20 @@ import { deviceCategory } from '../../assets/data/dummy-products';
     QuickViewWindowComponent,
     RouterLink,
     RouterOutlet,
+    CategorySwiperComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent {
   private productsService = inject(ProductsService);
 
-  products = this.productsService.loadedProducts();
+  products = signal(this.productsService.loadedProducts());
 
-  currentSlide: number = 1;
-
-  allCategories = deviceCategory;
-
-  private renderer = inject(Renderer2);
-  private el = inject(ElementRef);
+  currentSlide = signal<number>(1);
 
   onToggleSlide() {
-    if (this.currentSlide === 1) {
-      this.currentSlide = 2;
-    } else {
-      this.currentSlide = 1;
-    }
-  }
-
-  ngAfterViewInit(): void {
-    const swiperContainer = this.el.nativeElement.querySelector(
-      '.swiper'
-    ) as HTMLElement;
-    if (!swiperContainer) {
-      console.error('Swiper container not found');
-      return;
-    }
-
-    const firstCard = this.el.nativeElement.querySelector(
-      '.category-card'
-    ) as HTMLElement;
-    const firstCardWidth = firstCard ? firstCard.offsetWidth : 0;
-    if (firstCardWidth === 0) {
-      console.error('Category card width is 0, check if .category-card exists');
-      return;
-    }
-
-    const scrollBtns = Array.from(
-      this.el.nativeElement.querySelectorAll('.btn')
-    ) as HTMLElement[];
-    if (scrollBtns.length === 0) {
-      console.error('No scroll buttons found');
-      return;
-    }
-
-    scrollBtns.forEach((btn) => {
-      this.renderer.listen(btn, 'click', () => {
-        if (!btn.id) {
-          console.error('Button missing ID:', btn);
-          return;
-        }
-
-        const scrollAmount =
-          btn.id === 'prev' ? -firstCardWidth : firstCardWidth;
-        const newScrollLeft = swiperContainer.scrollLeft + scrollAmount;
-
-        this.renderer.setProperty(swiperContainer, 'scrollLeft', newScrollLeft);
-      });
-    });
+    this.currentSlide.update((prev) => (prev === 1 ? 2 : 1));
   }
 }

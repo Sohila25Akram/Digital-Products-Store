@@ -4,6 +4,7 @@ import {
   computed,
   inject,
   Input,
+  NgZone,
   OnInit,
   signal,
 } from '@angular/core';
@@ -22,10 +23,17 @@ import { ProductAmountComponent } from '../../product-amount/product-amount.comp
 export class ProductSnapshotComponent {
   @Input() product!: Product;
   private productsService = inject(ProductsService);
+  private ngZone = inject(NgZone);
 
   isLoading: boolean = false;
 
   productAmount = signal<number>(1);
+
+  get computedPrice(): number {
+    return (
+      (this.product.newPrice ?? this.product.originPrice) * this.productAmount()
+    );
+  }
 
   onProductAmountChange(amount: number) {
     this.productAmount.set(amount);
@@ -33,9 +41,13 @@ export class ProductSnapshotComponent {
 
   deleteProductFromCart() {
     this.isLoading = true;
-    setTimeout(() => {
-      this.productsService.deleteProductFromCart(this.product.id);
-      this.isLoading = false;
-    }, 3000);
+
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this.productsService.deleteProductFromCart(this.product.id);
+
+        this.ngZone.run(() => (this.isLoading = false));
+      }, 3000);
+    });
   }
 }

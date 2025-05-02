@@ -8,9 +8,8 @@ describe('BestSellerCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BestSellerCardComponent]
-    })
-    .compileComponents();
+      imports: [BestSellerCardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BestSellerCardComponent);
     component = fixture.componentInstance;
