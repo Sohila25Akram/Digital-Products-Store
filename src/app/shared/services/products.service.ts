@@ -27,27 +27,21 @@ export class ProductsService {
 
   constructor() {
     afterNextRender(() => {
-      this.wishlistProducts.set(
-        JSON.parse(localStorage.getItem('wishlist') || '[]')
-      );
-
-      this.getWishlistItems();
       this.getItemsInCart();
     });
-
+    this.getWishlistItems();
     this.getProducts();
   }
 
   addProductToWishlist(productId: string) {
-    const headers = { 'Content-Type': 'application/json' };
-
     this.apiService
       .request<Product>('POST', `${this.api}/wishlist`, {
         body: { productId },
-        headers: { headers },
       })
       .subscribe(
         (responseProduct) => {
+          const current = this.wishlistProducts();
+          this.wishlistProducts.set([...current, responseProduct]);
           console.log(
             responseProduct,
             ' product added to wishlist successfully'
