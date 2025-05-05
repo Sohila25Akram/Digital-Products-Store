@@ -1,6 +1,7 @@
 @import "../../styles/variables";
 .amount {
   display: flex;
+  width: fit-content;
   border: $border;
   border-radius: 4px;
   overflow: hidden;

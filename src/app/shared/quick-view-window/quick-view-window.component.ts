@@ -26,7 +26,6 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   ],
   templateUrl: './quick-view-window.component.html',
   styleUrl: './quick-view-window.component.scss',
-  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class QuickViewWindowComponent implements OnInit {
   @Input() isExpanded?: boolean = false;

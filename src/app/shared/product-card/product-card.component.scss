@@ -25,6 +25,12 @@ figure {
     right: 15px;
     cursor: pointer;
     line-height: 36px;
+    visibility: visible;
+    opacity: 1;
+    @media (min-width: 1024px){
+      visibility: hidden;
+      opacity: 0;
+    }
     i {
       vertical-align: middle;
     }

@@ -29,6 +29,29 @@ import { CategorySwiperComponent } from './category-swiper/category-swiper.compo
 export class HomeComponent {
   private productsService = inject(ProductsService);
 
+  bestSellerSmallCards = [
+    {
+      "imgSrc" : "pexels-maria-mileta-3563033-15394136.jpg",
+      "title": "Projectors",
+      "desc": "4K Ultra HD with 8 million pixels"
+    },
+    {
+      "imgSrc" : "pexels-martin_poland-1175242-15684881.jpg",
+      "title": "Soundbars",
+      "desc": "With Wireless Subwoofer for Extra Deep Bass"
+    },
+    {
+      "imgSrc" : "pexels-paulseling-20385203.jpg",
+      "title": "video game",
+      "desc": "Flat 25% Off On Children's Day"
+    },
+    {
+      "imgSrc" : "pexels-samed-bayrak-2518016-9546248.jpg",
+      "title": "Bluetooth Speaker",
+      "desc": "Feather light, ultra-portable grab-and-go design"
+    },
+  ]
+
   products = signal(this.productsService.loadedProducts());
 
   currentSlide = signal<number>(1);

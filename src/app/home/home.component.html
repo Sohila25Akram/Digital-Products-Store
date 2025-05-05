@@ -52,27 +52,13 @@
     <a href="" class="offer">get 10% offer</a>
   </app-best-seller-card>
   <div>
-    <app-best-seller-card
-      imgSrc="pexels-maria-mileta-3563033-15394136.jpg"
-      title="Projectors"
-      desc="4K Ultra HD with 8 million pixels"
-    />
-
-    <app-best-seller-card
-      imgSrc="pexels-martin_poland-1175242-15684881.jpg"
-      title="Soundbars"
-      desc="With Wireless Subwoofer for Extra Deep Bass"
-    />
-    <app-best-seller-card
-      imgSrc="pexels-paulseling-20385203.jpg"
-      title="video game"
-      desc="Flat 25% Off On Children's Day"
-    />
-    <app-best-seller-card
-      imgSrc="pexels-samed-bayrak-2518016-9546248.jpg"
-      title="Bluetooth Speaker"
-      desc="Feather light, ultra-portable grab-and-go design"
-    />
+    @for(bestSellerCard of bestSellerSmallCards; track bestSellerCard.title){
+      <app-best-seller-card
+        [imgSrc]="bestSellerCard.imgSrc"
+        [title]="bestSellerCard.title"
+        [desc]="bestSellerCard.desc"
+      />
+    }
   </div>
 </section>
 }@placeholder{

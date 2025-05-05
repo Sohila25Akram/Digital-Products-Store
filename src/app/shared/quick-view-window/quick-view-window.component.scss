@@ -37,7 +37,12 @@
       border-radius: 15px;
     }
     img {
-      width: 100%;
+      width: 50%;
+      display: block;
+      margin: auto;
+      @media (min-width: 768px){
+         width: 100%;
+      }
     }
   }
   form {
@@ -102,27 +107,14 @@
         align-items: center;
       }
       .add-wishlist {
-        display: flex;
-        gap: 15px;
         color: $baseColor;
+        margin-bottom: 15px;
+        @media (min-width: 1024px) {
+          display: flex;
+          gap: 15px;
+          margin-bottom: 0;
+        }
       }
-    }
-    .btn-main {
-      text-transform: uppercase;
-      width: 100% !important;
-      min-width: 200px !important;
-      margin-bottom: 15px;
-      height: 50px !important;
-      font-size: $font-xs;
-      font-weight: 400;
-      padding: 12px 25px;
-      line-height: 1;
-      border: 0;
-      color: $white;
-      border-radius: 4px;
-      display: inline-block;
-      transition: $transition3s;
-      cursor: pointer;
     }
     .btn-cart {
       background-color: $primaryColor;
@@ -132,16 +124,6 @@
         color: $primaryColor;
       }
     }
-    .btn-buy {
-      background-color: $green;
-      margin-bottom: 30px;
-      transition: $transition2s;
-
-      &:hover {
-        opacity: 0.9;
-      }
-    }
-
     a.view {
       text-decoration: none;
       color: $textColor;

@@ -4,7 +4,13 @@
 #product-details {
   @include page-x;
   @include padding-y(30px);
-  > div {
-    @include remove-margin-x(30px);
+  .btn-buy {
+    background-color: $green;
+    margin-bottom: 30px;
+    transition: $transition2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
 }

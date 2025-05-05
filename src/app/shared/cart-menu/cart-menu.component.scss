@@ -82,18 +82,8 @@
       }
     }
     .btn-main {
-      text-transform: uppercase;
-      font-size: $font-xs;
-      font-weight: 400;
       padding: 14px 30px;
-      line-height: 1;
-      border: 0;
-      color: $white;
-      border-radius: 4px;
-      display: block;
-      text-align: center;
-      transition: $transition3s;
-      cursor: pointer;
+      height: fit-content !important;
     }
     .btn-buy {
       background-color: $green;
