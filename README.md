@@ -1,7 +1,17 @@
 # ECommerce
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+## Run the API Locally
+To run the API locally:
+1. Download the API from GitHub:  
+   [https://github.com/Sohila25Akram/e-commerce-API](https://github.com/Sohila25Akram/e-commerce-API) 
 
+2. Navigate to the API folder in your terminal.
+
+3. Run the server:
+
+   ```bash
+   node server.js
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
