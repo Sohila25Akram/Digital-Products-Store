@@ -33,7 +33,7 @@ export class CategorySwiperComponent implements AfterViewInit {
     ) as HTMLElement;
 
     if (firstCard) {
-      this.firstCardWidth = firstCard ? firstCard.offsetWidth : 0;
+      this.firstCardWidth = firstCard.offsetWidth;
     } else {
       console.error('Category card width is 0, check if .category-card exists');
     }

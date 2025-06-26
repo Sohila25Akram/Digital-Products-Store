@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit } from '@angular/core';
 import { QuickViewWindowComponent } from '../shared/quick-view-window/quick-view-window.component';
 import { ActivatedRoute } from '@angular/router';
 import { ShippingComponent } from '../shared/shipping/shipping.component';
@@ -15,7 +15,7 @@ import { ProductsService } from '../shared/services/products.service';
 export class ProductDetailsComponent implements OnInit {
   private productsService = inject(ProductsService);
 
-  products = this.productsService.loadedProducts();
+  products = computed(() => this.productsService.loadedProducts());
   productName: string = '';
 
   private activatedRoute = inject(ActivatedRoute);
@@ -26,7 +26,7 @@ export class ProductDetailsComponent implements OnInit {
       next: (paramMap) => {
         const productId = paramMap.get('productId');
         if (productId) {
-          this.productName = this.products.find(
+          this.productName = this.products().find(
             (p: { id: string; }) => p.id === productId
           )!.title;
         }

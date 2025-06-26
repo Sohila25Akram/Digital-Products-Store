@@ -10,7 +10,7 @@
     <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
     <div class="icons-container">
       <button
-        class="card-btn"
+        class="add-wishlist-btn card-btn"
         [style.display]="inWishlist ? 'none' : 'block'"
         (click)="addToWishlist()"
       >
@@ -18,7 +18,7 @@
       </button>
 
       <button
-        class="card-btn"
+        class="add-to-cart-btn card-btn"
         routerLink="/cart-menu"
         (click)="addProductToCart(amount)"
       >

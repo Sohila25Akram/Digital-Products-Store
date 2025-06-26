@@ -18,5 +18,5 @@ export class BestSellerCardComponent {
   imgSrc = input.required();
   title = input.required<string>();
   desc = input.required<string>();
-  @Input() isBig: boolean = false;
+  isBig = input<boolean>(false)
 }

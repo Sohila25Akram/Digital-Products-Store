@@ -29,11 +29,9 @@ export class ProductSnapshotComponent {
 
   productAmount = signal<number>(1);
 
-  get computedPrice(): number {
-    return (
-      (this.product.newPrice ?? this.product.originPrice) * this.productAmount()
-    );
-  }
+  computedPrice = computed(() => {
+    return (this.product.newPrice ?? this.product.originPrice) * this.productAmount()
+  })
 
   onProductAmountChange(amount: number) {
     this.productAmount.set(amount);

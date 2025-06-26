@@ -1,5 +1,5 @@
 <div class="amount" [class.small]="isSmall">
-  <button type="button" (click)="decrementAmount()">
+  <button class="decrement-btn" type="button" (click)="decrementAmount()">
     <i class="fa-solid fa-minus"></i>
   </button>
   <input
@@ -9,7 +9,7 @@
     [formControl]="manualAmount"
     [value]="numQuantity"
   />
-  <button type="button" (click)="incrementAmount()">
+  <button class="increment-btn" type="button" (click)="incrementAmount()">
     <i class="fa-solid fa-plus"></i>
   </button>
 </div>

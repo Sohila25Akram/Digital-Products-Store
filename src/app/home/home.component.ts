@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -52,7 +53,7 @@ export class HomeComponent {
     },
   ]
 
-  products = signal(this.productsService.loadedProducts());
+  products = computed(() => this.productsService.loadedProducts() );
 
   currentSlide = signal<number>(1);
 

@@ -11,7 +11,7 @@
     <div [appLoader]="isLoading">
       <div class="price-or-loader-container">
         <span class="price">
-          {{ computedPrice | currency }}
+          {{ computedPrice() | currency }}
         </span>
       </div>
     </div>
