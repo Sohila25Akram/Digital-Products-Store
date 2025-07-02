@@ -1,15 +1,18 @@
 import { afterNextRender, inject, Injectable, signal } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { deviceCategory } from '../../../assets/data/dummy-products';
 import { Product } from '../models/product.model';
 import { ApiService } from './api.service';
+import { ProductsFirebaseService } from './products-firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  private apiService = inject(ApiService);
-  api = 'http://localhost:5000';
+  // private apiService = inject(ApiService);
+  // api = 'http://localhost:5000';
+
+  private productsFirebaseService = inject(ProductsFirebaseService)
 
   loadedProducts = signal<Product[]>([]);
   wishlistProducts = signal<any>([]);
@@ -20,8 +23,9 @@ export class ProductsService {
   currentCategoryName = signal<string>('Digital Top Seller');
 
   getProducts() {
-    this.apiService
-      .request<Product[]>('GET', `${this.api}/products`)
+    // this.apiService
+    //   .request<Product[]>('GET', `${this.api}/products`)
+    this.productsFirebaseService.getProducts()
       .subscribe((products) => this.loadedProducts.set(products));
   }
 
@@ -34,14 +38,16 @@ export class ProductsService {
   }
 
   addProductToWishlist(productId: string) {
-    this.apiService
-      .request<Product>('POST', `${this.api}/wishlist`, {
-        body: { productId },
-      })
+    // this.apiService
+    //   .request<Product>('POST', `${this.api}/wishlist`, {
+    //     body: { productId },
+    //   })
+
+    this.productsFirebaseService.addProductToWishlist(productId)
       .subscribe(
         (responseProduct) => {
-          const current = this.wishlistProducts();
-          this.wishlistProducts.set([...current, responseProduct]);
+          // const current = this.wishlistProducts();
+          // this.wishlistProducts.set([...current, responseProduct]);
           console.log(
             responseProduct,
             ' product added to wishlist successfully'
@@ -54,80 +60,100 @@ export class ProductsService {
   }
 
   getWishlistItems() {
-    this.apiService
-      .request<Product>('GET', `${this.api}/wishlist`)
+    // this.apiService
+    //   .request<Product>('GET', `${this.api}/wishlist`)
+    this.productsFirebaseService.getProductsWishlist()
       .subscribe((products) => {
         this.wishlistProducts.set(products);
       });
   }
 
   deleteProductFromWishlist(productId: string) {
-    this.apiService
-      .request<Product>('DELETE', `${this.api}/wishlist/${productId}`)
-      .subscribe(
-        (product) => {
-          const updatedWishlist = this.wishlistProducts().filter(
-            (p: { id: string }) => p.id !== productId
-          );
-          this.wishlistProducts.set(updatedWishlist);
+    // this.apiService
+    //   .request<Product>('DELETE', `${this.api}/wishlist/${productId}`)
+    this.productsFirebaseService.deleteFromWishlist(productId)
+      .subscribe({
+        next: (product) => {
+          // const updatedWishlist = this.wishlistProducts().filter(
+          //   (p: { id: string }) => p.id !== productId
+          // );
+          // this.wishlistProducts.set(updatedWishlist);
           console.log(product, ' deleted form wishlist Successfully');
         },
-        (error) => {
+        error: (error) => {
           console.error('Failed to delete product form wishlist:', error);
         }
-      );
+    });
   }
 
-  saveInCart(items: {product: Product, amount: number}[]){
-    localStorage.setItem('cartItems', JSON.stringify(items));
-  }
+  // saveInCart(items: {product: Product, amount: number}[]){
+  //   localStorage.setItem('cartItems', JSON.stringify(items));
+  // }
 
   addProductToCart(productId: string, amount: number) {
-    this.apiService
-      .request<{ product: any; amount: number }[]>('POST', `${this.api}/cart`, {
-        body: {
-          productId: productId,
-          amount: amount,
-        },
-      })
+    // this.apiService
+    //   .request<{ product: any; amount: number }[]>('POST', `${this.api}/cart`, {
+    //     body: {
+    //       productId: productId,
+    //       amount: amount,
+    //     },
+    //   })
+    // const foundproduct = this.productsFirebaseService.getProductsInCart().pipe(
+    //   map(products => {
+    //     return products.find(p => p.product.id === productId)
+    //   })
+    // )
+
+    // if(foundproduct){
+    //   console.log('product is alraedy in the cart')
+    //   return;
+    // }
+    this.productsFirebaseService.addProducttoCart(productId, amount)
       .subscribe((response) => {
-        const currentCartItems = JSON.parse(
-          localStorage.getItem('cartItems') || '[]'
-        );
-        currentCartItems.push(response);
-        this.saveInCart(currentCartItems)
+        // const currentCartItems = JSON.parse(
+        //   localStorage.getItem('cartItems') || '[]'
+        // );
+        // currentCartItems.push(response);
+        // this.saveInCart(currentCartItems)
 
-        this.productsAddedToCart.set(currentCartItems);
+        // this.productsAddedToCart.set(currentCartItems);
+          if (!response) {
+          console.log('Product already exists in the cart or add was skipped.');
+          return;
+        }
+        const currentId = response?.product.id;
 
-        console.log(`product: ${response}, amount: ${amount}`);
+        console.log(`product: ${currentId}, amount: ${amount}`);
       });
   }
 
   getItemsInCart() {
-    this.apiService
-      .request<{ product: any; amount: number }[]>('GET', `${this.api}/cart`)
+    // this.apiService
+    //   .request<{ product: any; amount: number }[]>('GET', `${this.api}/cart`)
+    this.productsFirebaseService.getProductsInCart()
       .subscribe((response) => {
-        this.saveInCart(response);
+        // this.saveInCart(response);
         this.productsAddedToCart.set(response);
       });
   }
 
   deleteProductFromCart(productId: string) {
-    this.apiService
-      .request<Product>('DELETE', `${this.api}/cart/${productId}`)
-      .subscribe(
-        (response) => {
-          const updatedCart = this.productsAddedToCart().filter(
-            (p) => p.product.id !== productId
-          );
-          this.productsAddedToCart.set(updatedCart);
-          this.saveInCart(updatedCart);
+    // this.apiService
+    //   .request<Product>('DELETE', `${this.api}/cart/${productId}`)
+    this.productsFirebaseService.deleteProductFromCart(productId)
+      .subscribe({
+        next: (response) => {
+          // const updatedCart = this.productsAddedToCart().filter(
+          //   (p) => p.product.id !== productId
+          // );
+          // this.productsAddedToCart.set(updatedCart);
+          // this.saveInCart(updatedCart);
           console.log(response, ' deleted form cart Successfully');
         },
-        (error) => {
+        error: (error) => {
           console.error('Failed to delete product form cart:', error);
         }
-      );
+      });
   }
 
   filterByCategory(categoryVal: string) {
