@@ -1,0 +1,36 @@
+<app-top-tab itemRecieved="Payment" />
+<section id="payment">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name" placeholder="name" />
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="example@gmail.com" />
+    </div>
+    <div class="stripe-card" ngxStripeCardGroup [elementsOptions]="elementsOptions">
+        <div class="field">
+            <label>Card Number</label>
+            <ngx-stripe-card-number class="ngx-stripe-card"
+                [options]="cardOptions">
+            </ngx-stripe-card-number>
+        </div>
+        <div class="grid">
+            <div class="field">
+                <label>Expiry Date</label>
+                <ngx-stripe-card-expiry class="ngx-stripe-card"
+                    [options]="cardOptions">
+                </ngx-stripe-card-expiry>
+            </div>
+            <div class="field">
+                <label>CVC</label>
+                <ngx-stripe-card-cvc class="ngx-stripe-card"
+                    [options]="cardOptions">
+                </ngx-stripe-card-cvc>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn-main" [disabled]="!form.valid">Pay {{totalPriceOfAllProducts() | currency}}</button>
+  </form>
+</section>

@@ -43,5 +43,9 @@ export const routes: Routes = [
      path: 'auth',
     loadComponent: () => import('./auth/auth.component').then(c => c.AuthComponent),
     loadChildren: () => import('../app/auth/auth.routes').then(r => r.authRoutes)
+  },
+  {
+    path: 'payment',
+    loadComponent: () => import('./payment/payment.component').then(c => c.PaymentComponent)
   }
 ];

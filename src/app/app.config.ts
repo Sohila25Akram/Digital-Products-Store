@@ -7,6 +7,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore'
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import {NgxStripeModule} from 'ngx-stripe';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCE4i1wqaNvrdzTsxipxX8e0kQinAZMEWk",
@@ -17,7 +18,7 @@ const firebaseConfig = {
   appId: "1:720708423114:web:819e95f728c0d1815ad333"
 }
 
-
+const stripePublishableKey = 'pk_test_51RglGFR2Iag7akPrA7rzA2h5ZEdLfYllWWWL5AFUqDluaP92HAAvneVEamcumSSsUOK95198GSIRp7HzQlJkKnG100wvWG3ouw';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -30,6 +31,9 @@ export const appConfig: ApplicationConfig = {
     // ])
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    importProvidersFrom(
+      NgxStripeModule.forRoot(stripePublishableKey)
+    )
   ],
 };
