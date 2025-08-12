@@ -1,3 +1,5 @@
+@use './variables' as v;
+
 @mixin page-x {
   padding-left: 15px;
   padding-right: 15px;
@@ -19,4 +21,32 @@
 @mixin remove-margin-x($margin) {
   margin-left: -$margin;
   margin-right: -$margin;
+}
+@mixin input-style{
+    color: v.$grayLight;
+    background: v.$darkerWhite;
+    font-size: v.$font-sm;
+    border-radius: 4px;
+    padding: 0 20px;
+    flex-grow: 1;
+    border: 0;
+    height: 42px;
+}
+
+@mixin form-element-style{
+    input{
+      @include input-style;
+      border: 1px solid v.$primaryColor;
+      display: block;
+      width: 100%;
+      margin-bottom: 32px;
+    }
+    button{
+        width: fit-content !important;
+        background-color: v.$primaryColor;
+        display: block;
+        &:disabled{
+            opacity: .6
+        }
+    }
 }

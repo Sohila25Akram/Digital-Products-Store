@@ -1,0 +1,56 @@
+<section id="orders">
+    <div class="container">
+        @if(orders.length > 0){
+            @for(order of orders; track order.orderId; let i = $index){
+                <div class="order">
+                    <div class="grid col-2 border-bottom">
+                        <div>
+                            <h3>order number</h3>
+                            <span>#{{i + 1}}</span>
+                        </div>
+                        <div>
+                            <h3>order date</h3>
+                            <span>{{order.created}}</span>
+                        </div>
+                    </div>
+                    <ul class="products-container border-bottom">
+                        @for(item of order.products; track item.id){
+                            @if(getProductById(item.id) ){
+                                @let product = getProductById(item.id);
+                                <li class="product">
+                                    <figure class="flex">
+                                        <div class="img-container">
+                                            <img src="assets/images/products/{{product?.imgSrc}}" [alt]="product?.title"/>
+                                        </div>
+                                        <figcaption class="flex">
+                                            <div>
+                                                <h4>{{ product?.title}}</h4>
+                                                <span>{{ product?.category}}</span>
+                                                <div><b>quantity: </b><span>{{ item.qty}}</span></div>
+                                            </div>
+                                            <div>
+                                                <span>{{ product?.newPrice ?? product?.originPrice | currency}}</span>
+                                            </div>
+                                        </figcaption>
+                                        
+                                    </figure>
+                                    <!-- <div>{{item.qty}}</div> -->
+                                </li>
+                            }
+                            
+                        }
+                    </ul>
+                    <div class="grid col-2">
+                        <div class="flex">
+                            <h3>total amount: </h3>
+                            <span>{{order.totalAmount | currency}}</span>
+                        </div>
+                        <a href="/"><i class="fa-solid fa-download"></i> download receit</a>
+                    </div>
+                </div>
+            }
+        }@else{
+            <p class="not-found">no orders yet!</p>
+        }
+    </div>
+</section>

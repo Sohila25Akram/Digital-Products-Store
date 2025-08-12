@@ -5,7 +5,6 @@ import { CurrencyPipe } from '@angular/common';
 import { NgxStripeModule, StripeCardCvcComponent, StripeCardExpiryComponent, StripeCardNumberComponent, StripeInstance, StripeFactoryService, StripeService, StripeCardComponent } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ProductsFirebaseService } from '../shared/services/products-firebase.service';
 import { ProductsService } from '../shared/services/products.service';
 import { STRIPE_SECRET_KEY } from '../../assets/data/stripe-secret';
 
@@ -31,7 +30,6 @@ export class PaymentComponent implements OnInit{
   private http = inject(HttpClient);
   private stripeFactory =inject(StripeFactoryService);
   private stripeService = inject(StripeService)
-  private productsFirebaseService = inject(ProductsFirebaseService) // ✅ add this
 
   private productsService = inject(ProductsService);
   productsMetadata = computed(() => { 
