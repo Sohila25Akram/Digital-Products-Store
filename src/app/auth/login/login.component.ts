@@ -3,7 +3,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeUntil } from 'rxjs';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginComponent {
   private authService = inject(AuthService);
-  // private destroy$ = new Subject<void>();
-  // private router = inject(Router);
-  // private ngZone = inject(NgZone);
-
-  // isLoggged = signal(false);
-  // currentForm : 'Login' | 'Signup' = 'Signup';
-  // isError = signal(false);
+  private router = inject(Router);
   // isLoading = signal(false);
 
   errorMsg: string | null = null;
@@ -40,23 +34,13 @@ export class LoginComponent {
 
     this.authService.login(email, password).subscribe({
       next: (res) => {
-        console.log('login successed')
+        console.log('login successed: ', res);
+        this.router.navigate(['/'])
       },
       error: (err) => {
-        console.log('error in login')
+        console.log('error in login: ', err);
+        this.errorMsg = 'Invalid Email or Password'
       }
     })
-
-    // if(this.authService.login(email, password)){
-    //   console.log('login successed');
-    //   this.errorMsg = null;
-    // }else{
-    //   this.errorMsg='invalid email or password'
-    // }
   }
-
-  // ngOnDestroy(): void {
-  //    this.destroy$.next();
-  //   this.destroy$.complete();
-  // }
 }

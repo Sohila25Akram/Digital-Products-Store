@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, UserCredential } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 
 interface User {
@@ -13,56 +13,18 @@ interface User {
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor() { }
-
   private firebaseAuth = inject(Auth)
 
-  save(key: string, value: any){
-    localStorage.setItem(key, JSON.stringify(value))
-  }
-
-  get(key: string){
-    const inLocal = localStorage.getItem(key);
-    if(inLocal){
-       return JSON.parse(inLocal)
-    }
-    return null;
-  }
-
   login(email: string, password: string): Observable<void>{
-
-    // const body = {email, password}
-
     const promise = signInWithEmailAndPassword(this.firebaseAuth, email, password).then(() => {});
 
     return from(promise);
-
-
-
-    // const getRegisteredUser = this.get('registeredUser');
-    // if(getRegisteredUser && getRegisteredUser.email === email && getRegisteredUser.password === password){
-    //   this.save('currentUser', body);
-    //   return true;
-    // }
-    // return false;
-
   }
 
   signup(email: string, password: string): Observable<void>{
-    // const body = {email, name, password};
-
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password).then(() => {})
 
     return from(promise)
-
-    // if(email && name && password){
-    //   // this.save('registeredUser', body)
-    //   // return true;
-    // }
-
-    
-
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -87,5 +49,10 @@ export class AuthService {
         }
       });
     });
+  }
+
+  logout(): Observable<void>{
+    const promise = signOut(this.firebaseAuth);
+    return from(promise)
   }
 }

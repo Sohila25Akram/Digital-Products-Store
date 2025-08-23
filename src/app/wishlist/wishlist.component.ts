@@ -13,5 +13,5 @@ import { RouterLink } from '@angular/router';
 })
 export class WishlistComponent {
   private productsService = inject(ProductsService);
-  products = computed(() => this.productsService.wishlistProducts());
+  products = computed(() => this.productsService.wishlistProducts().map(item => item?.product));
 }

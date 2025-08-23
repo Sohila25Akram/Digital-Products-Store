@@ -58,9 +58,13 @@
       </div>
 
       <div class="shortcut-icons">
-        <a routerLink="./auth">
+        <a (click)="goToAccount()">
           <span><i class="fa-regular fa-user"></i></span>
           <p>account</p>
+          <div class="user-container" [class.appear]="isOpenUserInfo">
+            <span><i class="fa-solid fa-envelope"></i> {{currentUserEmail}}</span>
+            <button type="button" (click)="logout()" class="btn-main">logout</button>
+          </div>
         </a>
         <a routerLink="./orders">
           <span><i class="fa-solid fa-clock-rotate-left"></i></span>

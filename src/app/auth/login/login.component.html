@@ -1,8 +1,5 @@
 <h2>Login</h2>
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    @if(errorMsg){
-        <div class="error"><i class="fa-solid fa-xmark"></i> {{errorMsg}}</div>
-    }
     <input type="email" id="email" placeholder="email" formControlName = "email" required>
     <input type="password" id="password" placeholder="password" formControlName = "password" required minlength="8">
 
@@ -13,4 +10,7 @@
         login
     </button>
     <a routerLink="register">I don't have account</a>
+    @if(errorMsg){
+        <div class="error"><i class="fa-solid fa-circle-exclamation"></i> {{errorMsg}}</div>
+    }
 </form>

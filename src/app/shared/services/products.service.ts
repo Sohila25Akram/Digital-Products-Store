@@ -15,7 +15,7 @@ export class ProductsService {
   private productsFirebaseService = inject(ProductsFirebaseService)
 
   loadedProducts = signal<Product[]>([]);
-  wishlistProducts = signal<any>([]);
+  wishlistProducts = signal<{product: Product}[]>([]);
   productsAddedToCart = signal<{ product: any; amount: number }[]>([]);
   deviceCategory = deviceCategory;
   filteredProductsByCategory = signal<any>([]);
@@ -63,8 +63,8 @@ export class ProductsService {
     // this.apiService
     //   .request<Product>('GET', `${this.api}/wishlist`)
     this.productsFirebaseService.getProductsWishlist()
-      .subscribe((products) => {
-        this.wishlistProducts.set(products);
+      .subscribe((items) => {
+        this.wishlistProducts.set(items);
       });
   }
 

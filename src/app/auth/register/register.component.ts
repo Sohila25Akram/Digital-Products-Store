@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ import { AuthService } from '../../shared/services/auth.service';
 
 export class RegisterComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   form = new FormGroup({
     email: new FormControl('', Validators['required']),
@@ -30,10 +32,12 @@ export class RegisterComponent {
 
     this.authService.signup(email, password).subscribe({
       next: (res) => {
-        console.log('sigiup completed')
+        console.log('sigiup completed');
+        this.router.navigate(['/auth'])
       },
       error: (err) => {
-        console.log('signup failed')
+        console.log('signup failed', err);
+        this.errorMsg = 'Email already exist';
       }
     })
 

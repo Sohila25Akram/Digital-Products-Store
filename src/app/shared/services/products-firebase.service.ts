@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, CollectionReference, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, CollectionReference, deleteDoc, doc, query, updateDoc, where } from '@angular/fire/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { from, map, Observable, of, pipe, switchMap, take } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DocumentData } from '@angular/fire/compat/firestore';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,150 +16,164 @@ export class ProductsFirebaseService {
   cartCollection: CollectionReference<DocumentData> = collection(this.firestore, 'cart');
   wishlistCollection: CollectionReference<DocumentData> = collection(this.firestore, 'wishlist');
 
+  private authService = inject(AuthService);
+
   getProducts(): Observable<Product[]>{
     return collectionData(this.productsCollection, {
       idField: 'id'
     }) as Observable<Product[]>
   }
 
-  getProductsInCart(): Observable<{ product: any; amount: number }[]> {
-    return collectionData(this.cartCollection, { idField: 'id' }) as Observable<{ product: any; amount: number }[]>
+  getProductsInCart(): Observable<{ id: string, product: Product; amount: number, userId: string }[]> {
+    return this.authService.getCurrentUser().pipe(
+      switchMap(user => {
+        if (!user) return of([]);
+
+        const userCartQuery = query(
+          this.cartCollection,
+          where('userId', '==', user.uid)
+        );
+
+        return collectionData(userCartQuery, { idField: 'id' }) as Observable<
+          { id: string, product: Product; amount: number, userId: string }[]
+        >;
+      })
+    );
   }
 
+  private createCartItem(productId: string, amount: number, userId: string) {
+    return this.getProducts().pipe(
+      take(1),
+      map((products) => {
+        const product = products.find(p => p.id === productId);
+        if (!product) throw new Error('Product not found');
+        return { product, amount, userId };
+      }),
+      switchMap((newProductToCart) =>
+        from(addDoc(this.cartCollection, newProductToCart)).pipe(
+          map(() => newProductToCart)
+        )
+      )
+    );
+  }
 
-  // ------------ addProduct product not exists without change it to the new amount -----------
-//   addProducttoCart(productId: string, amount: number) {
-//   return this.getProductsInCart().pipe(
-//     take(1),
-//     switchMap((cartItems) => {
-//       const exists = cartItems.some(item => item.product.id === productId);
-//       if (exists) {
-//         console.warn('Product already in cart');
-//         return of(null); // Or throwError(() => new Error('Product already in cart'));
-//       }
-
-//       return this.getProducts().pipe(
-//         take(1),
-//         map((products) => {
-//           const newProduct = products.find(p => p.id === productId);
-//           if (!newProduct) throw new Error('Product not found');
-//           return { product: newProduct, amount };
-//         }),
-//         switchMap((newProductToCart) =>
-//           from(addDoc(this.cartCollection, newProductToCart)).pipe(
-//             map(() => newProductToCart)
-//           )
-//         )
-//       );
-//     })
-//   );
-// }
-
+  private createWishlistItem(productId: string, userId: string) {
+    return this.getProducts().pipe(
+      take(1),
+      map((products) => {
+        const product = products.find(p => p.id === productId);
+        if (!product) throw new Error('Product not found');
+        return { product, userId };
+      }),
+      switchMap((newProductToWishlist) =>
+        from(addDoc(this.wishlistCollection, newProductToWishlist)).pipe(
+          map(() => newProductToWishlist)
+        )
+      )
+    );
+  }
 
   addProducttoCart(productId: string, amount: number) {
-    return this.getProductsInCart().pipe(
+    return this.authService.getCurrentUser().pipe(
       take(1),
-      switchMap((cartItems) => {
-        const existingItem = cartItems.find(item => item.product.id === productId);
+      switchMap(user => {
+        if (!user) throw new Error('User not logged in');
+        const userId = user.uid;
 
-        if (existingItem) {
-          if (existingItem.amount === amount) {
-            console.warn('⛔ Product already in cart with same amount');
-            return of(null);
-          }
-
-          return this.deleteProductFromCart(productId).pipe(
-            switchMap(() =>
-              this.getProducts().pipe(
-                take(1),
-                map((products) => {
-                  const product = products.find(p => p.id === productId);
-                  if (!product) throw new Error('Product not found');
-                  return { product, amount };
-                }),
-                switchMap((newProductToCart) =>
-                  from(addDoc(this.cartCollection, newProductToCart)).pipe(
-                    map(() => newProductToCart)
-                  )
-                )
-              )
-            )
-          );
-        }
-        return this.getProducts().pipe(
+        return this.getProductsInCart().pipe(
           take(1),
-          map((products) => {
-            const product = products.find(p => p.id === productId);
-            if (!product) throw new Error('Product not found');
-            return { product, amount };
-          }),
-          switchMap((newProductToCart) =>
-            from(addDoc(this.cartCollection, newProductToCart)).pipe(
-              map(() => newProductToCart)
-            )
-          )
+          switchMap((cartItems) => {
+            const existingItem = cartItems.find(item => item.product.id === productId);
+
+            if (existingItem) {
+              if (existingItem.amount === amount) {
+                console.warn('⛔ Product already in cart with same amount');
+                return of(null);
+              }
+
+              return this.deleteProductFromCart(productId).pipe( switchMap(() => this.createCartItem(productId, amount, userId)) );
+            }
+
+            return this.createCartItem(productId, amount, userId);
+          })
         );
       })
     );
   }
 
   deleteProductFromCart(productId: string): Observable<string>{
-  const cartQuery = query(this.cartCollection, where('product.id', '==', productId));
+    return this.getProductsInCart().pipe(
+      take(1),
+      switchMap((cartItems) => {
+        const item = cartItems.find(cart => cart.product.id === productId);
 
-  return from(getDocs(cartQuery)).pipe(
-    switchMap((querySnapshot) => {
-      if (querySnapshot.empty) {
-        throw new Error('Product not found in Firestore cart');
-      }
+        if (item && item.id) {
+          const docRef = doc(this.cartCollection, item.id);
+          return from(deleteDoc(docRef)).pipe(
+            map(() => `Product with id ${productId} deleted successfully`)
+          );
+        }
 
-      const docId = querySnapshot.docs[0].id;
-      const docRef = doc(this.firestore, 'cart', docId);
-      return from(deleteDoc(docRef)).pipe(map(() => productId));
-    }));
+        return of(`Product with id ${productId} not found in cart`);
+      })
+    );
   }
 
-  getProductsWishlist(): Observable<Product[]>{
-    return collectionData(this.wishlistCollection, {idField: 'id'}) as Observable<Product[]>
+  getProductsWishlist(): Observable<{id: string, product: Product, userId: string}[]>{
+     return this.authService.getCurrentUser().pipe(
+      switchMap(user => {
+        if (!user) return of([]);
+
+        const userWishlistQuery = query(
+          this.wishlistCollection,
+          where('userId', '==', user.uid)
+        );
+
+        return collectionData(userWishlistQuery, { idField: 'id' }) as Observable<
+          { id: string, product: Product, userId: string }[]
+        >;
+      })
+    );
   }
 
   addProductToWishlist(productId: string){
-    return this.getProductsWishlist().pipe(
-      map(wishlistItems => wishlistItems.some(p => p.id === productId)),
+    return this.authService.getCurrentUser().pipe(
       take(1),
-      switchMap(exists => {
-        if(exists){
-          console.warn('Product already in wishlist');
-          return of(null);
-        }
+      switchMap(user => {
+        if (!user) throw new Error('User not logged in');
+        const userId = user.uid;
 
-        return this.getProducts().pipe(
-          map(products => products.find(p => p.id === productId)),
-          switchMap(product => {
-            if (!product) {
-              throw new Error('Product not found');
+         return this.getProductsWishlist().pipe(
+          take(1),
+          switchMap((wishlistItems) => {
+            const existingItem = wishlistItems.find(item => item.product.id === productId);
+
+            if (existingItem) {
+              console.log('it in the wislist');          
             }
 
-            const wishlistDocRef = doc(this.wishlistCollection);
-
-            return from(setDoc(wishlistDocRef, product)).pipe(
-              map(() => product)
-            );
+            return this.createWishlistItem(productId, userId);
           })
         );
-        
       })
     )
   }
 
   deleteFromWishlist(productId: string): Observable<any>{
-    const docRef = doc(this.wishlistCollection, productId);
-    // const promise = deleteDoc(docRef);
+     return this.getProductsWishlist().pipe(
+      take(1),
+      switchMap((wishlistItems) => {
+        const item = wishlistItems.find(wishlist => wishlist.product.id === productId);
 
-    return from(getDoc(docRef)).pipe(
-      switchMap(docSnap => docSnap.exists()
-        ? from(deleteDoc(docRef)).pipe(map(() => docSnap.data()))
-        : of(null)
-      )
-    )
+        if (item && item.id){
+          const docRef = doc(this.wishlistCollection, item.id);
+          return from(deleteDoc(docRef)).pipe(
+            map(() => `Product with id ${productId} deleted successfully`)
+          );
+        }
+
+        return of(`Product with id ${productId} not found in wishlist`);
+      })
+    );
   }
 }

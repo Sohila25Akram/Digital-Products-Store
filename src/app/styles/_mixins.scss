@@ -32,6 +32,11 @@
     border: 0;
     height: 42px;
 }
+@mixin auth-header{
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  color: v.$green;
+}
 
 @mixin form-element-style{
     input{
