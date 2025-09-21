@@ -33,8 +33,37 @@ describe('ProductsService', () => {
       addedDate: fixedDate
     },
   ];
+    const dummyWishlistProducts: {id: string, product: Product, userId:string}[] = [
+    {
+      id: '111', 
+      product:{
+        id: '1', title: 'Product 1', newPrice: 100,
+        imgSrc: '',
+        originPrice: 0,
+        brand: '',
+        category: '',
+        customers: 0,
+        addedDate: fixedDate
+      },
+      userId: 'user1'
+    },
+    {
+      id: '111', 
+      product:{
+        id: '2', title: 'Product 2', newPrice: 200,
+        imgSrc: '',
+        originPrice: 0,
+        brand: '',
+        category: '',
+        customers: 0,
+        addedDate: fixedDate
+      },
+      userId: 'user1'
+    }
+  ];
 
   const dummySingleProduct: Product = dummyProducts[0];
+  const dummySingleWishlistProduct = dummyWishlistProducts[0];
 
   function mockRequestAndCall<T>(returnValue: T, method: () => void) {
     apiServiceSpy.request.and.returnValue(of(returnValue));
@@ -75,28 +104,28 @@ describe('ProductsService', () => {
     const productId  = '1';
 
     beforeEach(() => {
-      service['wishlistProducts'].set(dummyProducts);
+      service['wishlistProducts'].set(dummyWishlistProducts);
     });
 
     it('should wishlistProducts be updated when addToWishlist called', () => {
-      mockRequestAndCall(dummySingleProduct, () => service.addProductToWishlist(productId));
+      mockRequestAndCall(dummySingleWishlistProduct, () => service.addProductToWishlist(productId));
 
       expect(apiServiceSpy.request).toHaveBeenCalledWith('POST', `${api}/wishlist`, {body: {productId: productId}});
-      expect(service.wishlistProducts()).toContain(dummySingleProduct);
+      expect(service.wishlistProducts()).toContain(dummySingleWishlistProduct);
     });
 
     it('should wishlistProducts be updated when getWishlistItems called', () => {
       mockRequestAndCall(dummyProducts, () => service.getWishlistItems());
 
       expect(apiServiceSpy.request).toHaveBeenCalledWith('GET', `${api}/wishlist`);
-      expect(service.wishlistProducts()).toBe(dummyProducts);
+      expect(service.wishlistProducts()).toBe(dummyWishlistProducts);
     });
 
     it('should wishlistProducts be updated when deleteProductFromWishlist called', () => {
       mockRequestAndCall(dummyProducts, () => service.deleteProductFromWishlist(productId));
     
       expect(apiServiceSpy.request).toHaveBeenCalledWith('DELETE', `${api}/wishlist/${productId}`);
-      expect(service.wishlistProducts()).toEqual(dummyProducts.filter(p => p.id !== productId));
+      expect(service.wishlistProducts()).toEqual(dummyWishlistProducts.filter(p => p.id !== productId));
     });
   })
 
