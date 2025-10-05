@@ -3,12 +3,12 @@
 >
   <a
     class="close-btn"
-    routerLink="../../"
+    routerLink="/"
     [style.display]="!isExpanded ? 'block' : 'none'"
     ><i class="fa-solid fa-xmark"></i
   ></a>
   <div class="img-container">
-    <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
+    <img src="assets/images/products/{{ product.imgSrc }}" alt="{{ product.title }}" />
     @if(product.discount){
     <span>Sale</span>
     }
@@ -22,7 +22,12 @@
         formControlName="productId"
       />
       <a href="" class="brand">{{ product.brand }}</a>
-      <h2 [style.font-size]="isExpanded && '30px'">{{ product.title }}</h2>
+      @if(isExpanded){
+          <h1 >{{ product.title }}<span class="sr-only"> - all details</span></h1>
+      }@else{
+        <h2 [style.font-size]="isExpanded && '30px'">{{ product.title }}<span class="sr-only" [style.display]="isExpanded? 'none' : 'block'"> - quick view</span
+        ></h2>
+      }
       <div class="price-container">
         @if(product.newPrice){
         <span class="new-price" [style.font-size]="isExpanded && '25px'">{{

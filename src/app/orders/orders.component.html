@@ -1,8 +1,10 @@
 <section id="orders">
     <div class="container">
+        <h1 class="sr-only">your orders</h1>
         @if(orders.length > 0){
             @for(order of orders; track order.orderId; let i = $index){
                 <div class="order">
+                    <h2 class="sr-only">Order #{{i +1 }}</h2>
                     <div class="grid col-2 border-bottom">
                         <div>
                             <h3>order number</h3>
@@ -50,7 +52,7 @@
                 </div>
             }
         }@else{
-            <p class="not-found">no orders yet!</p>
+            <p class="not-found" role="status">no orders yet!</p>
         }
     </div>
 </section>

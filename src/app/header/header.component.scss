@@ -138,24 +138,27 @@
         width: fit-content;
       }
       .burger-menu {
-        @media (min-width: 1024px) {
-          display: none;
-        }
-        span {
           padding: 10px;
           margin-left: -5px;
           font-size: $font-lg;
           cursor: pointer;
+          background-color: transparent;
+          border: none;
+          // outline: none;
+          color: $white;
+        @media (min-width: 1024px) {
+          display: none;
         }
       }
     }
     .shortcut-icons {
       display: flex;
-      a {
+      a, .account-btn {
         cursor: pointer;
         position: relative;
         color: $white;
         text-align: center;
+        display: inline-block;
         padding: 10px;
         text-decoration: none;
         transition: $transition3s;
@@ -164,6 +167,13 @@
         &:hover {
           color: $greenSecond;
         }
+        p {
+          font-size: $font-bubble;
+          line-height: 1;
+          text-transform: uppercase;
+        }
+      }
+      a{
         &.cart-link {
           .bubble {
             position: absolute;
@@ -182,12 +192,8 @@
           width: 18px;
           height: 18px;
         }
-        p {
-          font-size: $font-bubble;
-          line-height: 1;
-          text-transform: uppercase;
-        }
-
+      }
+      .account-btn{
         .user-container{
           display: none;
           background-color: $white;
@@ -196,12 +202,13 @@
           position: absolute;
           top: 53px;
           left: -75px;
-          padding: 12px 12px 0;
+          padding: 12px 12px;
           border-radius: 16px;
+          cursor: default;
           &.appear{
             display: block;
           }
-          button{
+          .logout-btn{
             background: $primaryColor;
             margin-top: 16px;
             height: auto !important;

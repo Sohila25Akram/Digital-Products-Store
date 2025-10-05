@@ -7,7 +7,7 @@ import {
   input,
 } from '@angular/core';
 import { Product } from '../models/product.model';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductsService } from '../services/products.service';
 import { DiscountFormatPipe } from '../pipes/discount-format.pipe';
 
@@ -24,6 +24,7 @@ export class ProductCardComponent {
   @Input() inWishlist: boolean = false;
 
   private productsService = inject(ProductsService);
+  private router = inject(Router)
 
   addToWishlist() {
     this.productsService.addProductToWishlist(this.product.id);
@@ -34,5 +35,6 @@ export class ProductCardComponent {
 
   addProductToCart(amount: number) {
     this.productsService.addProductToCart(this.product.id, amount);
+    this.router.navigateByUrl('/cart-menu');
   }
 }

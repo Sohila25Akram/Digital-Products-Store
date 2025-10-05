@@ -1,16 +1,16 @@
 <section id="banner">
   <div class="swipper-container">
-    <span class="swipper-btn prev-btn" (click)="onToggleSlide()"
+    <button class="swipper-btn prev-btn" (click)="onToggleSlide()"
       ><i class="fa-solid fa-chevron-left"></i
-    ></span>
+    ><span class="sr-only">previous slide</span></button>
     @if(currentSlide() === 1){
     <div class="slide slide-1">
       <div class="overlay">
         <div class="content">
           <span>starting from $50</span>
-          <h3>headphones</h3>
+          <h1>headphones</h1>
           <p>Feel The Bass in Your Bones</p>
-          <a routerLink="/shop/featured">Shop Now</a>
+          <a routerLink="/shop/featured" class="btn-main">Shop Now</a>
         </div>
       </div>
     </div>
@@ -18,48 +18,52 @@
     <div class="slide slide-2">
       <div class="overlay">
         <div class="content">
-          <h3>ultra smart OLED TVs</h3>
+          <h2>ultra smart OLED TVs</h2>
           <p>with High Resolution Quality and Infinit Detail.</p>
-          <a routerLink="/shop/featured">Shop Now</a>
+          <a routerLink="/shop/featured" class="btn-main">Shop Now</a>
         </div>
       </div>
     </div>
     }
-    <span class="swipper-btn next-btn" (click)="onToggleSlide()"
+    <button class="swipper-btn next-btn" (click)="onToggleSlide()"
       ><i class="fa-solid fa-chevron-right"></i
-    ></span>
+    ><span class="sr-only">next slide</span></button>
     <div class="swipper-bullets">
-      <span
+      <button
         (click)="onToggleSlide()"
         [class.active]="currentSlide() === 1"
-      ></span>
-      <span
+      ></button>
+      <button
         (click)="onToggleSlide()"
         [class.active]="currentSlide() === 2"
-      ></span>
+      ></button>
     </div>
   </div>
 </section>
 
 @defer (on viewport){
 <section id="best-seller">
+  <h2 class="sr-only">best seller products</h2>
   <app-best-seller-card
     [isBig]="true"
     imgSrc="pexels-jessbaileydesign-788946.jpg"
     title="Galaxy S22 Ultra"
     desc="Make nights epic with"
+    alt="mopile and air bods"
   >
     <a href="" class="offer">get 10% offer</a>
   </app-best-seller-card>
-  <div>
+  <ul>
     @for(bestSellerCard of bestSellerSmallCards; track bestSellerCard.title){
-      <app-best-seller-card
-        [imgSrc]="bestSellerCard.imgSrc"
-        [title]="bestSellerCard.title"
-        [desc]="bestSellerCard.desc"
-      />
+      <li>
+        <app-best-seller-card
+          [imgSrc]="bestSellerCard.imgSrc"
+          [title]="bestSellerCard.title"
+          [desc]="bestSellerCard.desc"
+        />
+      </li>
     }
-  </div>
+  </ul>
 </section>
 }@placeholder{
 <p>best seller</p>
@@ -67,12 +71,14 @@
 <section id="new-products">
   <div>
     <h2 class="section-title">New products</h2>
-    <div class="products">
+    <ul class="products">
       @for(product of products(); track product.id){
-      <app-product-card [product]="product" />
+        <li>
+          <app-product-card [product]="product" />
+        </li>
       }
-    </div>
-    <a href="" class="view-all-btn">view all</a>
+    </ul>
+    <a href="" class="btn-main view-all-btn">view all products</a>
   </div>
 </section>
 } @placeholder{

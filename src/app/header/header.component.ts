@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, ElementRef, inject, ViewChild } from '@angular/core';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { Router, RouterLink } from '@angular/router';
 import { ProductsService } from '../shared/services/products.service';
@@ -38,10 +38,15 @@ export class HeaderComponent {
   searchedTerm = new FormControl('');
   searchedProducts!: Observable<Product[]>;
 
+  @ViewChild('resBox') resBox!: ElementRef<HTMLDivElement>;
+
   openSearchBox: boolean = false;
 
   onOpenMenu() {
     this.isOpen = true;
+    setTimeout(() => {
+      this.resBox?.nativeElement.focus();
+    })
   }
   onCloseMenu(isClosed: boolean) {
     this.isOpen = isClosed;

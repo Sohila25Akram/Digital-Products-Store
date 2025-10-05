@@ -1,6 +1,6 @@
 <div>
   <button class="close-btn" (click)="closeMenu()">
-    <i class="fa-sharp fa-solid fa-xmark"></i>
+    <i class="fa-sharp fa-solid fa-xmark" aria-hidden="true"></i><span class="sr-only">close sidebar</span>
   </button>
   <header>
     <h3>price</h3>
@@ -9,8 +9,10 @@
   <div class="filter-price-container">
     <div class="price-range">
       <div>
+        <label for="min-price" class="sr-only">minimum price</label>
         <input
           type="text"
+          id="min-price"
           value="0"
           name="minPrice"
           [(ngModel)]="minPrice"
@@ -19,8 +21,10 @@
       </div>
       <span>-</span>
       <div>
+        <label for="max-price" class="sr-only">maximum price</label>
         <input
           type="text"
+          id="max-price"
           value="1200"
           name="maxPrice"
           [(ngModel)]="maxPrice"
@@ -33,8 +37,10 @@
         class="range-value min-value"
         [style.width.px]="rangeValueStartWidth()"
       ></span>
+      <label for="min-price-pointer" class="sr-only">minimum price</label>
       <input
         type="range"
+        id="min-price-pointer"
         class="input-one"
         min="0"
         max="600"
@@ -46,8 +52,10 @@
         class="range-value max-value"
         [style.width.px]="rangeValueEndWidth()"
       ></span>
+      <label for="max-price-pointer" class="sr-only">maximum price</label>
       <input
         type="range"
+        id="max-price-pointer"
         class="input-two"
         min="600"
         max="1200"
@@ -67,10 +75,10 @@
   <ul class="filter-brand-container">
     @for(brand of brandsList; track brand){
     <li>
-      <label for="brand">
+      <label>
         <input
           type="checkbox"
-          id="brand"
+          id="{{brand}}"
           value="{{ brand }}"
           (change)="onBrandFilter($event, brand)"
         />{{ brand }}</label
@@ -94,7 +102,7 @@
     </li>
   </ul>
   <div class="img-container">
-    <img src="assets/images/pexels-max-fischer-5869620.jpg" alt="" />
+    <img src="assets/images/pexels-max-fischer-5869620.jpg" alt="A man carries bag that is written on a phrase 'Black Friday'" />
     <div></div>
   </div>
 </div>

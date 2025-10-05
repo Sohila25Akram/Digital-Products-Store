@@ -1,9 +1,9 @@
 <figure [class.bigCard]="isBig()" [style.background-image]="'url(./assets/images/banner-2/' + imgSrc() + ')'">
   @if(isBig()){
-    <img src="assets/images/banner-2/{{ imgSrc() }}" alt="" />
+    <img src="assets/images/banner-2/{{ imgSrc() }}" alt={{alt()}} />
   }
   <figcaption>
-    <h2>{{ title() }}</h2>
+    <h3>{{ title() }}</h3>
     <p>{{ desc() }}</p>
     <ng-content />
   </figcaption>

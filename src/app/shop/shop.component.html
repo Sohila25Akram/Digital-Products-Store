@@ -1,5 +1,5 @@
 <div class="img-container">
-  <h1>{{ currentCategoryName() }}</h1>
+  <h1>{{ currentCategoryName() }}<span class="sr-only"> shop now</span></h1>
 </div>
 <app-top-tab [itemRecieved]="currentCategoryName()" />
 <section id="shop">
@@ -22,7 +22,8 @@
         <span class="num-of-items"
           ><span>{{ productsLength() }}</span> items</span
         >
-        <select (change)="onFilter($event)">
+        <label for="sort-by" class="sr-only">sort the products</label>
+        <select id="sort-by" (change)="onFilter($event)">
           <option value="featured">Featured</option>
           <option value="best-selling">Best selling</option>
           <option value="alpha-asc">Alphabetically, A-Z</option>
@@ -39,11 +40,13 @@
         }
       </div>
       @if(products().length > 0){
-      <div class="products-in-shop">
+      <ul class="products-in-shop">
         @for(product of products(); track product.id){
-        <app-product-card [product]="product" />
+          <li>
+            <app-product-card [product]="product" />
+          </li>
         }
-      </div>
+      </ul>
       }@else{
       <div class="empty-products">
         <h3>no products found</h3>

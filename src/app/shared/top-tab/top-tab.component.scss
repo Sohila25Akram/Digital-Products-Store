@@ -16,6 +16,11 @@
       text-decoration: none;
       color: $textColor;
       cursor: pointer;
+      color: $greenSecond;
+      font-weight: bold;
+      &:hover{
+        color: $black;
+      }
     }
     i {
       font-size: $font-xxs;

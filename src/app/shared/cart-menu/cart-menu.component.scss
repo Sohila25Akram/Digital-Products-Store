@@ -84,6 +84,7 @@
     .btn-main {
       padding: 14px 30px;
       height: fit-content !important;
+      width: 100%;
     }
     .btn-buy {
       background-color: $green;
@@ -122,19 +123,6 @@
       margin-bottom: 25px;
     }
     .continue-shopping {
-      text-transform: uppercase;
-      font-size: $font-xs;
-      font-weight: 400;
-      padding: 12px 25px;
-      line-height: 1;
-      border: 0;
-      color: $white;
-      border-radius: 4px;
-      display: block;
-      text-align: center;
-      transition: $transition3s;
-      cursor: pointer;
-      text-decoration: none;
       background-color: $primaryColor;
       border: $borderBlue;
       margin-bottom: 50px;

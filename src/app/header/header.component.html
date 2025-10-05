@@ -8,9 +8,10 @@
       </div>
     </div>
     <form class="search-input-container">
+      <label for="search" class="sr-only">Search products</label> 
       <input
         type="text"
-        placeholder="Search products"
+        id="search"
         name="searchTerm"
         (focus)="openSearchBox = true"
         (blur)="openSearchBox = false"
@@ -19,9 +20,9 @@
       <button type="button">
         <span><i class="fa-solid fa-magnifying-glass"></i></span>
       </button>
-      <div
+      @if(openSearchBox){
+      <div tabindex="0"
         class="res-box"
-        [style.display]="openSearchBox === true ? 'block' : 'none'"
       >
         @if(searchedTerm){ }@if(searchedProducts | async; as products){
         @if(products.length>0 ){
@@ -51,37 +52,46 @@
         </div>
         }
       </div>
+      }
     </form>
     <div class="reverse">
-      <div class="burger-menu">
-        <span (click)="onOpenMenu()"><i class="fa-solid fa-bars"></i></span>
-      </div>
+      
+        <button class="burger-menu" (click)="onOpenMenu()"><i class="fa-solid fa-bars"></i></button>
+      
 
-      <div class="shortcut-icons">
-        <a (click)="goToAccount()">
-          <span><i class="fa-regular fa-user"></i></span>
-          <p>account</p>
-          <div class="user-container" [class.appear]="isOpenUserInfo">
-            <span><i class="fa-solid fa-envelope"></i> {{currentUserEmail}}</span>
-            <button type="button" (click)="logout()" class="btn-main">logout</button>
+      <ul class="shortcut-icons">
+        <li>
+          <div class="account-btn" (click)="goToAccount()" role="button" tabindex="0" (keyup.enter)="goToAccount()"> 
+            <span aria-hidden="true"><i class="fa-regular fa-user"></i></span>
+            <p>account</p>
+            <div class="user-container" [class.appear]="isOpenUserInfo">
+              <span><i class="fa-solid fa-envelope"></i> {{currentUserEmail}}</span>
+              <button type="button" (click)="logout()" class="logout-btn btn-main">logout</button>
+            </div>
           </div>
-        </a>
-        <a routerLink="./orders">
-          <span><i class="fa-solid fa-clock-rotate-left"></i></span>
-          <p>orders</p>
-        </a>
-        <a routerLink="/wishlist">
-          <span><i class="fa-regular fa-heart"></i></span>
-          <p>wishlist</p>
-        </a>
-        <a class="cart-link" routerLink="/cart-menu">
-          <span><i class="fa-solid fa-cart-shopping"></i></span>
-          @if(numOfProducts()>0){
-          <b class="bubble">{{ numOfProducts() }}</b>
-          }
-          <p>cart</p>
-        </a>
-      </div>
+        </li>
+        <li>
+          <a routerLink="./orders">
+            <span aria-hidden="true"><i class="fa-solid fa-clock-rotate-left"></i></span>
+            <p>orders</p>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/wishlist">
+            <span aria-hidden="true"><i class="fa-regular fa-heart"></i></span>
+            <p>wishlist</p>
+          </a>
+        </li>
+        <li>
+          <a class="cart-link" routerLink="/cart-menu">
+            <span aria-hidden="true"><i class="fa-solid fa-cart-shopping"></i></span>
+            @if(numOfProducts()>0){
+            <b class="bubble">{{ numOfProducts() }}<span class="sr-only"> product in cart, go to</span></b>
+            }
+            <p>cart</p>
+          </a>
+        </li>
+      </ul>
     </div>
   </header>
   <app-navigation-bar />

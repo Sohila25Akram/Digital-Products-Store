@@ -113,7 +113,7 @@ figure {
       }
     }
   }
-  &:hover {
+  &:hover , &:focus-within{
     .icons-container {
       bottom: 10px;
     }

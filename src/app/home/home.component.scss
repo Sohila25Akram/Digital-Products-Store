@@ -43,7 +43,7 @@
             font-size: 20px;
           }
         }
-        h3 {
+        h1, h2 {
           // font-size: 30px;
           // margin-bottom: 20px;
           line-height: 1.3;
@@ -60,17 +60,9 @@
           }
         }
         a {
-          text-decoration: none;
           display: inline-block;
           padding: 12px 25px;
-          font-size: $font-xs;
-          font-weight: 400;
-          line-height: 1;
-          border-radius: 4px;
-          text-transform: uppercase;
           background-color: $green;
-          color: $white;
-          transition: $transition3s;
           @media (min-width: 768px) {
             padding: 16px 40px;
             font-size: 15px;
@@ -91,7 +83,7 @@
         }
         .content {
           margin-right: 20%;
-          h3 {
+          h1 {
             font-size: $font-xxxl;
             @media (min-width: 768px) {
               font-size: $font-xxxxl;
@@ -112,8 +104,7 @@
           justify-content: center;
         }
         .content {
-          h3 {
-            margin-bottom: 5;
+          h2{
             font-size: $font-xxl;
             @media (min-width: 768px) {
               margin-bottom: 20px;
@@ -175,12 +166,13 @@
       @media (min-width: 768px) {
         bottom: -35px;
       }
-      span {
+      button {
         width: 25px;
         height: 35px;
         display: inline-block;
         text-align: center;
         opacity: 0.5;
+        background-color: transparent;
         cursor: pointer;
         &::before {
           height: 5px;
@@ -227,7 +219,7 @@
       color: $white;
     }
   }
-  div {
+  ul {
     display: none;
     @media (min-width: 768px){
       display: grid;
@@ -255,18 +247,7 @@
       }
     }
     .view-all-btn {
-      text-transform: uppercase;
-      font-size: $font-xs;
-      font-weight: 400;
       padding: 14px 30px;
-      line-height: 1;
-      color: $white;
-      border-radius: 4px;
-      display: block;
-      text-align: center;
-      transition: $transition3s;
-      cursor: pointer;
-      text-decoration: none;
       background-color: $primaryColor;
       border: $borderBlue;
       margin: 50px auto 0;

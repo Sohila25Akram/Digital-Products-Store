@@ -3,21 +3,26 @@
 
 #payment{
     @include page-x;
-    @include padding-y(60px)
-}
-input{
-    @include input-style;
-    border: 1px solid $primaryColor;
-    display: block;
-    width: 100%;
-}
-label{
-    display: inline-block;
-    margin: 16px 0 8px;
-}
-button{
-    background-color: $primaryColor;
-    &:disabled{
-        opacity: .6;
+    @include padding-y(60px);
+    .field:last-child{
+        margin-bottom: 24px !important;
     }
+    h1{
+        @include auth-header;
+    }
+    form{
+        @include form-element-style;
+        .field:not(:first-child), .field:not(:nth-child(2)){
+            margin-bottom: 32px;
+        }
+        button{
+            width: 100% !important;
+        }
+    }
+}
+.grid{
+    display: grid;
+}
+.col-2{
+    grid-template-columns: repeat(2, 1fr);
 }

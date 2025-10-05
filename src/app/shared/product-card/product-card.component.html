@@ -1,13 +1,14 @@
 @let amount = 1; @if(product){
-<figure>
-  <span
+<figure tabindex="0">
+  <button
     class="delete-from-wishlist card-btn"
     [style.display]="inWishlist ? 'block' : 'none'"
     (click)="deleteFromWishlist()"
+    tabindex="0"
     ><i class="fa-solid fa-xmark"></i
-  ></span>
+  ></button>
   <div>
-    <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
+    <img src="assets/images/products/{{ product.imgSrc }}" alt="{{ product.title }}" />
     <div class="icons-container">
       <button
         class="add-wishlist-btn card-btn"
@@ -19,12 +20,11 @@
 
       <button
         class="add-to-cart-btn card-btn"
-        routerLink="/cart-menu"
         (click)="addProductToCart(amount)"
       >
         <i class="fa-solid fa-cart-shopping"></i>
       </button>
-      <a class="card-btn" [routerLink]="['quick-view', product.id]"
+      <a class="card-btn" [routerLink]="['/quick-view', product.id]"
         ><i class="fa-solid fa-magnifying-glass"></i
       ></a>
     </div>
