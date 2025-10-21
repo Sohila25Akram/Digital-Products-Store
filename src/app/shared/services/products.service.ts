@@ -44,8 +44,8 @@ export class ProductsService {
     //   })
 
     this.productsFirebaseService.addProductToWishlist(productId)
-      .subscribe(
-        (responseProduct) => {
+      .subscribe({
+        next: (responseProduct) => {
           // const current = this.wishlistProducts();
           // this.wishlistProducts.set([...current, responseProduct]);
           console.log(
@@ -53,10 +53,10 @@ export class ProductsService {
             ' product added to wishlist successfully'
           );
         },
-        (error) => {
+        error: (error) => {
           console.error('Failed to add product to wishlist:', error);
         }
-      );
+      });
   }
 
   getWishlistItems() {

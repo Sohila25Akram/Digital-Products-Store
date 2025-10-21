@@ -55,9 +55,6 @@
       color: $textColor;
       width: fit-content;
       text-transform: capitalize;
-      &:hover {
-        color: $green;
-      }
     }
     h2 {
       margin-bottom: 15px;
@@ -114,12 +111,20 @@
           gap: 15px;
           margin-bottom: 0;
         }
+        .add-wishlist-btn{
+          cursor: pointer;
+          background-color: transparent;
+          &:hover {
+            color: $green;
+          }
+        }
       }
     }
     .btn-cart {
       width: 100%;
       background-color: $primaryColor;
       border: 1px solid $primaryColor;
+      margin-bottom: 15px;
       &:hover {
         background-color: transparent;
         color: $primaryColor;

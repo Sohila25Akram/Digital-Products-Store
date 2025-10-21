@@ -6,8 +6,6 @@ figure {
   cursor: pointer;
   overflow: hidden;
   border-radius: 5px;
-  background-position: top  left;
-  background-size: cover;
   img {
     position: absolute;
     top: 0;
@@ -15,6 +13,7 @@ figure {
     display: block;
     width: 100%;
     min-height: 100%;
+    object-fit: cover;
     transition: $transition3s;
   }
   figcaption {
@@ -45,10 +44,6 @@ figure {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      h2 {
-        font-size: 40px;
-        margin-bottom: 20px;
-      }
       p {
         font-size: $font-lg;
         margin-bottom: 30px;

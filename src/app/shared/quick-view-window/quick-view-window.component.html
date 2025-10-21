@@ -1,3 +1,4 @@
+@if(product){
 <section
   id="quick-view-window" [style.padding-left] ="isExpanded && 0" [style.padding-right] ="isExpanded && 0"
 >
@@ -21,7 +22,7 @@
         [value]="product.id"
         formControlName="productId"
       />
-      <a href="" class="brand">{{ product.brand }}</a>
+      <p class="brand">{{ product.brand }}</p>
       @if(isExpanded){
           <h1 >{{ product.title }}<span class="sr-only"> - all details</span></h1>
       }@else{
@@ -59,9 +60,9 @@
           (productAmountChange)="handleProductAmountChange($event)"
         />
         <div class="add-wishlist">
-          <span
+          <button type="button" class="add-wishlist-btn" (click)="addToWishlist()"
             ><span><i class="fa-regular fa-heart"></i></span> Add to
-            Wishlist</span
+            Wishlist</button
           >
           <span [style.display]="isExpanded ? 'block' : 'none'"
             ><span><i class="fa-regular fa-circle-question"></i></span> Ask A
@@ -85,3 +86,4 @@
     </form>
   </div>
 </section>
+}

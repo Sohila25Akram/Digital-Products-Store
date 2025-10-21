@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
   OnInit,
   signal,
@@ -15,6 +16,9 @@ import { Product } from '../shared/models/product.model';
 import { ActivatedRoute } from '@angular/router';
 import { deviceCategory } from '../../assets/data/dummy-products';
 import { WrapperComponent } from '../shared/wrapper/wrapper.component';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
+
 
 @Component({
   selector: 'app-shop',
@@ -29,7 +33,7 @@ import { WrapperComponent } from '../shared/wrapper/wrapper.component';
   styleUrl: './shop.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent {
   private productsService = inject(ProductsService);
 
   productsByCategory = signal<Product[]>([]);
@@ -52,26 +56,26 @@ export class ShopComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
 
-  ngOnInit(): void {
-    const subscription = this.activatedRoute.paramMap.subscribe({
-      next: (paramMap) => {
-        const categoryVal = paramMap.get('categoryValue');
-        if (categoryVal) {
-          this.productsService.filterByCategory(categoryVal);
+  categoryParam = toSignal(this.activatedRoute.paramMap.pipe(
+    map(params => params.get('categoryValue'))
+  ));
 
-          this.productsByCategory.set(
-            this.productsService.filteredProductsByCategory()
-          );
-          this.products.set(this.productsByCategory());
-        }
-      },
-    });
+  constructor(){
+    effect(() => {
+      const category = this.categoryParam();
 
-    this.currentCategoryName = this.productsService.currentCategoryName;
-    this.selectedCategoryBrands = this.productsService.selectedCategoryBrands;
+      if (category) {
+        this.productsService.filterByCategory(category);
 
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+        this.productsByCategory.set(this.productsService.filteredProductsByCategory());
+        this.products.set(this.productsByCategory());
+
+        this.currentCategoryName.set(this.productsService.currentCategoryName());
+        this.selectedCategoryBrands.set(this.productsService.selectedCategoryBrands());
+      }
+    }, { allowSignalWrites: true });
   }
+ 
 
   onFilter(event: Event) {
     const targetVal = event.target as HTMLSelectElement;

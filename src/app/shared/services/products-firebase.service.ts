@@ -149,7 +149,8 @@ export class ProductsFirebaseService {
             const existingItem = wishlistItems.find(item => item.product.id === productId);
 
             if (existingItem) {
-              console.log('it in the wislist');          
+              console.log('it in the wislist'); 
+              return of(null);         
             }
 
             return this.createWishlistItem(productId, userId);

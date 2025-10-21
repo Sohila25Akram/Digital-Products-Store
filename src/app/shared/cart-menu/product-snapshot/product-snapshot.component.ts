@@ -21,7 +21,7 @@ import { ProductAmountComponent } from '../../product-amount/product-amount.comp
   styleUrl: './product-snapshot.component.scss',
 })
 export class ProductSnapshotComponent {
-  @Input() product!: Product;
+  @Input() item!: any;
   private productsService = inject(ProductsService);
   private ngZone = inject(NgZone);
 
@@ -30,19 +30,23 @@ export class ProductSnapshotComponent {
   productAmount = signal<number>(1);
 
   computedPrice = computed(() => {
-    return (this.product.newPrice ?? this.product.originPrice) * this.productAmount()
+    return (this.item.product.newPrice ?? this.item.product.originPrice) * this.productAmount()
   })
 
-  onProductAmountChange(amount: number) {
-    this.productAmount.set(amount);
-  }
+  currentAmount = computed(() => {
+    return this.item.amount;
+  })
+
+  // onProductAmountChange(amount: number) {
+  //   this.productAmount.set(amount);
+  // }
 
   deleteProductFromCart() {
     this.isLoading = true;
 
     this.ngZone.runOutsideAngular(() => {
       setTimeout(() => {
-        this.productsService.deleteProductFromCart(this.product.id);
+        this.productsService.deleteProductFromCart(this.item.product.id);
 
         this.ngZone.run(() => (this.isLoading = false));
       }, 3000);

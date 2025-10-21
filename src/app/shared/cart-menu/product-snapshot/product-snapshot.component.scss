@@ -42,9 +42,13 @@
       display: flex;
       align-items: center;
       .delete-icon {
-        // margin-left: 15px;
         cursor: pointer;
         background-color: transparent;
+        text-align: left;
+        flex-grow: 1;
+      }
+      p{
+        min-width: 150px;
       }
     }
   }

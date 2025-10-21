@@ -1,11 +1,11 @@
 <div class="product">
   <div class="img-container">
     <!-- <img src="assets/images/products/pexels-sound-on-3394652.jpg" alt="" /> -->
-    <img src="assets/images/products/{{ product.imgSrc }}" alt="" />
+    <img src="assets/images/products/{{ item.product.imgSrc }}" alt="" />
   </div>
   <div>
     <a href=""
-      ><h3>{{ product.title }}</h3></a
+      ><h3>{{ item.product.title }}</h3></a
     >
 
     <div [appLoader]="isLoading">
@@ -25,6 +25,7 @@
       <button class="delete-icon" (click)="deleteProductFromCart()"
         ><i class="fa-regular fa-trash-can"></i
       ></button>
+      <p>Quantity: <b>{{currentAmount()}}</b> product</p>
     </div>
   </div>
 </div>

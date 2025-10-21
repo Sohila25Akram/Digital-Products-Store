@@ -2,12 +2,12 @@
   <section id="cart-page">
     <header
       [style.justify-content]="
-        productsInCart().length > 0 ? 'space-between' : 'flex-end'
+        itemsInCart().length > 0 ? 'space-between' : 'flex-end'
       "
     >
-      @if(productsInCart().length>0){
+      @if(itemsInCart().length>0){
       <h2>
-        Your Cart (<span>{{ productsInCart().length }}</span
+        Your Cart (<span>{{ itemsInCart().length }}</span
         >)
       </h2>
       }
@@ -16,15 +16,15 @@
         ><i class="fa-solid fa-xmark"></i
       ></a>
     </header>
-    @if(productsInCart().length>0){
+    @if(itemsInCart().length>0){
     <div class="cart-content">
       <div class="shipping-container">
         <app-shipping [addEstimatedDelivery]="false" />
       </div>
       <ul>
-        @for(product of productsInCart(); track product.id){
+        @for(item of itemsInCart(); track item.product.id){
         <li>
-          <app-product-snapshot [product]="product" />
+          <app-product-snapshot [item]="item" />
         </li>
         }
       </ul>

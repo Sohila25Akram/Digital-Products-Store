@@ -5,11 +5,10 @@
     <label for="password">Password</label>
     <input type="password" id="password" formControlName = "password" required minlength="8">
 
-    <button type="submit" [disabled]="!form.valid" class="btn-main">
-        <!-- <div [appLoader]="isLoading()" [isButton]="true">
-            <div class="text">Login</div>
-        </div> -->
-        register
+    <button type="submit" [disabled]="!form.valid" class="btn-main" [appLoader]="isLoading()" spinnerColor="#fff">
+        <div>
+            <span class="text">Register</span>
+        </div>
     </button>
     @if(errorMsg){
         <div class="error" role="alert"><i class="fa-solid fa-circle-exclamation"></i> {{errorMsg}}</div>

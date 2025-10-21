@@ -1,5 +1,6 @@
 import {
   Directive,
+  effect,
   ElementRef,
   inject,
   input,
@@ -16,22 +17,25 @@ import {
 export class LoaderDirective implements OnChanges {
   isLoading = input(false, { alias: 'appLoader' });
   @Input() addContainer: boolean = false;
+  spinnerColor = input<string>("#666");
 
   private renderer = inject(Renderer2);
   private el = inject(ElementRef);
 
-  private ourSpan: HTMLElement;
+  private spinnerEl!: HTMLElement;
   constructor() {
-    this.ourSpan = this.renderer.createElement('span');
-
-    const spinner = this.renderer.createElement('i');
-    this.renderer.addClass(spinner, 'fa-solid');
-    this.renderer.addClass(spinner, 'fa-spinner');
-    this.ourSpan.appendChild(spinner);
+   
+      this.createSpinner();
+  
+    
   }
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['spinnerColor']){
+      this.createSpinner();
+    }
     if (changes['isLoading']) {
       if (this.isLoading()) {
+        this.hideLoading();
         this.showLoading();
       } else {
         this.hideLoading();
@@ -43,14 +47,12 @@ export class LoaderDirective implements OnChanges {
     const originEl = this.el.nativeElement.querySelector('div');
     if (originEl) {
       if (this.addContainer == true) {
-        const spinnerContainer = this.renderer.createElement('p');
-        this.renderer.addClass(spinnerContainer, 'add-container');
-        this.renderer.setStyle(this.ourSpan, 'font-size', '38px');
-        this.renderer.appendChild(spinnerContainer, this.ourSpan);
-        this.renderer.appendChild(originEl, spinnerContainer);
+        const bigSpinner = this.createBigSpinner();
+        this.renderer.appendChild(bigSpinner, this.spinnerEl);
+        this.renderer.appendChild(originEl, bigSpinner);
       } else {
-        this.renderer.setStyle(this.ourSpan, 'font-size', '16px');
-        this.renderer.appendChild(originEl, this.ourSpan);
+        this.renderer.setStyle(this.spinnerEl, 'font-size', '16px');
+        this.renderer.appendChild(originEl, this.spinnerEl);
       }
       const originSpan = originEl.querySelector('span');
       if (originSpan) {
@@ -66,8 +68,8 @@ export class LoaderDirective implements OnChanges {
         if (spinnerContainer) {
           this.renderer.removeChild(originEl, spinnerContainer);
         }
-      } else if (this.ourSpan && originEl.contains(this.ourSpan)) {
-        this.renderer.removeChild(originEl, this.ourSpan);
+      } else {
+        this.renderer.removeChild(originEl, this.spinnerEl);
       }
 
       const originSpan = originEl.querySelector('span');
@@ -75,5 +77,21 @@ export class LoaderDirective implements OnChanges {
         this.renderer.removeStyle(originSpan, 'display');
       }
     }
+  }
+  createSpinner(){
+    this.spinnerEl = this.renderer.createElement('span');
+
+    const spinner = this.renderer.createElement('i');
+    this.renderer.addClass(spinner, 'fa-solid');
+    this.renderer.addClass(spinner, 'fa-spinner');
+    this.renderer.setStyle(spinner, 'color', this.spinnerColor())
+    this.spinnerEl.appendChild(spinner);
+  }
+  createBigSpinner(){
+    const spinnerContainer = this.renderer.createElement('p');
+    this.renderer.addClass(spinnerContainer, 'add-container');
+    this.renderer.setStyle(this.spinnerEl, 'font-size', '38px');
+
+    return spinnerContainer;
   }
 }

@@ -6,11 +6,12 @@ import { Product } from '../shared/models/product.model';
 import { CurrencyPipe } from '@angular/common';
 import { AuthService } from '../shared/services/auth.service';
 import { STRIPE_SECRET_KEY } from '../../assets/data/stripe-secret';
+import { TopTabComponent } from '../shared/top-tab/top-tab.component';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, TopTabComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })

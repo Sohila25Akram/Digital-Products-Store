@@ -1,7 +1,5 @@
-<figure [class.bigCard]="isBig()" [style.background-image]="'url(./assets/images/banner-2/' + imgSrc() + ')'">
-  @if(isBig()){
+<figure [class.bigCard]="isBig()">
     <img src="assets/images/banner-2/{{ imgSrc() }}" alt={{alt()}} />
-  }
   <figcaption>
     <h3>{{ title() }}</h3>
     <p>{{ desc() }}</p>

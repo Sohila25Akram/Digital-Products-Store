@@ -6,4 +6,7 @@ h1{
 }
 form{
     @include form-element-style;
+    .btn-main{
+        height: 40px;
+    }
 }

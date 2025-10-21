@@ -2,6 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import {
   Component,
   DestroyRef,
+  effect,
   inject,
   Input,
   OnInit,
@@ -28,9 +29,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './quick-view-window.component.scss',
 })
 export class QuickViewWindowComponent implements OnInit {
-  @Input() isExpanded?: boolean = false;
+  @Input() isExpanded: boolean = false;
   private productsService = inject(ProductsService);
-  products = this.productsService.loadedProducts();
   product!: Product;
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
@@ -38,10 +38,25 @@ export class QuickViewWindowComponent implements OnInit {
 
   isLoading: boolean = false;
 
+  productId: string | null = null;
+
   form = new FormGroup({
     productId: new FormControl(),
     productAmount: new FormControl(),
   });
+
+  constructor() {
+    effect(() => {
+      const products = this.productsService.loadedProducts();
+      if (!products?.length || !this.productId) return;
+
+      const found = products.find(p => p.id === this.productId);
+      if (found) {
+        this.product = found;
+        this.form.patchValue({ productId: this.productId });
+      }
+    });
+  }
 
   handleProductAmountChange(amount: number) {
     this.form.patchValue({ productAmount: amount });
@@ -50,11 +65,7 @@ export class QuickViewWindowComponent implements OnInit {
   ngOnInit(): void {
     const subscription = this.activatedRoute.paramMap.subscribe({
       next: (paramMap) => {
-        const productId = paramMap.get('productId');
-        if (productId) {
-          this.product = this.products.find((p: { id: string; }) => p.id === productId)!;
-          this.form.patchValue({ productId });
-        }
+        this.productId = paramMap.get('productId');
       },
     });
     this.destroyRef.onDestroy(() => subscription.unsubscribe());
@@ -75,5 +86,8 @@ export class QuickViewWindowComponent implements OnInit {
 
       this.isLoading = false;
     }, 3000);
+  }
+  addToWishlist(){
+    this.productsService.addProductToWishlist(this.product.id);
   }
 }

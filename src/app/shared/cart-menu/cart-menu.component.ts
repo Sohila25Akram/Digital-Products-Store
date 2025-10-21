@@ -34,7 +34,7 @@ export class CartMenuComponent {
   });
   
 
-  productsInCart = computed(() =>
-    this.productsService.productsAddedToCart().map((item) => item.product)
+  itemsInCart = computed(() =>
+    this.productsService.productsAddedToCart().map((item) => item)
   );
 }

@@ -71,7 +71,6 @@ button {
 }
 i.fa-spinner {
   animation: spin 1.5s infinite linear;
-  color: $grayLightTwo;
 
   @keyframes spin {
     0% {
